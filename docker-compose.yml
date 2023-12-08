@@ -1,0 +1,86 @@
+version: '3.8'
+
+# Custom top-level network
+# networks:
+#   neo4j-internal:
+
+services:
+
+  neo4j:
+    # Docker image to be used
+    image: neo4j:latest
+
+    # Hostname
+    hostname: neo4j
+    container_name: 100friends-neo4j
+    
+    # Service-level network, which specifies the networks, from the list of the top-level networks (in this case only neo4j-internal), that the server will connect to.
+    # Adds a network alias (used in neo4j.conf when configuring the discovery members)
+    # networks:
+    #   neo4j-internal:
+    #     aliases:
+    #       - neo4j-network
+
+    # The ports that will be accessible from outside the container - HTTP (7474) and Bolt (7687).
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+
+    # Uncomment the volumes to be mounted to make them accessible from outside the container.
+    # https://neo4j.com/docs/operations-manual/current/docker/mounting-volumes/
+    volumes:
+      # - ./neo4j/conf/neo4j.conf:/conf/neo4j.conf # This is the main configuration file.
+      # - ./neo4j/logs:/logs
+      # - ./neo4j/import/:/import
+      - neo4j_data:/data/
+      # - ./neo4j/conf:/conf
+      #- ./metrics/server1:/metrics
+      #- ./licenses/server1:/licenses
+      #- ./ssl/server1:/ssl
+    env_file:
+      - .env.neo4j
+
+    # Simple check testing whether the port 7474 is opened.
+    # If so, the instance running inside the container is considered as "healthy".
+    # This status can be checked using the "docker ps" command.
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider localhost:7474 || exit 1"]
+
+    # # Set up the user
+    # user: ${USER_ID}:${GROUP_ID}
+    
+  frontend:
+    build:
+      context: frontend
+      target: development
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/src:/code/src
+      - /code/node_modules
+    networks:
+      - 100friends
+    # depends_on:
+    #   - backend
+    
+  bot:
+    container_name: 100friends_bot
+    restart: on-failure
+    stop_signal: SIGINT
+    build:
+       context: ./bot
+       dockerfile: Dockerfile
+    env_file:
+      - ./bot/.bot.env
+    depends_on:
+      - web
+    volumes:
+      #- bot_data:/bot/db/sqlite
+      - bot_logs:/bot/logs
+
+    
+volumes:
+  neo4j_data:
+  
+networks:
+  100friends:
