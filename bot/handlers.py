@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from sqlalchemy.ext.asyncio import AsyncSession
 import sys
 sys.path.insert(0, './')
-from db.queries import RegionQuery, SubscriptionQuery, PaymentQuery, UserQuery, DocumentQuery
+# from db.queries import RegionQuery, SubscriptionQuery, PaymentQuery, UserQuery, DocumentQuery
 
 import kb
 #from bot.utils import ttl_lru_cache
@@ -607,18 +607,18 @@ async def cmd_start(msg: Message, state: FSMContext, session: AsyncSession):
     await msg.answer(text=text)
 
 
-    if " " in msg.text:
-        referrer = msg.text.split()[1]
-        await state.update_data(referrer=referrer)
-        try:
-            # if user came from referrer for the first time - write him to the database
-            user = await UserQuery.get_user_by_id(msg.from_user.id, session=session)
-            if not user:
-                await UserQuery.create_user(msg.from_user.id, datetime.now().strftime('%Y-%m-%d %H:%M:%S'), \
-                                           session,  referrer=referrer)
-        except Exception as e:
-            logging.critical(f"An error occurred while creating a record with user in the database! {e}")
-            return
+    # if " " in msg.text:
+    #     referrer = msg.text.split()[1]
+    #     await state.update_data(referrer=referrer)
+    #     try:
+    #         # if user came from referrer for the first time - write him to the database
+    #         user = await UserQuery.get_user_by_id(msg.from_user.id, session=session)
+    #         if not user:
+    #             await UserQuery.create_user(msg.from_user.id, datetime.now().strftime('%Y-%m-%d %H:%M:%S'), \
+    #                                        session,  referrer=referrer)
+    #     except Exception as e:
+    #         logging.critical(f"An error occurred while creating a record with user in the database! {e}")
+    #         return
 
 
     #await msg.answer(text, reply_markup=kb.user_menu())
@@ -811,21 +811,23 @@ async def cmd_start(msg: Message):
 @router.message(F.text == "👨 Пользователи")
 async def show_users(msg: Message, session: AsyncSession):
     if msg.from_user.id in ADMIN_IDS:
-        users = await UserQuery.get_all_users(session)
-        await msg.answer(f'Всего {len(users)} зарегистрированных пользователей: ' + "\n👨🏻‍🦱" +
-                         "\n👨🏻‍🦱 ".join([f'{user.id} : {user.registration_time}' +
-                                     (f'\n     referrer: {user.referrer}' if user.referrer else '') +
-                                     ( '\n     contract: ☑' if user.accepted_contract else '')
-                                     for user in users]))
+        ...
+        # users = await UserQuery.get_all_users(session)
+        # await msg.answer(f'Всего {len(users)} зарегистрированных пользователей: ' + "\n👨🏻‍🦱" +
+        #                  "\n👨🏻‍🦱 ".join([f'{user.id} : {user.registration_time}' +
+        #                              (f'\n     referrer: {user.referrer}' if user.referrer else '') +
+        #                              ( '\n     contract: ☑' if user.accepted_contract else '')
+        #                              for user in users]))
 
 
 @router.message(F.text == "💳 Оплаты")
 async def show_users(msg: Message, session: AsyncSession):
     if msg.from_user.id in ADMIN_IDS:
-        payments = await PaymentQuery.get_all_payments(session)
-        await msg.answer(f'Список всех платежей: ' + "\n⦁" +
-                         "\n⦁".join([f'user {payment.user_id} : date {payment.date} : sum {payment.amount / 100}'
-                                     for payment in payments]))
+        ...
+        # payments = await PaymentQuery.get_all_payments(session)
+        # await msg.answer(f'Список всех платежей: ' + "\n⦁" +
+        #                  "\n⦁".join([f'user {payment.user_id} : date {payment.date} : sum {payment.amount / 100}'
+        #                              for payment in payments]))
 
 
 @router.message(F.text == "📃 Лог telegram")
@@ -865,8 +867,9 @@ async def show_users(msg: Message, session: AsyncSession):
 
 @router.message(F.text == "❌ Удалиться")
 async def delete_user(msg: Message, session: AsyncSession):
-    if msg.from_user.id in ADMIN_IDS:
-        await UserQuery.delete_user(msg.from_user.id, session)
+    ...
+    # if msg.from_user.id in ADMIN_IDS:
+    #     await UserQuery.delete_user(msg.from_user.id, session)
 
 
 @router.message(F.text == "▶️ Start cron")
