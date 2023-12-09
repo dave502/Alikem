@@ -53,6 +53,7 @@ services:
     build:
       context: frontend
       target: development
+    container_name: 100friends_frontend
     ports:
       - 3000:3000
     volumes:
@@ -64,12 +65,12 @@ services:
     #   - backend
     
   bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
     container_name: 100friends_bot
     restart: on-failure
     stop_signal: SIGINT
-    build:
-       context: ./bot
-       dockerfile: Dockerfile
     env_file:
       - ./bot/.bot.env
     # depends_on:
@@ -81,6 +82,7 @@ services:
     
 volumes:
   neo4j_data:
+  bot_logs:
   
 networks:
   100friends:
