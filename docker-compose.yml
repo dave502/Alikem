@@ -72,8 +72,8 @@ services:
        dockerfile: Dockerfile
     env_file:
       - ./bot/.bot.env
-    depends_on:
-      - web
+    # depends_on:
+    #   - web
     volumes:
       #- bot_data:/bot/db/sqlite
       - bot_logs:/bot/logs

@@ -1,7 +1,5 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import TelegramLoginButton from './Elements/TGLoginButton';
-
 
 import {
   Container,
@@ -79,6 +77,10 @@ function Register() {
     telegramWrapperRef.current.appendChild(scriptElement2);
   }, []);
 
+  
+  const onTelegramAuth = (user) => {
+    alert('!Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+  }
 
   // on change of input, set the value to the message state
   const onChange = event => {
