@@ -6,6 +6,52 @@ version: '3.8'
 
 services:
 
+  traefik:
+    image: traefik:v2.10
+    container_name: "aichart_traefik"
+    restart: unless-stopped
+    command:
+      - --api
+      #- "--log.level=DEBUG"
+      - "--providers.docker"
+      - "--providers.docker.exposedByDefault=false"
+      - "--entryPoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.redis.address=:6379"
+      - "--certificatesresolvers.resolver.acme.tlschallenge=true"
+      #- "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.resolver.acme.email=d.n.davtyan@gmail.com"
+      - "--certificatesresolvers.resolver.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.resolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.resolver.acme.httpchallenge.entrypoint=web"
+    ports:
+      - "443:443"
+      - "80:80"
+    labels:
+      # Traefik Dashboard
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${HOST}`)"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.traefik-secure.entrypoints=websecure"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.${HOST}`)"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=resolver"      
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=dave:$$apr1$$rylKatpr$$zWOmPJxqtkuFJjYoVW/8.1"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - 100friends
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "0.3m"
+
   neo4j:
     # Docker image to be used
     image: neo4j:latest
@@ -39,6 +85,12 @@ services:
       #- ./ssl/server1:/ssl
     env_file:
       - .env.neo4j
+    networks:
+      - 100friends
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "0.3m"
 
     # Simple check testing whether the port 7474 is opened.
     # If so, the instance running inside the container is considered as "healthy".
@@ -54,13 +106,18 @@ services:
       context: frontend
       target: development
     container_name: 100friends_frontend
-    ports:
-      - 3000:3000
+    ports: [3000]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.frontend.entrypoints=web, websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=resolver"
     volumes:
       - ./frontend/src:/code/src
       - /code/node_modules
     networks:
       - 100friends
+    stdin_open: true
     # depends_on:
     #   - backend
     
@@ -78,6 +135,12 @@ services:
     volumes:
       #- bot_data:/bot/db/sqlite
       - bot_logs:/bot/logs
+    networks:
+      - 100friends
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "0.3m"
 
     
 volumes:
