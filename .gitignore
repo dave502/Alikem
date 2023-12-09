@@ -27,7 +27,7 @@ go.work
 node_modules
 /.pnp
 .pnp.js
-package-lock.json
+#package-lock.json
 
 # build
 *.exe
