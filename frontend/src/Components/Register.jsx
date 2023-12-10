@@ -73,7 +73,7 @@ function Register() {
       window.tg_username = user.first_name
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
       console.log(user.first_name)
-      localStorage.setItem("tg_user", user);
+      localStorage.setItem("userData", JSON.stringify(user));
       
     }
     const scriptElement2 = document.createElement('script');
@@ -84,7 +84,22 @@ function Register() {
     telegramWrapperRef.current.appendChild(scriptElement2);
   }, []);
 
+  //! listener for local storage
+  // useEffect(() => {
+  //   function checkUserData() {
+  //     const item = localStorage.getItem('userData')
   
+  //     if (item) {
+  //       setUserData(item)
+  //     }
+  //   }
+  
+  //   window.addEventListener('storage', checkUserData)
+  
+  //   return () => {
+  //     window.removeEventListener('storage', checkUserData)
+  //   }
+  // }, [])
 
 
   // on change of input, set the value to the message state
@@ -102,6 +117,9 @@ function Register() {
 
   const onSubmit = async e => {
     e.preventDefault();
+    
+    const userData = localStorage.getItem("userData") ;
+    console.log(userData);
 
     try {
       const res = await axios.post(endpoint, {
@@ -163,16 +181,9 @@ function Register() {
       <Container marginBlockStart={10} textAlign={'left'} maxW="2xl">
         <Box borderRadius="lg" padding={10} borderWidth="2px">
           <Stack spacing={5}>
-            {/* <Link href='https://t.me/my100friends_bot' isExternal>
-              Telegram  <ExternalLinkIcon mx='2px' />
-            </Link> */}
             
             <div ref={telegramWrapperRef}></div>
             
-            <Box>
-              {window.tg_username}
-            </Box>
-         
             <FormControl isInvalid={isInvalid}>
               <FormLabel>Username</FormLabel>
               <Input
