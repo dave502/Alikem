@@ -40,6 +40,7 @@ function Register() {
   const endpoint = 'http://localhost:8080/register';
   const [redirect, setRedirect] = useState(false); 
   const [redirectTo, setRedirectTo] = useState('/dogood?u='); 
+  const [userAuthName, setUserAuthName] = useState('');
   
   const telegramWrapperRef = useRef(null);
   
@@ -67,7 +68,10 @@ function Register() {
     scriptElement1.async = true;
     
     var f = function onTelegramAuth(user) {
+      
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+      
+      setUserAuthName(user.first_name)
     }
     const scriptElement2 = document.createElement('script');
     scriptElement2.type = 'text/javascript'
@@ -163,6 +167,10 @@ function Register() {
             </Link> */}
             
             <div ref={telegramWrapperRef}></div>
+            
+            <Box>
+              {userAuthName}
+            </Box>
          
             <FormControl isInvalid={isInvalid}>
               <FormLabel>Username</FormLabel>
