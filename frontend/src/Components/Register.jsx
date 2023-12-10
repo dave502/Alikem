@@ -41,6 +41,7 @@ function Register() {
   const [redirect, setRedirect] = useState(false); 
   const [redirectTo, setRedirectTo] = useState('/dogood?u='); 
   const [userAuthName, setUserAuthName] = useState('');
+
   
   const telegramWrapperRef = useRef(null);
   
@@ -68,10 +69,10 @@ function Register() {
     scriptElement1.async = true;
     
     var f = function onTelegramAuth(user) {
-      
+
+      window.tg_user = user
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-      
-      ReactAppNamespace.setUserAuthName(user.first_name)
+    
     }
     const scriptElement2 = document.createElement('script');
     scriptElement2.type = 'text/javascript'
@@ -82,9 +83,7 @@ function Register() {
   }, []);
 
   
-  const onTelegramAuth = (user) => {
-    alert('!Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-  }
+
 
   // on change of input, set the value to the message state
   const onChange = event => {
@@ -169,7 +168,7 @@ function Register() {
             <div ref={telegramWrapperRef}></div>
             
             <Box>
-              {userAuthName}
+              {window.tg_user}
             </Box>
          
             <FormControl isInvalid={isInvalid}>
