@@ -73,6 +73,7 @@ function Register() {
       window.tg_username = user.first_name
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
       console.log(user.first_name)
+      localStorage.setItem("tg_user", user);
       
     }
     const scriptElement2 = document.createElement('script');
