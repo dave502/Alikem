@@ -70,9 +70,10 @@ function Register() {
     
     var f = function onTelegramAuth(user) {
 
-      window.tg_user = user
+      window.tg_username = user.first_name
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-    
+      console.log(user.first_name)
+      
     }
     const scriptElement2 = document.createElement('script');
     scriptElement2.type = 'text/javascript'
@@ -168,7 +169,7 @@ function Register() {
             <div ref={telegramWrapperRef}></div>
             
             <Box>
-              {window.tg_user}
+              {window.tg_username}
             </Box>
          
             <FormControl isInvalid={isInvalid}>
