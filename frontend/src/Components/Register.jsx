@@ -71,7 +71,7 @@ function Register() {
       
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
       
-      setUserAuthName(user.first_name)
+      ReactAppNamespace.setUserAuthName(user.first_name)
     }
     const scriptElement2 = document.createElement('script');
     scriptElement2.type = 'text/javascript'
