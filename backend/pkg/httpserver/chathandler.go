@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"gochatapp/pkg/redisrepo"
+	"backend/pkg/redisrepo"
 )
 
 type userReq struct {

@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+package user_api;
+
+option go_package = "./backend/user_api";
+
+service UserAPI{
+    rpc initUserRegistration(UserSocialID) returns (google.protobuf.UInt64Value);
+    rpc finishUserRegistraton(google.protobuf.UInt64Value) returns (google.protobuf.UInt64Value);
+    rpc setUserIsGood(google.protobuf.UInt64Value) returns (google.protobuf.UInt64Value);
+    rpc setUserWordVector(UserWordsVector) returns (google.protobuf.UInt64Value);
+    rpc setUserInfo(UserAdditonalInfo) returns (google.protobuf.UInt64Value);
+    rpc setUserAvatar(UserAvatar) returns (google.protobuf.UInt64Value);
+    rpc getUserInfo(google.protobuf.UInt64Value) returns (UserAdditonalInfo);
+    rpc getUserAvatar(google.protobuf.UInt64Value) returns (UserAvatar);
+    rpc getUserIsGood(google.protobuf.UInt64Value) returns (google.protobuf.BoolValue);
+    rpc getUserBySocialNet(UserSocialID) returns (google.protobuf.UInt64Value);
+}
+
+enum Sex {
+    male = 0;
+    female = 1;
+}
+
+enum SocialNet {
+    telegram = 0;
+}
+
+
+message UserSocialID{
+    SocialNet socialnet = 1;
+    string socialid = 2;
+}
+
+message UserWordsVector{
+    uint64 uid = 1;
+    bytes wb = 2;
+}
+
+message UserAdditonalInfo{
+    uint64 uid = 1;
+    optional uint32 age = 2;
+    optional Sex sex = 3;
+    optional uint64 city = 4; 
+}
+
+message UserAvatar{
+    uint64 uid = 1;
+    oneof image {
+        string image_url = 2;
+        bytes image_data = 3;
+    }
+}
+
+
+// 100Friends$ protoc -I=proto --go_out=. --go-grpc_out=. user_api.proto
+// go get google.golang.org/protobuf
+// go get google.golang.org/grpc

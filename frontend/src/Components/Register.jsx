@@ -1,6 +1,10 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
+//https://alexanderleon.medium.com/implement-social-authentication-with-react-restful-api-9b44f4714fa
+//https://github.com/cuongdevjs/reactjs-social-login/tree/master
+//https://gist.github.com/anonymous/6516521b1fb3b464534fbc30ea3573c2
+
 import {
   Container,
   FormControl,
@@ -40,7 +44,6 @@ function Register() {
   const endpoint = 'http://localhost:8080/register';
   const [redirect, setRedirect] = useState(false); 
   const [redirectTo, setRedirectTo] = useState('/dogood?u='); 
-  const [userAuthName, setUserAuthName] = useState('');
 
   
   const telegramWrapperRef = useRef(null);
@@ -145,11 +148,7 @@ function Register() {
       setIsInvalid(true)
     }
   };
-    
-  const handleTelegramResponse = response => {
-    console.log(response);
-  };
-  
+
   
   return (
     <Container maxW="2xl" marginTop="3rem" centerContent>
@@ -183,7 +182,7 @@ function Register() {
           <Stack spacing={5}>
             
             <div ref={telegramWrapperRef}></div>
-            
+             
             <FormControl isInvalid={isInvalid}>
               <FormLabel>Username</FormLabel>
               <Input
@@ -199,7 +198,7 @@ function Register() {
               ) : (
                 <FormErrorMessage>{message}</FormErrorMessage>
               )}
-              {/* <FormHelperText>use a unique username</FormHelperText> */}
+              <FormHelperText>use a unique username</FormHelperText> 
             </FormControl>
             <FormControl>
               <FormLabel>Password</FormLabel>
@@ -211,7 +210,7 @@ function Register() {
                 onChange={onChange}
               />
               <FormHelperText>use a dummy password</FormHelperText>
-            </FormControl>
+            </FormControl> 
             <Button
               size="lg"
               leftIcon={<EditIcon />}

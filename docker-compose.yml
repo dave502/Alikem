@@ -8,17 +8,18 @@ services:
 
   traefik:
     image: traefik:v2.10
-    container_name: "aichart_traefik"
+    container_name: 100f_traefik
     restart: unless-stopped
     command:
       - --api
       #- "--log.level=DEBUG"
       - "--providers.docker"
       - "--providers.docker.exposedByDefault=false"
-      - "--entryPoints.web.address=:80"
+      - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entryPoints.websecure.address=:443"
-      - "--entryPoints.redis.address=:6379"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.redis.address=:6379"
+      - "--entrypoints.grpc.address=:50051"
       - "--certificatesresolvers.resolver.acme.tlschallenge=true"
       #- "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.resolver.acme.email=d.n.davtyan@gmail.com"
@@ -58,7 +59,7 @@ services:
 
     # Hostname
     hostname: neo4j
-    container_name: 100friends-neo4j
+    container_name: 100f_neo4j
     
     # Service-level network, which specifies the networks, from the list of the top-level networks (in this case only neo4j-internal), that the server will connect to.
     # Adds a network alias (used in neo4j.conf when configuring the discovery members)
@@ -101,11 +102,39 @@ services:
     # # Set up the user
     # user: ${USER_ID}:${GROUP_ID}
     
+  backend:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grpc.rule=Host(`rpc.${HOST}`)"
+      - "traefik.http.routers.grpc.entrypoints=grpc"
+      - "traefik.http.services.grpc.loadbalancer.server.scheme=h2c"
+      - "traefik.http.middlewares.mw-grpc.grpcweb.allowOrigins=*"
+      - "traefik.http.routers.grpc.middlewares=mw-grpc"
+      - "traefik.http.routers.grpc.tls.certresolver=resolver"
+      - "traefik.http.routers.grpc.tls=true"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    # depends_on:
+    #   #- rabbitmq
+    #   - influxdb
+    container_name: 100f_backend
+    ports: [50051]
+    env_file:
+      - .env
+    networks:
+      - 100friends
+    logging:
+        driver: "json-file"
+        options:
+          max-size: "0.3m"
+    
   frontend:
     build:
       context: frontend
       target: development
-    container_name: 100friends_frontend
+    container_name: 100f_frontend
     ports: [3000]
     labels:
       - "traefik.enable=true"
@@ -121,31 +150,31 @@ services:
     # depends_on:
     #   - backend
     
-  bot:
-    build:
-      context: ./bot
-      dockerfile: Dockerfile
-    container_name: 100friends_bot
-    restart: on-failure
-    stop_signal: SIGINT
-    env_file:
-      - ./bot/.bot.env
-    # depends_on:
-    #   - web
-    volumes:
-      #- bot_data:/bot/db/sqlite
-      - bot_logs:/bot/logs
-    networks:
-      - 100friends
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "0.3m"
+  # bot:
+  #   build:
+  #     context: ./bot
+  #     dockerfile: Dockerfile
+  #   container_name: 100f_bot
+  #   restart: on-failure
+  #   stop_signal: SIGINT
+  #   env_file:
+  #     - ./bot/.bot.env
+  #   # depends_on:
+  #   #   - web
+  #   volumes:
+  #     #- bot_data:/bot/db/sqlite
+  #     - bot_logs:/bot/logs
+  #   networks:
+  #     - 100friends
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "0.3m"
 
     
 volumes:
   neo4j_data:
-  bot_logs:
+  #bot_logs:
   
 networks:
   100friends:

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"gochatapp/pkg/redisrepo"
+	"backend/pkg/redisrepo"
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"

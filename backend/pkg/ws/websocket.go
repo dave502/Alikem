@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"gochatapp/model"
-	"gochatapp/pkg/redisrepo"
+	"backend/model"
+	"backend/pkg/redisrepo"
 
 	"github.com/gorilla/websocket"
 )
