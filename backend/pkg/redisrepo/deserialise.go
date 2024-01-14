@@ -64,7 +64,7 @@ func DeserialiseContactList(contacts []redis.Z) []model.ContactList {
 	// handle unknown type accordingly
 	for _, contact := range contacts {
 		contactList = append(contactList, model.ContactList{
-			Username:     contact.Member.(string),
+			Username:     contact.Member,
 			LastActivity: int64(contact.Score),
 		})
 	}

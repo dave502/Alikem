@@ -23,7 +23,7 @@ func init() {
 	// Load the environment file .env
 	err := godotenv.Load()
 	if err != nil {
-		l.Fatal("Unable to Load the env file.", err)
+		l.Printf("Unable to Load the env file. %v", err)
 	}
 }
 

@@ -1,121 +1,161 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+//https://alexanderleon.medium.com/implement-social-authentication-with-react-restful-api-9b44f4714fa
+//https://github.com/cuongdevjs/reactjs-social-login/tree/master
+//https://gist.github.com/anonymous/6516521b1fb3b464534fbc30ea3573c2
 
+import React, { Component, useState, useRef, useEffect } from 'react';
+import axios from 'axios';
+import { gql, useQuery } from "@apollo/client";
+import { Navigate,   Link } from 'react-router-dom';
+import { onAuthStateChanged} from "firebase/auth";
+import { EditIcon, CloseIcon, ExternalLinkIcon } from '@chakra-ui/icons';
+import ButtonGoogleAuth from './Elements/ButtonGoogleAuth/ButtonGoogleAuth';
+import ButtonMailAuth from './Elements/ButtonEmailAuth/ButtonMailAuth';
 import {
   Container,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Text,
+  Divider,
   Box,
-  Input,
   Stack,
   Button,
+  Center,
 } from '@chakra-ui/react';
 
-import { Navigate } from 'react-router-dom';
-import { EditIcon } from '@chakra-ui/icons';
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      message: '',
-      isInvalid: false,
-      endpoint: 'http://localhost:8080/login',
-      redirect: false,
-      redirectTo: '/chat?u=',
-    };
-  }
-
-  // on change of input, set the value to the message state
-  onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  onSubmit = async e => {
-    e.preventDefault();
-
-    try {
-      const res = await axios.post(this.state.endpoint, {
-        username: this.state.username,
-        password: this.state.password,
-      });
-
-      console.log('register', res);
-      if (res.data.status) {
-        const redirectTo = this.state.redirectTo + this.state.username;
-        this.setState({ redirect: true, redirectTo });
-      } else {
-        // on failed
-        this.setState({ message: res.data.message, isInvalid: true });
-      }
-    } catch (error) {
-      console.log(error);
-      this.setState({ message: 'something went wrong', isInvalid: true });
+const GET_USER_QUERY = gql`
+  {
+    users(where: {socialIDs_SINGLE:{social: $social, username: $username}}) {
+      name
     }
-  };
-
-  render() {
-    return (
-      <div>
-        {this.state.redirect && (
-          <Navigate to={this.state.redirectTo} replace={true}></Navigate>
-        )}
-
-        <Container marginBlockStart={10} textAlign={'left'} maxW="2xl">
-          <Box borderRadius="lg" padding={10} borderWidth="2px">
-            <Stack spacing={5}>
-              <FormControl isInvalid={this.state.isInvalid}>
-                <FormLabel>Username</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  value={this.state.username}
-                  onChange={this.onChange}
-                />
-              </FormControl>
-              <FormControl isInvalid={this.state.isInvalid}>
-                <FormLabel>Password</FormLabel>
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                />
-                {!this.state.isInvalid ? (
-                  ''
-                ) : (
-                  <FormErrorMessage>
-                    invalid username or password
-                  </FormErrorMessage>
-                )}
-              </FormControl>
-              <Button
-                size="lg"
-                leftIcon={<EditIcon />}
-                colorScheme="green"
-                variant="solid"
-                type="submit"
-                onClick={this.onSubmit}
-              >
-                Login
-              </Button>
-            </Stack>
-            <Box paddingTop={3}>
-              <Text as="i" fontSize={'lg'} color={'red'}>
-                {this.state.message}
-              </Text>
-            </Box>
-          </Box>
-        </Container>
-      </div>
-    );
   }
+`;
+
+   
+function Login(props) {
+  
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [isInvalid, setIsInvalid] = useState('');
+  const endpoint = 'http://localhost:8080/register';
+  const [redirect, setRedirect] = useState(false); 
+  const [redirectTo, setRedirectTo] = useState('/dogood?u='); 
+  const [token, setToken] = useState(''); 
+  const [googleUser, setGoogleUser] = useState('');
+  const [error, setError] = useState('');
+  
+  const telegramWrapperRef = useRef(null);
+  
+  const {auth} = props;
+  
+  useEffect(() => {
+    const scriptElement1 = document.createElement('script');
+    scriptElement1.src = 'https://telegram.org/js/telegram-widget.js?22';
+    scriptElement1.setAttribute('data-telegram-login', 'my100friends_bot');
+    scriptElement1.setAttribute('data-size', 'large');
+    scriptElement1.setAttribute('data-radius', '6');
+    scriptElement1.setAttribute('data-onauth', 'onTelegramAuth(user)');
+    scriptElement1.setAttribute('data-request-access', 'write');
+    scriptElement1.async = true;
+    
+    var f = function onTelegramAuth(user) {
+
+      window.tg_username = user.first_name
+      alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+      console.log(user.first_name)
+      localStorage.setItem("userData", JSON.stringify(user));
+      
+    }
+    const scriptElement2 = document.createElement('script');
+    scriptElement2.type = 'text/javascript'
+    scriptElement2.innerHTML = f;
+
+    telegramWrapperRef.current.appendChild(scriptElement1);
+    telegramWrapperRef.current.appendChild(scriptElement2);
+  }, []);
+
+  //! listener for local storage
+  // useEffect(() => {
+  //   function checkUserData() {
+  //     const item = localStorage.getItem('userData')
+  
+  //     if (item) {
+  //       setUserData(item)
+  //     }
+  //   }
+  
+  //   window.addEventListener('storage', checkUserData)
+  
+  //   return () => {
+  //     window.removeEventListener('storage', checkUserData)
+  //   }
+  // }, [])
+  
+  onAuthStateChanged(auth, (user) => {
+    console.log("!!!!!!!!!!!!!")
+
+    if (user) {
+      // console.log("Name", user.getDisplayName())
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      // const uid = user.uid;
+      // console.log("user", user)
+      setGoogleUser(user)
+      // ...
+    } else {
+      console.log("not user !!!!!!!!!!!!!")
+      //setUserAuthorized(false)
+    }
+  });
+
+  return (
+    <Container maxW="2xl" marginTop="3rem" centerContent>
+{/*       
+      {redirect && (
+        <Navigate to={redirectTo} replace={true}></Navigate>
+      )} */}
+
+      
+
+      <Container marginBlockStart={10} textAlign={'left'} maxW="2xl">
+        
+        
+        <Box borderRadius="lg" padding={10} borderWidth="2px">
+          
+          <Stack spacing={5}>
+            <Center >
+              <div ref={telegramWrapperRef}></div>
+            </Center>
+            <Center >
+              <ButtonGoogleAuth auth={auth} setUser={setGoogleUser} setToken={setToken} setError={setError}/>
+            </Center>
+            <Center >
+              <ButtonMailAuth/>    
+            </Center> 
+            <div>User: {googleUser}</div>
+            <div>Token: {token}</div>
+            <div>Error: {error}</div>
+            <Divider />
+            <Center >
+              <Link to="/register">
+                <Button
+                    size="lg"
+                    leftIcon={<EditIcon/>}
+                    colorScheme="green"
+                    //variant="solid"
+                    //type="button"
+                    // height='48px'
+                    // width='200px'      
+                    // fontSize='16px' 
+                    //onClick={GoogleToggleSignIn}
+                >  Register
+                </Button>
+              </Link>          
+            </Center>
+          </Stack>
+
+        </Box>
+      </Container>
+    </Container>
+  );
 }
 
 export default Login;

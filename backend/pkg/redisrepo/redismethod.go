@@ -72,7 +72,7 @@ func UpdateContactList(username, contact string) error {
 	// ZADD contacts:username 1661360942123 contact
 	err := redisClient.ZAdd(context.Background(),
 		contactListZKey(username),
-		zs,
+		*zs,
 	).Err()
 
 	if err != nil {

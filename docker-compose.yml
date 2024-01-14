@@ -102,33 +102,61 @@ services:
     # # Set up the user
     # user: ${USER_ID}:${GROUP_ID}
     
-  backend:
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.grpc.rule=Host(`rpc.${HOST}`)"
-      - "traefik.http.routers.grpc.entrypoints=grpc"
-      - "traefik.http.services.grpc.loadbalancer.server.scheme=h2c"
-      - "traefik.http.middlewares.mw-grpc.grpcweb.allowOrigins=*"
-      - "traefik.http.routers.grpc.middlewares=mw-grpc"
-      - "traefik.http.routers.grpc.tls.certresolver=resolver"
-      - "traefik.http.routers.grpc.tls=true"
+  # backend:
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.grpc.rule=Host(`rpc.${HOST}`)"
+  #     - "traefik.http.routers.grpc.entrypoints=grpc"
+  #     - "traefik.http.services.grpc.loadbalancer.server.scheme=h2c"
+  #     - "traefik.http.middlewares.mw-grpc.grpcweb.allowOrigins=*"
+  #     - "traefik.http.routers.grpc.middlewares=mw-grpc"
+  #     - "traefik.http.routers.grpc.tls.certresolver=resolver"
+  #     - "traefik.http.routers.grpc.tls=true"
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   # depends_on:
+  #   #   #- rabbitmq
+  #   #   - influxdb
+  #   container_name: 100f_backend
+  #   ports: [50051]
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - 100friends
+  #   logging:
+  #       driver: "json-file"
+  #       options:
+  #         max-size: "0.3m"
+  
+  server:
+    depends_on:
+      - neo4j
+        #condition: service_healthy
     build:
-      context: ./backend
+      context: ./server
       dockerfile: Dockerfile
+    container_name: 100f_server_graphql
     restart: unless-stopped
-    # depends_on:
-    #   #- rabbitmq
-    #   - influxdb
-    container_name: 100f_backend
-    ports: [50051]
-    env_file:
-      - .env
+    # environment:
+    #     REDIS_URL: ${REDIS_URL}
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.server.rule=Host(`${HOST}`) && PathPrefix(`/api`)"
+    #   - "traefik.http.routers.server.entrypoints=web, websecure"
+    #   - "traefik.http.routers.server.tls.certresolver=resolver"
+    ports: #[4000]
+      - 4000:4000
+    volumes:
+      - ./server:/app
+      - server_modules:/app/node_modules
     networks:
       - 100friends
     logging:
-        driver: "json-file"
-        options:
-          max-size: "0.3m"
+      driver: "json-file"
+      options:
+        max-size: "0.3m"
     
   frontend:
     build:
@@ -150,31 +178,32 @@ services:
     # depends_on:
     #   - backend
     
-  # bot:
-  #   build:
-  #     context: ./bot
-  #     dockerfile: Dockerfile
-  #   container_name: 100f_bot
-  #   restart: on-failure
-  #   stop_signal: SIGINT
-  #   env_file:
-  #     - ./bot/.bot.env
-  #   # depends_on:
-  #   #   - web
-  #   volumes:
-  #     #- bot_data:/bot/db/sqlite
-  #     - bot_logs:/bot/logs
-  #   networks:
-  #     - 100friends
-  #   logging:
-  #     driver: "json-file"
-  #     options:
-  #       max-size: "0.3m"
+  bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    container_name: 100f_bot
+    restart: on-failure
+    stop_signal: SIGINT
+    env_file:
+      - ./bot/.bot.env
+    # depends_on:
+    #   - web
+    volumes:
+      #- bot_data:/bot/db/sqlite
+      - bot_logs:/bot/logs
+    networks:
+      - 100friends
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "0.3m"
 
     
 volumes:
   neo4j_data:
-  #bot_logs:
+  server_modules:
+  bot_logs:
   
 networks:
   100friends:
