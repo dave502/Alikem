@@ -49,7 +49,7 @@ services:
       - "traefik.http.routers.redirect-router.rule=Host(`${HOST}`) && PathPrefix(`/__/auth/handler`)"
       - "traefik.http.routers.redirect-router.middlewares=redirect-regex"
       - "traefik.http.middlewares.redirect-regex.redirectregex.regex=(.)*"
-      - "traefik.http.middlewares.redirect-regex.redirectregex.replacement='https://friends-a2c14.firebaseapp.com/__/auth/$${3}'"
+      - "traefik.http.middlewares.redirect-regex.redirectregex.replacement='https://friends-a2c14.firebaseapp.com/__/auth/$${1}'"
       - "traefik.http.middlewares.redirect-regex.redirectregex.permanent=false"
       # - "traefik.http.middlewares.redirect-google.redirectregex.regex: `^https?://auth\\.100friends\\.ru/__/auth/handler`"
       # - "traefik.http.middlewares.redirect-google.redirectregex.replacement: `https://friends-a2c14.firebaseapp.com/__/auth/`"
