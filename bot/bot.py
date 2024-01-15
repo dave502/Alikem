@@ -7,9 +7,9 @@ from aiogram.fsm.storage.memory import MemoryStorage
 # from db.queries import SubscriptionQuery
 from handlers import router
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
-from db.init_db import new_db, init_db
-from db.config import async_session, DATABASE_URL
-from middlewares import DbSessionMiddleware
+# from db.init_db import new_db, init_db
+# from db.config import async_session, DATABASE_URL
+# from middlewares import DbSessionMiddleware
 from dotenv import dotenv_values
 from logger.logger import setup_logger
 
@@ -25,7 +25,7 @@ async def main():
 
     bot = Bot(token=token, parse_mode=ParseMode.HTML)
     dp = Dispatcher(storage=MemoryStorage())
-    dp.update.middleware(DbSessionMiddleware(session_pool=async_session))
+    # dp.update.middleware(DbSessionMiddleware(session_pool=async_session))
     dp.callback_query.middleware(CallbackAnswerMiddleware())
     dp.include_router(router)
     await bot.delete_webhook(drop_pending_updates=True)
