@@ -43,7 +43,7 @@ services:
       - "traefik.http.routers.traefik-secure.service=api@internal"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.redirect-router.entrypoints=websecure"
-      - "traefik.http.routers.redirect-router.rule=Host(`auth.${HOST}`)"
+      - "traefik.http.routers.redirect-router.rule=Host(`https://auth.${HOST}`)"
       - "traefik.http.routers.redirect-router.middlewares=redirect-regex"
       - "traefik.http.middlewares.redirect-regex.redirectregex.regex=(.)*"
       - "traefik.http.middlewares.redirect-regex.redirectregex.replacement=https://friends-a2c14.firebaseapp.com/__/auth/"
