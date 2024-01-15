@@ -186,5 +186,5 @@ fabric.properties
 .idea
 .vscode
 /bot/draft/
-/logs
+#/logs
 /db/sqlite/
