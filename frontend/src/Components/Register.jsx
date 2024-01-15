@@ -40,6 +40,7 @@ import {
   useSteps,
 } from '@chakra-ui/react'
 
+import { initializeApp } from "firebase/app";
 
 const GET_USER_QUERY = gql`
   {
@@ -51,7 +52,20 @@ const GET_USER_QUERY = gql`
   
 function Register(props) {
   
-  const { auth, user } = props;
+  const { user } = props;
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
+    authDomain: "friends-a2c14.firebaseapp.com",
+    projectId: "friends-a2c14",
+    storageBucket: "friends-a2c14.appspot.com",
+    messagingSenderId: "161615978886",
+    appId: "1:161615978886:web:e4788c9464ebae7a5d4c07",
+    measurementId: "G-X8DKXH3C45"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -192,16 +206,15 @@ function Register(props) {
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected){
       
-      const aith1 = getAuth()
-      getRedirectResult(aith1)
+      getRedirectResult(auth)
       .then((result) => {
-        console.log("getRedirectResult start 111 !!!", aith1);
+        console.log("getRedirectResult start 111 !!!", auth);
         const credential = GoogleAuthProvider.credentialFromResult(result);
         //const details = getAdditionalUserInfo(result)
         console.log("getRedirectResult credential", credential);
-        console.log("getRedirectResult auth", aith1);
+        console.log("getRedirectResult auth", auth);
         const user = result.user;
-        console.log("getRedirectResult user", aith1);
+        console.log("getRedirectResult user", auth);
       })
       .catch((error) => {
         setMessage(error)

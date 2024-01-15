@@ -24,6 +24,7 @@ function ButtonGoogleAuth(props) {
       console.log("auth233333333333333333: ", auth)
     } catch (error) {
       console.log(error)
+      localStorage.setItem("catchGoogleRedirectError", error);
       setResult(error)
     }
       

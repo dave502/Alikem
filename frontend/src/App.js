@@ -25,7 +25,7 @@ function App() {
   
   const firebaseConfig = {
     apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
-    authDomain: "friends-a2c14.firebaseapp.com",
+    authDomain: "auth.100friends.ru", //"friends-a2c14.firebaseapp.com",
     projectId: "friends-a2c14",
     storageBucket: "friends-a2c14.appspot.com",
     messagingSenderId: "161615978886",
