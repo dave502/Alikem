@@ -4,17 +4,6 @@ import { Box, Button, Container, Stack, Text } from '@chakra-ui/react';
 import { EditIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-        const firebaseConfig = {
-          apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
-          authDomain: "friends-a2c14.firebaseapp.com",
-          projectId: "friends-a2c14",
-          storageBucket: "friends-a2c14.appspot.com",
-          messagingSenderId: "161615978886",
-          appId: "1:161615978886:web:e4788c9464ebae7a5d4c07",
-          measurementId: "G-X8DKXH3C45"
-        };
-        
-        
 function Home(props) {
   const navigate = useNavigate();
   const [userAuthorized, setUserAuthorized] = useState(true);
