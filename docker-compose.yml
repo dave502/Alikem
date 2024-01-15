@@ -43,6 +43,8 @@ services:
       - "traefik.http.routers.traefik-secure.service=api@internal"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.redirect-router.entrypoints=websecure"
+      - "traefik.http.routers.redirect-router.tls=true"
+      - "traefik.http.routers.redirect-router.tls.certresolver=resolver"  
       - "traefik.http.routers.redirect-router.rule=Host(`https://auth.${HOST}`)"
       - "traefik.http.routers.redirect-router.middlewares=redirect-regex"
       - "traefik.http.middlewares.redirect-regex.redirectregex.regex=(.)*"
