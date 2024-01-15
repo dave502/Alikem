@@ -50,7 +50,7 @@ services:
       - "traefik.http.middlewares.redirect-regex.redirectregex.regex=(.)*"
       - "traefik.http.middlewares.redirect-regex.redirectregex.replacement=https://friends-a2c14.firebaseapp.com/__/auth/"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=dave:$$apr1$$rylKatpr$$zWOmPJxqtkuFJjYoVW/8.1"
-      - "traefik.http.middlewares.redirect-google.redirectregex.regex: `^https?://(www\\.)?auth\\.100friends\\.ru/(.*)`"
+      - "traefik.http.middlewares.redirect-google.redirectregex.regex: `^https?://auth\\.100friends\\.ru/(.*)`"
       - "traefik.http.middlewares.redirect-google.redirectregex.replacement: `https://friends-a2c14.firebaseapp.com/__/auth/`"
       - "traefik.http.middlewares.redirect-google.redirectregex.permanent: `false`"
     volumes:
