@@ -48,7 +48,7 @@ services:
       - "traefik.http.middlewares.traefik-auth.basicauth.users=dave:$$apr1$$rylKatpr$$zWOmPJxqtkuFJjYoVW/8.1"
       # - "traefik.http.routers.redirect-router.rule=Host(`${HOST}`) && PathPrefix(`/__/auth/handler`)"
       # - "traefik.http.routers.redirect-router.middlewares=redirect-regex"
-      - "traefik.http.middlewares.redirect-regex.redirectregex.regex=^https://100friends.ru/(.*)" #(.)*"
+      - "traefik.http.middlewares.redirect-regex.redirectregex.regex=^https://100friends.ru/__/auth/(.*)" #(.)*"
       - "traefik.http.middlewares.redirect-regex.redirectregex.replacement=https://friends-a2c14.firebaseapp.com/__/auth/"
       - "traefik.http.middlewares.redirect-regex.redirectregex.permanent=false"
       # - "traefik.http.middlewares.redirect-google.redirectregex.regex: `^https?://auth\\.100friends\\.ru/__/auth/handler`"
