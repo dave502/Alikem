@@ -733,3 +733,16 @@
 2024-01-15 15:16:22.370+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=224, gcTime=0, gcCount=0}
 2024-01-15 15:19:00.064+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=2154, gcTime=1616, gcCount=1}
 2024-01-15 15:19:05.006+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=4741, gcTime=0, gcCount=0}
+2024-01-16 14:53:01.977+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=216, gcTime=199, gcCount=1}
+2024-01-16 14:53:04.240+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=4695, gcTime=0, gcCount=0}
+2024-01-16 15:12:01.753+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=2085, gcTime=1661, gcCount=1}
+2024-01-16 15:12:02.175+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=222, gcTime=0, gcCount=0}
+2024-01-16 15:14:22.372+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=831, gcTime=508, gcCount=1}
+2024-01-16 15:14:23.529+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=990, gcTime=0, gcCount=0}
+2024-01-16 15:16:41.329+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=489, gcTime=652, gcCount=1}
+2024-01-16 15:16:41.795+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=265, gcTime=0, gcCount=0}
+2024-01-16 15:35:42.882+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=584, gcTime=0, gcCount=0}
+2024-01-16 15:54:41.157+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=974, gcTime=705, gcCount=1}
+2024-01-16 15:54:42.203+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=845, gcTime=0, gcCount=0}
+2024-01-16 15:57:02.189+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=872, gcTime=468, gcCount=1}
+2024-01-16 15:59:23.708+0000 WARN  [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=1980, gcTime=2014, gcCount=1}

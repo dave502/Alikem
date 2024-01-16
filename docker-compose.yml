@@ -169,6 +169,37 @@ services:
       options:
         max-size: "0.3m"
     
+  auth:
+    depends_on:
+      - neo4j
+        #condition: service_healthy
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    container_name: 100f_auth_server
+    restart: unless-stopped
+    env_file:
+      - ./auth/.auth.env
+    # environment:
+    #     REDIS_URL: ${REDIS_URL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.server.rule=Host(`${HOST}`) && PathPrefix(`/get-jwt`)"
+      - "traefik.http.routers.server.entrypoints=websecure"
+      - "traefik.http.routers.server.tls.certresolver=resolver"
+    ports: [8055]
+      #- 8055:8055
+    volumes:
+      - ./auth:/app
+    networks:
+      - 100friends
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "0.3m"
+        
+    
+    
   frontend:
     build:
       context: frontend

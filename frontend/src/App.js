@@ -41,6 +41,7 @@ function App() {
   //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
   firebaseAuth.languageCode = 'ru';
   // auth.useDeviceLanguage();
+  firebaseAuth.createCustomToken()
   
   const google_redirected = localStorage.getItem("catchGoogleRedirect");
   if (google_redirected){

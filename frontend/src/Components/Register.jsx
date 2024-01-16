@@ -102,8 +102,9 @@ function Register(props) {
         photo: user.photo_url,
       };
       
-      auth.createCustomToken(user.id, additionalClaims)
-      .then((customToken) => {
+      axios.get("get-jwt", {"uid":user.id})
+      .then((res) => {
+        console.log("res", res)
         signInWithCustomToken(auth, token)
         .then((userCredential) => {
           // Signed in
