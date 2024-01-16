@@ -51,7 +51,8 @@ const GET_USER_QUERY = gql`
   
 function Register(props) {
   
-  const { auth, user } = props;
+  //const { auth, user } = props;
+  const { firebaseConfig } = props;
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -81,6 +82,14 @@ function Register(props) {
     count: steps.length,
   })
   
+  
+  const firebaseApp = initializeApp(firebaseConfig);
+  //const analytics = getAnalytics(firebaseApp);
+  const auth = getAuth(firebaseApp);
+  console.log("firebaseApp", auth);
+  const user = "Yo!"
+  //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
+  auth.languageCode = 'ru';
   
   useEffect(() => {
     
