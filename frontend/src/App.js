@@ -22,7 +22,7 @@ import { getAnalytics } from "firebase/analytics";
 function App() {
   
   const [user, setUser] = useState('');
-
+  // https://friends-a2c14.firebaseapp.com/__/auth/handler
   const firebaseConfig = {
     apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
     authDomain: "100friends.ru", // Changed from "friends-a2c14.firebaseapp.com",
@@ -34,36 +34,40 @@ function App() {
   };
 
   
-  // const firebaseApp = initializeApp(firebaseConfig);
-  // const analytics = getAnalytics(firebaseApp);
-  // const firebaseAuth = getAuth(firebaseApp);
-  // console.log("firebaseApp", firebaseApp);
-  // //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
-  // firebaseAuth.languageCode = 'ru';
-  // // auth.useDeviceLanguage();
-  // onAuthStateChanged(firebaseAuth, (user) => {
-  //   setUser(user)
-  //   console.log("AuthStateChanged", user)
-    
-  //   getRedirectResult(firebaseAuth)
-  //   .then((result) => {
-  //     console.log("App test result", result);
-  //     const user = result.user;
-  //     console.log("App test user", user);
-  //   })
-  //   .catch((error) => {
-  //     console.log("App test error", error);
-  //     // // Handle Errors here.
-  //     // const errorCode = error.code;
-  //     // const errorMessage = error.message;
-  //     // // The email of the user's account used.
-  //     // const email = error.customData.email;
-  //     // // The AuthCredential type that was used.
-  //     // const credential = GoogleAuthProvider.credentialFromError(error);
-  //     // ...
-  //   });
-    
-  // });  
+  const firebaseApp = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(firebaseApp);
+  const firebaseAuth = getAuth(firebaseApp);
+  console.log("firebaseApp", firebaseApp);
+  //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
+  firebaseAuth.languageCode = 'ru';
+  // auth.useDeviceLanguage();
+  
+  const google_redirected = localStorage.getItem("catchGoogleRedirect");
+  if (google_redirected){
+    console.log("App google_redirected");
+    getRedirectResult(firebaseAuth)
+    .then((result) => {
+      console.log("App test result", result);
+      const user = result.user;
+      console.log("App test user", user);
+    })
+    .catch((error) => {
+      console.log("App test error", error);
+      // // Handle Errors here.
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // // The email of the user's account used.
+      // const email = error.customData.email;
+      // // The AuthCredential type that was used.
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+  }
+  
+  onAuthStateChanged(firebaseAuth, (user) => {
+    setUser(user)
+    console.log("AuthStateChanged", user)    
+  });  
   
   return (
     <ChakraProvider theme={theme}>
@@ -74,9 +78,9 @@ function App() {
         <BrowserRouter>
           <Header></Header>
           <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/register" element={<Register firebaseConfig={firebaseConfig}/>} />
-            <Route path="/login" element={<Login/>} />
+            <Route path="/" element={<Home auth={firebaseAuth}/>} />
+            <Route path="/register" element={<Register auth={firebaseAuth} user={user}/>} />
+            <Route path="/login" element={<Login auth={firebaseAuth} user={user}/>} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/words" element={<Words />} />
             <Route path="/dogood" element={<DoGood />} />

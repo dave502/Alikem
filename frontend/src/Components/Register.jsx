@@ -51,8 +51,8 @@ const GET_USER_QUERY = gql`
   
 function Register(props) {
   
-  //const { auth, user } = props;
-  const { firebaseConfig } = props;
+  const { auth, user } = props;
+  console.log("auth prop", auth)
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -66,9 +66,6 @@ function Register(props) {
   const [readyToMoveOn, setReadyToMoveOn] = useState(false);
   const [resultEmailReg, setResultEmailReg] = useState();
   const [resultGoogleReg, setResultGoogleReg] = useState();
-  
-  const [auth, setAuth] = useState();
-  
   
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
@@ -85,16 +82,6 @@ function Register(props) {
     count: steps.length,
   })
   
-  // useEffect(() => {
-  //   const firebaseApp = initializeApp(firebaseConfig);
-  //   //const analytics = getAnalytics(firebaseApp);
-  //   const firebaseAuth = getAuth(firebaseApp);
-  //   firebaseAuth.languageCode = 'ru';
-  //   setAuth(firebaseAuth)
-  //   //console.log("firebaseApp", auth);
-  //   //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
-  // }, []);
-  const user = null;
   
   useEffect(() => {
     
@@ -204,19 +191,13 @@ function Register(props) {
   
   
   useEffect(() => {
-    
-    const firebaseApp = initializeApp(firebaseConfig);
-    //const analytics = getAnalytics(firebaseApp);
-    const firebaseAuth = getAuth(firebaseApp);
-    firebaseAuth.languageCode = 'ru';
-    setAuth(firebaseAuth)
-    
+
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected){
+      
+      console.log("getRedirectResult start 111 !!!", auth);
 
-      console.log("getRedirectResult start 111 !!!", firebaseApp);
-
-      getRedirectResult(firebaseApp)
+      getRedirectResult(auth)
       .then((result) => {
         console.log("getRedirectResult result", result);
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -295,7 +276,7 @@ function Register(props) {
 
 
   
-  //console.log("auth.currentUser", auth.currentUser)
+  console.log("auth.currentUser", auth.currentUser)
   return (
     <Container maxW="2xl" marginTop="3rem" centerContent>
       
@@ -380,7 +361,7 @@ function Register(props) {
             
             
         </Box>
-      </Container> 
+      </Container>
     </Container>
   );
 }

@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, signOut,
+import { getAuth, createUserWithEmailAndPassword, browserPopupRedirectResolver, signOut,
     signInWithRedirect, getRedirectResult, EmailAuthProvider, GoogleAuthProvider  } from "firebase/auth";
 import { Button } from '@chakra-ui/react';
 import IconGoogleSvg from "./IconGoogleSvg"
@@ -20,7 +20,7 @@ function ButtonGoogleAuth(props) {
     try{
       localStorage.setItem("catchGoogleRedirect", true);
       
-      await signInWithRedirect(auth, google_auth_provider);
+      await signInWithRedirect(auth, google_auth_provider, browserPopupRedirectResolver);
       console.log("auth233333333333333333: ", auth)
     } catch (error) {
       console.log(error)
