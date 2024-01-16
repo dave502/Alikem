@@ -184,9 +184,9 @@ services:
     #     REDIS_URL: ${REDIS_URL}
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.auth.tls=true"  
       - "traefik.http.routers.auth.entrypoints=websecure"
       - "traefik.http.routers.auth.rule=Host(`${HOST}`) && PathPrefix(`/get-jwt`)"
-      - "traefik.http.routers.auth.tls=true"  
       - "traefik.http.routers.auth.tls.certresolver=resolver"
     ports: [8055]
       #- 8055:8055
