@@ -99,6 +99,7 @@ function Register(props) {
         photo: tg_user.photo_url,
       };
       
+      console.log("String(tg_user.id)", String(tg_user.id))
       axios.get("get-jwt", {"uid":String(tg_user.id)})
       .then(res => {
         console.log("res", res)
