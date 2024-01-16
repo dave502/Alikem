@@ -99,7 +99,7 @@ function Register(props) {
         photo: tg_user.photo_url,
       };
       
-      axios.get("get-jwt", {"uid":tg_user.id})
+      axios.get("get-jwt", {"uid":String(tg_user.id)})
       .then(res => {
         console.log("res", res)
         signInWithCustomToken(auth, token)
