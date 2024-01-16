@@ -193,39 +193,17 @@ function Register(props) {
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected){
       
-      const firebaseConfig = {
-        apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
-        authDomain: "100friends.ru", //"friends-a2c14.firebaseapp.com",
-        projectId: "friends-a2c14",
-        storageBucket: "friends-a2c14.appspot.com",
-        messagingSenderId: "161615978886",
-        appId: "1:161615978886:web:e4788c9464ebae7a5d4c07",
-        measurementId: "G-X8DKXH3C45"
-      };
-    
-      
-      const firebaseApp = initializeApp(firebaseConfig);
-      const auth1 = getAuth(firebaseApp)
-      getRedirectResult(auth1)
-      .then((result) => {
-        console.log("getRedirectResult start 555 !!!", auth1);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        //const details = getAdditionalUserInfo(result)
-        console.log("getRedirectResult credential", credential);
-        console.log("getRedirectResult auth", auth1);
-        const user = result.user;
-        console.log("getRedirectResult user", user);
-      })
+      console.log("getRedirectResult start 111 !!!", auth);
       
       getRedirectResult(auth)
       .then((result) => {
-        console.log("getRedirectResult start 111 !!!", auth);
+        console.log("getRedirectResult start 111 !!!", result);
         const credential = GoogleAuthProvider.credentialFromResult(result);
         //const details = getAdditionalUserInfo(result)
         console.log("getRedirectResult credential", credential);
-        console.log("getRedirectResult auth", auth);
+
         const user = result.user;
-        console.log("getRedirectResult user", auth);
+        console.log("getRedirectResult user", user);
       })
       .catch((error) => {
         setMessage(error)

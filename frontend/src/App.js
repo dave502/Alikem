@@ -22,7 +22,7 @@ import { getAnalytics } from "firebase/analytics";
 function App() {
   
   const [user, setUser] = useState('');
-  
+  // https://friends-a2c14.firebaseapp.com/__/auth/handler
   const firebaseConfig = {
     apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
     authDomain: "100friends.ru", //"friends-a2c14.firebaseapp.com",
