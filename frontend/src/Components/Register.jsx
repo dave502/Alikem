@@ -366,7 +366,7 @@ function Register(props) {
                 <Alert status='success' size="sm">
                   <AlertIcon />
                   <AlertDescription fontSize='md'>
-                    {message}
+                    {"message"}
                   </AlertDescription>
                 </Alert>}
               </Box>
