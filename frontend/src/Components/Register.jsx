@@ -113,17 +113,21 @@ function Register(props) {
   //! listener for local storage
   useEffect(() => {
     function checkUserData() {
-      const item = localStorage.getItem('userData')
-  
-      if (item) {
+      
+      console.log("checkUserData!!!")
+      const tg_user = localStorage.getItem('userData')
+      
+      if (tg_user) {
         //setUserData(item)
+        console.log("tg_user!!!", tg_user)
+        
         const additionalClaims = {
-          name: user.first_name,
-          user_name: user.username,
-          photo: user.photo_url,
+          name: tg_user.first_name,
+          user_name: tg_user.username,
+          photo: tg_user.photo_url,
         };
         
-        axios.get("get-jwt", {"uid":user.id})
+        axios.get("get-jwt", {"uid":ustg_userer.id})
         .then(res => {
           console.log("res", res)
           signInWithCustomToken(auth, token)
