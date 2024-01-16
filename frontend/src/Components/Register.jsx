@@ -82,42 +82,7 @@ function Register(props) {
     count: steps.length,
   })
   
-  
-  useEffect(() => {
     
-    const scriptElement1 = document.createElement('script');
-    scriptElement1.src = 'https://telegram.org/js/telegram-widget.js?22';
-    scriptElement1.setAttribute('data-telegram-login', 'my100friends_bot');
-    scriptElement1.setAttribute('data-size', 'large');
-    scriptElement1.setAttribute('data-radius', '6');
-    scriptElement1.setAttribute('data-onauth', 'onTelegramAuth(user)');
-    scriptElement1.setAttribute('data-request-access', 'write');
-    scriptElement1.async = true;
-    
-    var f = function onTelegramAuth(user) {
-      // userData:"{"id":180328814,"first_name":"Dave","last_name":"D","username":"dvtian","photo_url":"https://t.me/i/userpic/320/WomQcUiPJbED2F5gqoslqxg_p2BQ4IsRmjtDQavDgiM.jpg","auth_date":1705412178,"hash":"ccca7316c251f43c553270e4e4a4ab2adcd44abaa8215eaa3fd47440b97cff62"}"
-      window.tg_username = user.first_name
-      alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-      //console.log(user.first_name)
-      //localStorage.setItem("userData", JSON.stringify(user));
-      
-      const event = new Event('tg_user_logged');
-      event.key = "user";
-      event.value = user;
-      document.dispatchEvent(event);
-    }
-    const scriptElement2 = document.createElement('script');
-    scriptElement2.type = 'text/javascript'
-    scriptElement2.innerHTML = f;
-    if (telegramWrapperRef.current){
-      telegramWrapperRef.current.appendChild(scriptElement1);
-      telegramWrapperRef.current.appendChild(scriptElement2);
-    }
-    
-    document.addEventListener("tg_user_logged", getLoggedTelegramUser, false);
-  }, []);
-  
-  
   const getLoggedTelegramUser = (e) =>{
       
     console.log("checkUserData!!!")
@@ -156,6 +121,41 @@ function Register(props) {
     }
   }
   
+  useEffect(() => {
+    
+    const scriptElement1 = document.createElement('script');
+    scriptElement1.src = 'https://telegram.org/js/telegram-widget.js?22';
+    scriptElement1.setAttribute('data-telegram-login', 'my100friends_bot');
+    scriptElement1.setAttribute('data-size', 'large');
+    scriptElement1.setAttribute('data-radius', '6');
+    scriptElement1.setAttribute('data-onauth', 'onTelegramAuth(user)');
+    scriptElement1.setAttribute('data-request-access', 'write');
+    scriptElement1.async = true;
+    
+    var f = function onTelegramAuth(user) {
+      // userData:"{"id":180328814,"first_name":"Dave","last_name":"D","username":"dvtian","photo_url":"https://t.me/i/userpic/320/WomQcUiPJbED2F5gqoslqxg_p2BQ4IsRmjtDQavDgiM.jpg","auth_date":1705412178,"hash":"ccca7316c251f43c553270e4e4a4ab2adcd44abaa8215eaa3fd47440b97cff62"}"
+      window.tg_username = user.first_name
+      console.log('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+      //console.log(user.first_name)
+      //localStorage.setItem("userData", JSON.stringify(user));
+      
+      const event = new Event('tg_user_logged');
+      event.key = "user";
+      event.value = user;
+      document.dispatchEvent(event);
+    }
+    const scriptElement2 = document.createElement('script');
+    scriptElement2.type = 'text/javascript'
+    scriptElement2.innerHTML = f;
+    if (telegramWrapperRef.current){
+      telegramWrapperRef.current.appendChild(scriptElement1);
+      telegramWrapperRef.current.appendChild(scriptElement2);
+    }
+    
+    document.addEventListener("tg_user_logged", getLoggedTelegramUser, false);
+  }, []);
+  
+ 
   //! listener for local storage
   useEffect(() => {
 
