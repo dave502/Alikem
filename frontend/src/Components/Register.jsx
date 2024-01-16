@@ -100,6 +100,11 @@ function Register(props) {
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
       console.log(user.first_name)
       localStorage.setItem("userData", JSON.stringify(user));
+      
+      const event = new Event('tg_user_logged');
+      event.key = "user";
+      event.value = user;
+      document.dispatchEvent(event);
     }
     const scriptElement2 = document.createElement('script');
     scriptElement2.type = 'text/javascript'
@@ -108,51 +113,55 @@ function Register(props) {
       telegramWrapperRef.current.appendChild(scriptElement1);
       telegramWrapperRef.current.appendChild(scriptElement2);
     }
+    
+    document.addEventListener("tg_user_logged", getLoggedTelegramUser, false);
   }, []);
+  
+  
+  function getLoggedTelegramUser() {
+      
+    console.log("checkUserData!!!")
+    const tg_user = localStorage.getItem('userData')
+    
+    if (tg_user) {
+      //setUserData(item)
+      console.log("tg_user!!!", tg_user)
+      
+      const additionalClaims = {
+        name: tg_user.first_name,
+        user_name: tg_user.username,
+        photo: tg_user.photo_url,
+      };
+      
+      axios.get("get-jwt", {"uid":ustg_userer.id})
+      .then(res => {
+        console.log("res", res)
+        signInWithCustomToken(auth, token)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("Telegram user signed in", user)
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error.message)
+        });
+      })
+      .catch((error) => {
+        console.log('Error creating custom token:', error);
+      });
+    }
+  }
   
   //! listener for local storage
   useEffect(() => {
-    function checkUserData() {
-      
-      console.log("checkUserData!!!")
-      const tg_user = localStorage.getItem('userData')
-      
-      if (tg_user) {
-        //setUserData(item)
-        console.log("tg_user!!!", tg_user)
-        
-        const additionalClaims = {
-          name: tg_user.first_name,
-          user_name: tg_user.username,
-          photo: tg_user.photo_url,
-        };
-        
-        axios.get("get-jwt", {"uid":ustg_userer.id})
-        .then(res => {
-          console.log("res", res)
-          signInWithCustomToken(auth, token)
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log("Telegram user signed in", user)
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(error.message)
-          });
-        })
-        .catch((error) => {
-          console.log('Error creating custom token:', error);
-        });
-      }
-    }
-  
-    window.addEventListener('storage', checkUserData)
+
+    window.addEventListener('storage', getLoggedTelegramUser)
   
     return () => {
-      window.removeEventListener('storage', checkUserData)
+      window.removeEventListener('storage', getLoggedTelegramUser)
     }
   }, [])
   
