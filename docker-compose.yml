@@ -191,6 +191,7 @@ services:
       #- 8055:8055
     volumes:
       - ./auth:/app
+      - auth_modules:/app/node_modules
     networks:
       - 100friends
     logging:
@@ -243,6 +244,7 @@ services:
 volumes:
   neo4j_data:
   server_modules:
+  auth_modules:
   bot_logs:
   
 networks:
