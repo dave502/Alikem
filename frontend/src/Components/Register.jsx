@@ -9,7 +9,7 @@ import { Navigate,   Link } from 'react-router-dom';
 import { EditIcon, CloseIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import ButtonGoogleAuth from './Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from './Elements/ButtonEmailAuth/ButtonMailAuth';
-import { signOut, getRedirectResult, GoogleAuthProvider , getAuth } from 'firebase/auth';
+import { signOut, getRedirectResult, GoogleAuthProvider , signInWithCustomToken } from 'firebase/auth';
 
 import {
   Container,
@@ -95,7 +95,32 @@ function Register(props) {
     scriptElement1.async = true;
     
     var f = function onTelegramAuth(user) {
-
+      // userData:"{"id":180328814,"first_name":"Dave","last_name":"D","username":"dvtian","photo_url":"https://t.me/i/userpic/320/WomQcUiPJbED2F5gqoslqxg_p2BQ4IsRmjtDQavDgiM.jpg","auth_date":1705412178,"hash":"ccca7316c251f43c553270e4e4a4ab2adcd44abaa8215eaa3fd47440b97cff62"}"
+      const additionalClaims = {
+        name: user.first_name,
+        user_name: user.username,
+        photo: user.photo_url,
+      };
+      
+      auth.createCustomToken(user.id, additionalClaims)
+      .then((customToken) => {
+        signInWithCustomToken(auth, token)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("Telegram user signed in")
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error.message)
+        });
+      })
+      .catch((error) => {
+        console.log('Error creating custom token:', error);
+      });
+    
       window.tg_username = user.first_name
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
       console.log(user.first_name)
