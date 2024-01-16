@@ -24,6 +24,7 @@ import {
   AlertTitle,
   AlertDescription,
   Text,
+  Image,
 } from '@chakra-ui/react';
 
 import {
@@ -363,10 +364,16 @@ function Register(props) {
            { user ? 
             <Box>
                 <Stack direction='row' mb="5">
-                  <Text>{ user.email || user.displayName + "(" + user.uid + ")"}</Text>
+                  <Image
+                    borderRadius='full'
+                    boxSize='24px'
+                    src= {user.photoURL}
+                    alt={user.displayName}
+                  />
+                  <Text>{ user.email || user.displayName + " (" + user.uid + ")"}</Text>
                   <CloseButton
                     size="sm"            
-                    ml={5}
+                    ml={3}
                     onClick={ResetUser}
                   ></CloseButton>
                 </Stack>
