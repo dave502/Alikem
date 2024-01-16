@@ -19,7 +19,7 @@ server.post("/get-jwt", function(req, res) {
   }
   console.log('req.body.uid:', req.body.uid, typeof(req.body.uid));
   var uid = req.body.uid;
-  var additionalClaims = req.body.additionalClaims;
+  var additionalClaims = req.body.data;
   
   auth.createCustomToken(uid, additionalClaims)
     .then((token) => {
