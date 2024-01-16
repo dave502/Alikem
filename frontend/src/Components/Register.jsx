@@ -193,7 +193,19 @@ function Register(props) {
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected){
       
-      const auth1 = getAuth()
+      const firebaseConfig = {
+        apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
+        authDomain: "100friends.ru", //"friends-a2c14.firebaseapp.com",
+        projectId: "friends-a2c14",
+        storageBucket: "friends-a2c14.appspot.com",
+        messagingSenderId: "161615978886",
+        appId: "1:161615978886:web:e4788c9464ebae7a5d4c07",
+        measurementId: "G-X8DKXH3C45"
+      };
+    
+      
+      const firebaseApp = initializeApp(firebaseConfig);
+      const auth1 = getAuth(firebaseApp)
       getRedirectResult(auth1)
       .then((result) => {
         console.log("getRedirectResult start 555 !!!", auth1);
