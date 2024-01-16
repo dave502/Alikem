@@ -176,7 +176,7 @@ services:
     build:
       context: ./auth
       dockerfile: Dockerfile
-    container_name: 100f_auth_server
+    container_name: 100f_server_auth
     restart: unless-stopped
     env_file:
       - ./auth/.auth.env
@@ -184,9 +184,9 @@ services:
     #     REDIS_URL: ${REDIS_URL}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.server.rule=Host(`${HOST}`) && PathPrefix(`/get-jwt`)"
-      - "traefik.http.routers.server.entrypoints=websecure"
-      - "traefik.http.routers.server.tls.certresolver=resolver"
+      - "traefik.http.routers.auth.rule=Host(`${HOST}`) && PathPrefix(`/get-jwt`)"
+      - "traefik.http.routers.auth.entrypoints=websecure"
+      - "traefik.http.routers.auth.tls.certresolver=resolver"
     ports: [8055]
       #- 8055:8055
     volumes:
@@ -197,8 +197,6 @@ services:
       driver: "json-file"
       options:
         max-size: "0.3m"
-        
-    
     
   frontend:
     build:
