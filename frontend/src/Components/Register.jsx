@@ -98,8 +98,8 @@ function Register(props) {
       // userData:"{"id":180328814,"first_name":"Dave","last_name":"D","username":"dvtian","photo_url":"https://t.me/i/userpic/320/WomQcUiPJbED2F5gqoslqxg_p2BQ4IsRmjtDQavDgiM.jpg","auth_date":1705412178,"hash":"ccca7316c251f43c553270e4e4a4ab2adcd44abaa8215eaa3fd47440b97cff62"}"
       window.tg_username = user.first_name
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-      console.log(user.first_name)
-      localStorage.setItem("userData", JSON.stringify(user));
+      //console.log(user.first_name)
+      //localStorage.setItem("userData", JSON.stringify(user));
       
       const event = new Event('tg_user_logged');
       event.key = "user";
@@ -118,12 +118,13 @@ function Register(props) {
   }, []);
   
   
-  function getLoggedTelegramUser() {
+  const getLoggedTelegramUser = (e) =>{
       
     console.log("checkUserData!!!")
-    const tg_user = localStorage.getItem('userData')
+   // const tg_user = localStorage.getItem('userData')
     
-    if (tg_user) {
+    if (e.value) {
+      const tg_user = e.value
       //setUserData(item)
       console.log("tg_user!!!", tg_user)
       
@@ -133,7 +134,7 @@ function Register(props) {
         photo: tg_user.photo_url,
       };
       
-      axios.get("get-jwt", {"uid":ustg_userer.id})
+      axios.get("get-jwt", {"uid":tg_user.id})
       .then(res => {
         console.log("res", res)
         signInWithCustomToken(auth, token)
