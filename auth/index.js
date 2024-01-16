@@ -17,7 +17,7 @@ server.get("/get-jwt", function(req, res) {
   if (!req.body ) {
     res.status(400).send('text field is required');
   }
-  
+  console.log('req.body.uid:', req.body.uid, typeof(req.body.uid));
   var uid = req.body.uid;
   var additionalClaims = req.body.additionalClaims;
   
