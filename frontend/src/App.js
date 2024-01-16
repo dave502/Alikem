@@ -15,7 +15,7 @@ import Words from './Components/Words';
 import DoGood from './Components/DoGood';
 import Home from './Components/Home';
 
-import { getAuth, onAuthStateChanged, connectAuthEmulator } from "firebase/auth";
+import { getAuth, onAuthStateChanged, getRedirectResult } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 // theme.styles.global['font-family'] = 'roboto';
@@ -43,6 +43,25 @@ function App() {
   onAuthStateChanged(firebaseAuth, (user) => {
     setUser(user)
     console.log("AuthStateChanged", user)
+    
+    getRedirectResult(firebaseAuth)
+    .then((result) => {
+      console.log("App test result", result);
+      const user = result.user;
+      console.log("App test user", user);
+    })
+    .catch((error) => {
+      console.log("App test error", error);
+      // // Handle Errors here.
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // // The email of the user's account used.
+      // const email = error.customData.email;
+      // // The AuthCredential type that was used.
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+    
   });  
   
   return (

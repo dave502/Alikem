@@ -194,10 +194,10 @@ function Register(props) {
     if (google_redirected){
       
       console.log("getRedirectResult start 111 !!!", auth);
-      
+      const auth = getAuth()
       getRedirectResult(auth)
       .then((result) => {
-        console.log("getRedirectResult start 111 !!!", result);
+        console.log("getRedirectResult result", result);
         const credential = GoogleAuthProvider.credentialFromResult(result);
         //const details = getAdditionalUserInfo(result)
         console.log("getRedirectResult credential", credential);
