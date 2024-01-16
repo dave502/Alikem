@@ -22,10 +22,10 @@ import { getAnalytics } from "firebase/analytics";
 function App() {
   
   const [user, setUser] = useState('');
-  // https://friends-a2c14.firebaseapp.com/__/auth/handler
+
   const firebaseConfig = {
     apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
-    authDomain: "100friends.ru", //"friends-a2c14.firebaseapp.com",
+    authDomain: "100friends.ru", // Changed from "friends-a2c14.firebaseapp.com",
     projectId: "friends-a2c14",
     storageBucket: "friends-a2c14.appspot.com",
     messagingSenderId: "161615978886",
@@ -37,6 +37,7 @@ function App() {
   const firebaseApp = initializeApp(firebaseConfig);
   const analytics = getAnalytics(firebaseApp);
   const firebaseAuth = getAuth(firebaseApp);
+  console.log("firebaseApp", firebaseApp);
   //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
   firebaseAuth.languageCode = 'ru';
   // auth.useDeviceLanguage();
