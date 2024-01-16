@@ -41,32 +41,31 @@ function App() {
   //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
   firebaseAuth.languageCode = 'ru';
   // auth.useDeviceLanguage();
-  firebaseAuth.createCustomToken()
   
-  const google_redirected = localStorage.getItem("catchGoogleRedirect");
-  if (google_redirected){
-    console.log("App google_redirected");
-    getRedirectResult(firebaseAuth)
-    .then((result) => {
-      console.log("App test result", result);
-      const user = result.user;
-      console.log("App test user", user);
-    })
-    .catch((error) => {
-      console.log("App test error", error);
-      // // Handle Errors here.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // // The email of the user's account used.
-      // const email = error.customData.email;
-      // // The AuthCredential type that was used.
-      // const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-    })
-    .finally(() => {
-      console.log("getRedirectResult finally called");
-   });
-  }
+  // const google_redirected = localStorage.getItem("catchGoogleRedirect");
+  // if (google_redirected){
+  //   console.log("App google_redirected");
+  //   getRedirectResult(firebaseAuth)
+  //   .then((result) => {
+  //     console.log("App test result", result);
+  //     const user = result.user;
+  //     console.log("App test user", user);
+  //   })
+  //   .catch((error) => {
+  //     console.log("App test error", error);
+  //     // // Handle Errors here.
+  //     // const errorCode = error.code;
+  //     // const errorMessage = error.message;
+  //     // // The email of the user's account used.
+  //     // const email = error.customData.email;
+  //     // // The AuthCredential type that was used.
+  //     // const credential = GoogleAuthProvider.credentialFromError(error);
+  //     // ...
+  //   })
+  //   .finally(() => {
+  //     console.log("getRedirectResult finally called");
+  //  });
+  // }
   
   onAuthStateChanged(firebaseAuth, (user) => {
     setUser(user)
@@ -82,7 +81,7 @@ function App() {
         <BrowserRouter>
           <Header></Header>
           <Routes>
-            <Route path="/" element={<Home auth={firebaseAuth}/>} />
+            <Route path="/" element={<Home auth={firebaseAuth} user={user}/>} />
             <Route path="/register" element={<Register auth={firebaseAuth} user={user}/>} />
             <Route path="/login" element={<Login auth={firebaseAuth} user={user}/>} />
             <Route path="/chat" element={<Chat />} />
