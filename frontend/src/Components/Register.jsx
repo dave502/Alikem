@@ -54,11 +54,11 @@ function Register(props) {
   const { auth, user } = props;
   console.log("auth prop", auth)
   
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [isInvalid, setIsInvalid] = useState('');
-  const endpoint = 'http://localhost:8080/register';
   const [redirect, setRedirect] = useState(false); 
   const [redirectTo, setRedirectTo] = useState('/dogood/'); 
   const [token, setToken] = useState(''); 
@@ -66,6 +66,7 @@ function Register(props) {
   const [readyToMoveOn, setReadyToMoveOn] = useState(false);
   const [resultEmailReg, setResultEmailReg] = useState();
   const [resultGoogleReg, setResultGoogleReg] = useState();
+  const [regType, setRegType] = useState("");
   
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
@@ -102,7 +103,7 @@ function Register(props) {
       console.log("String(tg_user.id)", String(tg_user.id))
       
       //axios.get("/get-jwt", {params: {uid: String(tg_user.id)}})
-      axios.post("/get-jwt", {
+      axios.post("/auth/get-jwt", {
         "uid":String(tg_user.id), "data": additionalClaims})//
       .then(res => {
         console.log("res", res.data.token)
@@ -111,6 +112,14 @@ function Register(props) {
           // Signed in
           const user = userCredential.user;
           console.log("Telegram user signed in", user)
+          
+          const additionalUserInfo = {
+            displayName: tg_user.first_name,
+            emailVerified: true,
+            photoURL: tg_user.photo_url,
+          };
+          axios.post("/auth/edit-user", {
+            "uid":String(tg_user.id), "data": additionalUserInfo})
           // ...
         })
         .catch((error) => {
@@ -362,11 +371,11 @@ function Register(props) {
                   ></CloseButton>
                 </Stack>
 
-                {!user.emailVerified && 
+                {(!user.email && !user.emailVerified) && 
                 <Alert status='success' size="sm">
                   <AlertIcon />
                   <AlertDescription fontSize='md'>
-                    {"message"}
+                    {message}
                   </AlertDescription>
                 </Alert>}
               </Box>
