@@ -13,7 +13,7 @@ auth = app.auth()
 const port = process.env.PORT || 8055;
 
 server.get("/get-jwt", function(req, res) {
-  
+  console.log('req:', req)
   if (!req.body ) {
     res.status(400).send('text field is required');
   }

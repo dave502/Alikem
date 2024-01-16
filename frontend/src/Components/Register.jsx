@@ -100,7 +100,8 @@ function Register(props) {
       };
       
       console.log("String(tg_user.id)", String(tg_user.id))
-      axios.get("get-jwt", {"uid":String(tg_user.id)})
+      
+      axios.get("/get-jwt", {params: {uid: String(tg_user.id)}})//{"uid":String(tg_user.id)})
       .then(res => {
         console.log("res", res)
         signInWithCustomToken(auth, token)
