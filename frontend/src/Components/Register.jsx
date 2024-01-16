@@ -67,6 +67,9 @@ function Register(props) {
   const [resultEmailReg, setResultEmailReg] = useState();
   const [resultGoogleReg, setResultGoogleReg] = useState();
   
+  const [auth, setAuth] = useState();
+  
+  
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
   
@@ -82,14 +85,16 @@ function Register(props) {
     count: steps.length,
   })
   
-  
-  const firebaseApp = initializeApp(firebaseConfig);
-  //const analytics = getAnalytics(firebaseApp);
-  const auth = getAuth(firebaseApp);
-  console.log("firebaseApp", auth);
+  useEffect(() => {
+    const firebaseApp = initializeApp(firebaseConfig);
+    //const analytics = getAnalytics(firebaseApp);
+    const firebaseAuth = getAuth(firebaseApp);
+    firebaseAuth.languageCode = 'ru';
+    setAuth(firebaseAuth)
+    console.log("firebaseApp", auth);
+    //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
+  }, []);
   const user = "Yo!"
-  //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
-  auth.languageCode = 'ru';
   
   useEffect(() => {
     
