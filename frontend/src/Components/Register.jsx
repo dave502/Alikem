@@ -91,10 +91,10 @@ function Register(props) {
     const firebaseAuth = getAuth(firebaseApp);
     firebaseAuth.languageCode = 'ru';
     setAuth(firebaseAuth)
-    console.log("firebaseApp", auth);
+    //console.log("firebaseApp", auth);
     //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
   }, []);
-  const user = "Yo!"
+  const user = null;
   
   useEffect(() => {
     
@@ -288,7 +288,7 @@ function Register(props) {
 
 
   
-  console.log("auth.currentUser", auth.currentUser)
+  //console.log("auth.currentUser", auth.currentUser)
   return (
     <Container maxW="2xl" marginTop="3rem" centerContent>
       
@@ -373,7 +373,7 @@ function Register(props) {
             
             
         </Box>
-      </Container>
+      </Container> 
     </Container>
   );
 }
