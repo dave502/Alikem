@@ -85,15 +85,15 @@ function Register(props) {
     count: steps.length,
   })
   
-  useEffect(() => {
-    const firebaseApp = initializeApp(firebaseConfig);
-    //const analytics = getAnalytics(firebaseApp);
-    const firebaseAuth = getAuth(firebaseApp);
-    firebaseAuth.languageCode = 'ru';
-    setAuth(firebaseAuth)
-    //console.log("firebaseApp", auth);
-    //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
-  }, []);
+  // useEffect(() => {
+  //   const firebaseApp = initializeApp(firebaseConfig);
+  //   //const analytics = getAnalytics(firebaseApp);
+  //   const firebaseAuth = getAuth(firebaseApp);
+  //   firebaseAuth.languageCode = 'ru';
+  //   setAuth(firebaseAuth)
+  //   //console.log("firebaseApp", auth);
+  //   //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
+  // }, []);
   const user = null;
   
   useEffect(() => {
@@ -204,12 +204,19 @@ function Register(props) {
   
   
   useEffect(() => {
+    
+    const firebaseApp = initializeApp(firebaseConfig);
+    //const analytics = getAnalytics(firebaseApp);
+    const firebaseAuth = getAuth(firebaseApp);
+    firebaseAuth.languageCode = 'ru';
+    setAuth(firebaseAuth)
+    
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected){
 
-      console.log("getRedirectResult start 111 !!!", auth);
+      console.log("getRedirectResult start 111 !!!", firebaseApp);
 
-      getRedirectResult(auth)
+      getRedirectResult(firebaseApp)
       .then((result) => {
         console.log("getRedirectResult result", result);
         const credential = GoogleAuthProvider.credentialFromResult(result);
