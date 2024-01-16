@@ -6,7 +6,6 @@ import React, { Component, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { gql, useQuery } from "@apollo/client";
 import { Navigate,   Link } from 'react-router-dom';
-import { onAuthStateChanged} from "firebase/auth";
 import { EditIcon, CloseIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import ButtonGoogleAuth from './Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from './Elements/ButtonEmailAuth/ButtonMailAuth';
@@ -193,6 +192,18 @@ function Register(props) {
   useEffect(() => {
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected){
+      
+      auth1 = getAuth()
+      getRedirectResult(auth1)
+      .then((result) => {
+        console.log("getRedirectResult start 555 !!!", auth1);
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        //const details = getAdditionalUserInfo(result)
+        console.log("getRedirectResult credential", credential);
+        console.log("getRedirectResult auth", auth1);
+        const user = result.user;
+        console.log("getRedirectResult user", user);
+      })
       
       getRedirectResult(auth)
       .then((result) => {
