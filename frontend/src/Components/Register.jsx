@@ -363,7 +363,7 @@ function Register(props) {
            { user ? 
             <Box>
                 <Stack direction='row' mb="5">
-                  <Text>{ user.email }</Text>
+                  <Text>{ user.email || user.displayName + "(" + user.uid + ")"}</Text>
                   <CloseButton
                     size="sm"            
                     ml={5}
