@@ -192,9 +192,9 @@ function Register(props) {
   useEffect(() => {
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected){
-      
-      console.log("getRedirectResult start 111 !!!", auth);
       const auth = getAuth()
+      console.log("getRedirectResult start 111 !!!", auth);
+
       getRedirectResult(auth)
       .then((result) => {
         console.log("getRedirectResult result", result);
