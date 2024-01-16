@@ -193,7 +193,7 @@ function Register(props) {
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected){
       
-      auth1 = getAuth()
+      const auth1 = getAuth()
       getRedirectResult(auth1)
       .then((result) => {
         console.log("getRedirectResult start 555 !!!", auth1);
