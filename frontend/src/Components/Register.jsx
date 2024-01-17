@@ -5,7 +5,7 @@
 
 import React, { Component, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useLazyQuery } from "@apollo/client";
 import { Navigate, Link } from 'react-router-dom';
 import { EditIcon, CloseIcon, ExternalLinkIcon, ArrowRightIcon, } from '@chakra-ui/icons';
 import ButtonGoogleAuth from './Elements/ButtonGoogleAuth/ButtonGoogleAuth';
@@ -77,6 +77,12 @@ function Register(props) {
 
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
+  
+  const [getUser, { called, loading, data }] = useLazyQuery(
+    GET_USER_QUERY1,
+    { variables: { social: social, username: user.email || user.uid } }
+  );
+  if (called && loading) return <p>Loading ...</p>
 
   const steps = [
     { title: ' 👋', description: 'Написать имя' },
@@ -191,6 +197,14 @@ function Register(props) {
     }
   }, [])
 
+  
+  //! listener for neo user
+  useEffect(() => { 
+    console.log("loading", loading)
+    console.log("error", error)
+    console.log("data", data)
+  }, [called, loading, data])
+  
   useEffect(() => {
     setReadyToMoveOn(user?.emailVerified)
     setSocial("email")
@@ -293,21 +307,11 @@ function Register(props) {
     // const { loading, error, data } = useQuery(GET_USER_QUERY, {
     //   variables: { social: social, username: user.email || user.uid },
     // });
-    
-    const { loading, error, data } = useQuery(GET_USER_QUERY1);
-
-    console.log("loading", loading)
-    console.log("error", error)
-    console.log("data", data)
-
+    getUser()
     setRedirect(true);
     setRedirectTo(redirectTo);
   }
 
-  const { loading, error, data } = useQuery(GET_USER_QUERY1);
-  console.log("data", data)
-  
-  
   return (
     <Container maxW="2xl" marginTop="3rem" centerContent>
 
@@ -339,7 +343,6 @@ function Register(props) {
       <Container marginBlockStart={10} textAlign={'left'} maxW="2xl">
         <Box borderRadius="lg" padding={10} borderWidth="2px">
           <Stack spacing={5}>
-
             {user ?
               <Center>
                 <Stack direction='row' mb="5">
