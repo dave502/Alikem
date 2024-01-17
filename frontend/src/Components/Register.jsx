@@ -26,6 +26,7 @@ import {
   AlertDescription,
   Text,
   Image,
+  ArrowRightIcon,
 } from '@chakra-ui/react';
 
 import {
