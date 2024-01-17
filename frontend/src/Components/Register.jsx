@@ -1,6 +1,7 @@
 //https://alexanderleon.medium.com/implement-social-authentication-with-react-restful-api-9b44f4714fa
 //https://github.com/cuongdevjs/reactjs-social-login/tree/master
 //https://gist.github.com/anonymous/6516521b1fb3b464534fbc30ea3573c2
+//https://firebase.google.com/docs/auth/web/google-signin?hl=ru
 
 import React, { Component, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
@@ -67,7 +68,7 @@ function Register(props) {
   const [readyToMoveOn, setReadyToMoveOn] = useState(false);
   const [resultEmailReg, setResultEmailReg] = useState();
   const [resultGoogleReg, setResultGoogleReg] = useState();
-  const [regType, setRegType] = useState("");
+  const [social, setSocial] = useState();
   
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
@@ -84,20 +85,14 @@ function Register(props) {
     count: steps.length,
   })
   
-  document.cookie.split('; ').filter(row => row.startsWith('cookie_name=')).map(c=>c.split('=')[1])[0]
-  
-    
   const getLoggedTelegramUser = (e) =>{
       
-    console.log("checkUserData!!!")
    // const tg_user = localStorage.getItem('userData')
     
     if (e.value) {
       const tg_user = e.value
       //setUserData(item)
-      console.log("tg_user!!!", tg_user)
-      
-      
+
       // data_check_string = ...
       // secret_key = SHA256(<bot_token>)
       // if (hex(HMAC_SHA256(data_check_string, secret_key)) == hash) {
@@ -116,12 +111,12 @@ function Register(props) {
       axios.post("/auth/get-jwt", {
         "uid":String(tg_user.id), "data": additionalClaims})//
       .then(res => {
-        console.log("res", res.data.token)
         signInWithCustomToken(auth, res.data.token)
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
-          console.log("Telegram user signed in", user)
+          // const user = userCredential.user;
+
+          setSocial("telegram")
           
           const additionalUserInfo = {
             displayName: tg_user.first_name,
@@ -183,9 +178,7 @@ function Register(props) {
  
   //! listener for local storage
   useEffect(() => {
-
     window.addEventListener('storage', getLoggedTelegramUser)
-  
     return () => {
       window.removeEventListener('storage', getLoggedTelegramUser)
     }
@@ -193,6 +186,7 @@ function Register(props) {
   
   useEffect(() => {
     setReadyToMoveOn(user?.emailVerified)
+    setSocial("email")
     console.log("user.emailVerified", user?.emailVerified)
   }, [user?.emailVerified])
   
@@ -233,23 +227,6 @@ function Register(props) {
       default:
         setMessage(resultEmailReg)
     }
-    // switch (resultGoogleReg) {
-    //   case "logged":    
-    //     setMessage("Ожидание подтверждения email")
-    //     startPolling();
-    //     break;
-    //   case "verified":    
-    //     stopPolling();
-    //     setMessage("Подтверждение получено")
-    //     break;
-    //   case "google_redirected":    
-    //     //setMessage("Подтверждение получено")
-    //     console.log('!!!!!!!!!!!!!!!!!!!!!');
-    //     break;  
-    //   default:
-    //     setMessage(resultGoogleReg)
-    // }
-    // console.log("resultGoogleReg!!!!!!!!!!!!", resultGoogleReg)
   }, [resultEmailReg])
   
   
@@ -300,42 +277,22 @@ function Register(props) {
   
   function ResetUser() {
     signOut(auth)
+    setSocial(null)
   }
   
   const nextStep = async e => {
     e.preventDefault();
 
-    // if (!user.emailVerified){
-    //   user.reload()
-    //   .then(user => {
-    //     console.log('emailVerified', user);
-    //   });
-    // try 
-    //   const res = await axios.post(endpoint, {
-    //     username: username,
-    //     password: password,
-    //   });
-
-    //   console.log('register', res);
-    //   if (res.data.status) {
-
-    //   } else {
-    //     // on failed
-    //     setMessage(res.data.message)
-    //     setIsInvalid(true)
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   setMessage('something went wrong')
-    //   setIsInvalid(true)
-    // }
-    // } else {
-      setRedirect(true);
-      setRedirectTo(redirectTo);
-        
-      //};
-      console.log(user);
-    }
+    const { loading, error, data } = useQuery(GET_USER_QUERY, {
+      variables: { social: social, username: user.email || user.uid },
+      });
+    console.log("loading", loading)
+    console.log("error", error)
+    console.log("data", data)
+    
+    setRedirect(true);
+    setRedirectTo(redirectTo);
+  }
 
 
   
@@ -416,14 +373,14 @@ function Register(props) {
               <Link to="/register">
                 <Button
                     size="lg"
-                    leftIcon={<EditIcon/>}
+                    rightIcon={<ArrowRightIcon/>}
                     colorScheme="green"
                     isDisabled={!readyToMoveOn}
                     isLoading={resultEmailReg === "wait" ? true:false}
                     loadingText='Waiting...'
                     onClick={nextStep}
                 >  
-                Sign up
+                Дальше 
                 </Button>
               </Link>          
             </Center>
