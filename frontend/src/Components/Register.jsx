@@ -7,7 +7,7 @@ import React, { Component, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { gql, useQuery } from "@apollo/client";
 import { Navigate,   Link } from 'react-router-dom';
-import { EditIcon, CloseIcon, ExternalLinkIcon } from '@chakra-ui/icons';
+import { EditIcon, CloseIcon, ExternalLinkIcon, ArrowRightIcon, } from '@chakra-ui/icons';
 import ButtonGoogleAuth from './Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from './Elements/ButtonEmailAuth/ButtonMailAuth';
 import { signOut, getRedirectResult, GoogleAuthProvider , signInWithCustomToken } from 'firebase/auth';
@@ -26,7 +26,6 @@ import {
   AlertDescription,
   Text,
   Image,
-  ArrowRightIcon,
 } from '@chakra-ui/react';
 
 import {
@@ -284,9 +283,9 @@ function Register(props) {
   const nextStep = async e => {
     e.preventDefault();
 
-    // const { loading, error, data } = useQuery(GET_USER_QUERY, {
-    //   variables: { social: social, username: user.email || user.uid },
-    //   });
+    const { loading, error, data } = useQuery(GET_USER_QUERY, {
+      variables: { social: social, username: user.email || user.uid },
+      });
     console.log("loading", loading)
     console.log("error", error)
     console.log("data", data)
