@@ -82,7 +82,7 @@ function Register(props) {
     GET_USER_QUERY1,
     { variables: { social: social, username: user.email || user.uid } }
   );
-  if (called && loading) return <p>Loading ...</p>
+
 
   const steps = [
     { title: ' 👋', description: 'Написать имя' },
@@ -199,7 +199,10 @@ function Register(props) {
 
   
   //! listener for neo user
-  useEffect(() => { 
+  useEffect(() => {  
+    
+    if (called && loading)  console.log("Loading ...")
+    
     console.log("loading", loading)
     console.log("called", called)
     console.log("data", data)
