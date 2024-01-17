@@ -374,7 +374,7 @@ function Register(props) {
               <Link to="/register">
                 <Button
                     size="lg"
-                    rightIcon={<ArrowRightIcon/>}
+                    rightIcon={<ArrowRightIcon />}
                     colorScheme="green"
                     isDisabled={!readyToMoveOn}
                     isLoading={resultEmailReg === "wait" ? true:false}
