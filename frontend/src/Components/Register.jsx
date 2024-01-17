@@ -284,9 +284,9 @@ function Register(props) {
   const nextStep = async e => {
     e.preventDefault();
 
-    const { loading, error, data } = useQuery(GET_USER_QUERY, {
-      variables: { social: social, username: user.email || user.uid },
-      });
+    // const { loading, error, data } = useQuery(GET_USER_QUERY, {
+    //   variables: { social: social, username: user.email || user.uid },
+    //   });
     console.log("loading", loading)
     console.log("error", error)
     console.log("data", data)
