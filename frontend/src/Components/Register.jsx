@@ -364,12 +364,13 @@ function Register(props) {
            { user ? 
             <Box>
                 <Stack direction='row' mb="5">
+                  {user.photoURL &&
                   <Image
                     borderRadius='full'
                     boxSize='24px'
                     src= {user.photoURL}
                     alt={user.displayName}
-                  />
+                  />}
                   <Text>{ user.email || user.displayName + " (" + user.uid + ")"}</Text>
                   <CloseButton
                     size="sm"            
