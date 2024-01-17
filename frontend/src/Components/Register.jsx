@@ -173,7 +173,7 @@ function Register(props) {
     }
     
     document.addEventListener("tg_user_logged", getLoggedTelegramUser, false);
-  }, []);
+  }, [user]);
   
  
   //! listener for local storage
@@ -337,7 +337,7 @@ function Register(props) {
                     borderRadius='full'
                     boxSize='36px'
                     src= {user.photoURL}
-                    alt={user.displayName}
+                    alt=""
                   />}
                   <Text>{ user.email || user.displayName + " (" + user.uid + ")"}</Text>
                   <CloseButton
