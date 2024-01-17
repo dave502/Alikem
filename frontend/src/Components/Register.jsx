@@ -84,6 +84,8 @@ function Register(props) {
     count: steps.length,
   })
   
+  document.cookie.split('; ').filter(row => row.startsWith('cookie_name=')).map(c=>c.split('=')[1])[0]
+  
     
   const getLoggedTelegramUser = (e) =>{
       
@@ -94,6 +96,13 @@ function Register(props) {
       const tg_user = e.value
       //setUserData(item)
       console.log("tg_user!!!", tg_user)
+      
+      
+      // data_check_string = ...
+      // secret_key = SHA256(<bot_token>)
+      // if (hex(HMAC_SHA256(data_check_string, secret_key)) == hash) {
+      //   // data is from Telegram
+      // }
       
       const additionalClaims = {
         displayName: tg_user.first_name,
@@ -136,6 +145,8 @@ function Register(props) {
   }
   
   useEffect(() => {
+    
+    // https://medium.com/@alexawesome/telegram-oauth-authorization-for-your-site-6d527fe212ab
     
     const scriptElement1 = document.createElement('script');
     scriptElement1.src = 'https://telegram.org/js/telegram-widget.js?22';
@@ -362,18 +373,18 @@ function Register(props) {
           <Stack spacing={5}>
 
            { user ? 
-            <Box>
+            <Center>
                 <Stack direction='row' mb="5">
                   {user.photoURL &&
                   <Image
                     borderRadius='full'
-                    boxSize='24px'
+                    boxSize='36px'
                     src= {user.photoURL}
                     alt={user.displayName}
                   />}
                   <Text>{ user.email || user.displayName + " (" + user.uid + ")"}</Text>
                   <CloseButton
-                    size="sm"            
+                    size="md"            
                     ml={3}
                     onClick={ResetUser}
                   ></CloseButton>
@@ -386,7 +397,7 @@ function Register(props) {
                     {message}
                   </AlertDescription>
                 </Alert>}
-              </Box>
+              </Center>
             :
               <>
                 <Center >
