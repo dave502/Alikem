@@ -41,8 +41,6 @@ import {
   useSteps,
 } from '@chakra-ui/react'
 
-import { initializeApp } from "firebase/app";
-
 const GET_USER_QUERY = gql`
   {
     users(where: {socialIDs_SINGLE:{social: $social, username: $username}}) {
@@ -72,7 +70,6 @@ function Register(props) {
   const [redirect, setRedirect] = useState(false);
   const [redirectTo, setRedirectTo] = useState('/dogood/');
   const [token, setToken] = useState('');
-  const [error, setError] = useState('');
   const [readyToMoveOn, setReadyToMoveOn] = useState(false);
   const [resultEmailReg, setResultEmailReg] = useState();
   const [resultGoogleReg, setResultGoogleReg] = useState();
@@ -307,9 +304,10 @@ function Register(props) {
     setRedirectTo(redirectTo);
   }
 
-
-
-  console.log("auth.currentUser", auth.currentUser)
+  const { loading, error, data } = useQuery(GET_USER_QUERY1);
+  console.log("data", data)
+  
+  
   return (
     <Container maxW="2xl" marginTop="3rem" centerContent>
 

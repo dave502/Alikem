@@ -38,9 +38,8 @@ function App() {
   const analytics = getAnalytics(firebaseApp);
   const firebaseAuth = getAuth(firebaseApp);
   console.log("firebaseApp", firebaseApp);
-  //connectAuthEmulator(firebaseAuth, "http://localhost:3000");
-  firebaseAuth.languageCode = 'ru';
-  // auth.useDeviceLanguage();
+  //firebaseAuth.languageCode = 'ru';
+  firebaseAuth.useDeviceLanguage();
   
   // const google_redirected = localStorage.getItem("catchGoogleRedirect");
   // if (google_redirected){
