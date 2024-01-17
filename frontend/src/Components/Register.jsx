@@ -201,7 +201,7 @@ function Register(props) {
   //! listener for neo user
   useEffect(() => { 
     console.log("loading", loading)
-    console.log("error", error)
+    console.log("called", called)
     console.log("data", data)
   }, [called, loading, data])
   
