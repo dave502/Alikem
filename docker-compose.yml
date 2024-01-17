@@ -154,10 +154,10 @@ services:
     #     REDIS_URL: ${REDIS_URL}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.auth.tls=true"  
-      - "traefik.http.routers.auth.entrypoints=websecure"
-      - "traefik.http.routers.auth.rule=Host(`${HOST}`) && PathPrefix(`/graphql`)"
-      - "traefik.http.routers.auth.tls.certresolver=resolver"
+      - "traefik.http.routers.server.tls=true"  
+      - "traefik.http.routers.server.entrypoints=websecure"
+      - "traefik.http.routers.server.rule=Host(`${HOST}`) && PathPrefix(`/graphql`)"
+      - "traefik.http.routers.server.tls.certresolver=resolver"
     ports: [4000]
       #- 4000:4000
     volumes:
