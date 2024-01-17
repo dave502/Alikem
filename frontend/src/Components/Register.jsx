@@ -174,7 +174,7 @@ function Register(props) {
     }
     
     document.addEventListener("tg_user_logged", getLoggedTelegramUser, false);
-  }, []);
+  }, [user]);
   
  
   //! listener for local storage
