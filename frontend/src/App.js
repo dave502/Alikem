@@ -33,11 +33,9 @@ function App() {
     measurementId: "G-X8DKXH3C45"
   };
 
-  
   const firebaseApp = initializeApp(firebaseConfig);
   const analytics = getAnalytics(firebaseApp);
   const firebaseAuth = getAuth(firebaseApp);
-  console.log("firebaseApp", firebaseApp);
   //firebaseAuth.languageCode = 'ru';
   firebaseAuth.useDeviceLanguage();
   
@@ -68,7 +66,6 @@ function App() {
   
   onAuthStateChanged(firebaseAuth, (user) => {
     setUser(user)
-    console.log("AuthStateChanged", user)    
   });  
   
   return (

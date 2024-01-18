@@ -78,6 +78,7 @@ function ButtonMaillAuth(props) {
             .then(() => {
               console.log("confirmation email is sent")
               setResult("wait")
+              localStorage.setItem("email_confirmation", "wait") ;
               //setUser(userCredential.user)
             })
             .catch(function(error) {
@@ -92,7 +93,7 @@ function ButtonMaillAuth(props) {
             const errorCode = error.code;
             const errorMessage = error.message;
             if (error.code === "auth/email-already-in-use"){
-              setMessage("Тcbvcxb")
+              setMessage("Пользователь с таким Email уже существует")
             }
             console.log(error)
             setIsInvalid(true)

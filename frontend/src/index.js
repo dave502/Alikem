@@ -17,8 +17,6 @@ const client = new ApolloClient({
   uri: "/graphql",
   cache: new InMemoryCache(),
   });
-  
-console.log("client", client)
 
 root.render(
   <StrictMode>

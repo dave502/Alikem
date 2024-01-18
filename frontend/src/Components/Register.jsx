@@ -5,7 +5,7 @@
 
 import React, { Component, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import { gql, useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { Navigate, Link } from 'react-router-dom';
 import { EditIcon, CloseIcon, ExternalLinkIcon, ArrowRightIcon, } from '@chakra-ui/icons';
 import ButtonGoogleAuth from './Elements/ButtonGoogleAuth/ButtonGoogleAuth';
@@ -42,26 +42,48 @@ import {
 } from '@chakra-ui/react'
 
 const GET_USER_QUERY = gql`
-  {
+  query GetUser($social: String!, $username: String){
     users(where: {socialIDs_SINGLE:{social: $social, username: $username}}) {
+      userId
+      approved
+    }
+  }
+`;
+
+const TEST = gql`
+  query GetUser{
+    User {
       name
     }
   }
 `;
 
-const GET_USER_QUERY1 = gql`
-  {
-    users {
-      name
+const ADD_USER_QUERY = gql`
+  # Add user
+  mutation CreateUser($social: String!, $username: String!) {
+    createUsers(input: [
+      {
+        socialIDs: {
+          create: [
+            {
+              node: {
+                social: $social,
+                username: $username
+              }
+            }
+          ]
+        }
+      }
+    ]) {
+      userId
     }
   }
 `;
+
 
 function Register(props) {
 
   const { auth, user } = props;
-  console.log("auth prop", auth)
-
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -71,18 +93,19 @@ function Register(props) {
   const [redirectTo, setRedirectTo] = useState('/dogood/');
   const [token, setToken] = useState('');
   const [readyToMoveOn, setReadyToMoveOn] = useState(false);
-  const [resultEmailReg, setResultEmailReg] = useState();
+  const [resultEmailReg, setResultEmailReg] = useState(localStorage.getItem("email_confirmation"));
   const [resultGoogleReg, setResultGoogleReg] = useState();
   const [social, setSocial] = useState();
 
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
   
-  const [getUser, { called, loading, data }] = useLazyQuery(
-    GET_USER_QUERY1,
-    { variables: { social: social, username: user.email || user.uid } }
-  );
-
+  // const [getUser, { called, loading, data }] = useLazyQuery(
+  //   GET_USER_QUERY,
+  //   { variables: { social: social, username: user?.email || user?.uid } }
+  // );
+  const { loading, error, data } = useQuery(TEST);
+  console.log("data", data);
 
   const steps = [
     { title: ' 👋', description: 'Написать имя' },
@@ -115,8 +138,6 @@ function Register(props) {
         userName: tg_user.username,
         photoURL: tg_user.photo_url,
       };
-
-      console.log("String(tg_user.id)", String(tg_user.id))
 
       //axios.get("/get-jwt", {params: {uid: String(tg_user.id)}})
       axios.post("/auth/get-jwt", {
@@ -198,15 +219,20 @@ function Register(props) {
   }, [])
 
   
-  //! listener for neo user
-  useEffect(() => {  
+  // //! listener for neo user
+  // useEffect(() => {  
     
-    if (called && loading)  console.log("Loading ...")
+  //   if (called && loading)  console.log("Loading ...")
     
-    console.log("loading", loading)
-    console.log("called", called)
-    console.log("data", data)
-  }, [called, loading, data])
+  //   console.log("loading", loading)
+  //   console.log("called", called)
+  //   console.log("data", data)
+    
+  //   if (!data){
+      
+  //   } 
+    
+  // }, [called, loading, data])
   
   useEffect(() => {
     setReadyToMoveOn(user?.emailVerified)
@@ -216,17 +242,16 @@ function Register(props) {
 
 
   const pollingCallback = () => {
-    // Your polling logic here
     console.log('Polling...');
-
-    user.reload()
-      .then(user => {
-        console.log('emailVerified', auth.currentUser);
-        if (auth.currentUser.emailVerified) {
-          setResultEmailReg("verified")
-          setReadyToMoveOn(true)
-        }
-      });
+    if (auth.currentUser) {
+      auth.currentUser.reload()
+        .then(user => {
+          console.log('emailVerified', auth.currentUser);
+          if (auth.currentUser.emailVerified) {
+            setResultEmailReg("verified")
+          }
+        });
+    }
   };
 
   const startPolling = () => {
@@ -247,6 +272,13 @@ function Register(props) {
       case "verified":
         stopPolling();
         setMessage("Подтверждение получено")
+        localStorage.removeItem("email_confirmation")
+        setReadyToMoveOn(true)
+        break;
+      case "cancelled":
+        stopPolling();
+        setMessage("")
+        localStorage.removeItem("email_confirmation")
         break;
       default:
         setMessage(resultEmailReg)
@@ -255,6 +287,9 @@ function Register(props) {
 
 
   useEffect(() => {
+    
+    // const { loading, error, data } = useQuery(TEST);
+    // console.log(data)
 
     const google_redirected = localStorage.getItem("catchGoogleRedirect");
     if (google_redirected) {
@@ -300,8 +335,9 @@ function Register(props) {
   }, [])
 
   function ResetUser() {
-    signOut(auth)
+    if (social === "email") setResultEmailReg("cancelled")
     setSocial(null)
+    signOut(auth)
   }
 
   const nextStep = async e => {
@@ -310,7 +346,7 @@ function Register(props) {
     // const { loading, error, data } = useQuery(GET_USER_QUERY, {
     //   variables: { social: social, username: user.email || user.uid },
     // });
-    getUser()
+    // getUser()
     setRedirect(true);
     setRedirectTo(redirectTo);
   }
@@ -348,29 +384,32 @@ function Register(props) {
           <Stack spacing={5}>
             {user ?
               <Center>
-                <Stack direction='row' mb="5">
-                  {user.photoURL &&
-                    <Image
-                      borderRadius='full'
-                      boxSize='36px'
-                      src={user.photoURL}
-                      alt=""
-                    />}
-                  <Text>{user.email || user.displayName + " (" + user.uid + ")"}</Text>
-                  <CloseButton
-                    size="md"
-                    ml={3}
-                    onClick={ResetUser}
-                  ></CloseButton>
+                <Stack mb="5">
+                <Center>
+                    <Stack direction='row' mb="5">
+                      {user.photoURL &&
+                        <Image
+                          borderRadius='full'
+                          boxSize='36px'
+                          src={user.photoURL}
+                          alt=""
+                        />}
+                      <Text>{user.email || user.displayName + " (" + user.uid + ")"}</Text>
+                      <CloseButton
+                        size="md"
+                        ml={3}
+                        onClick={ResetUser}
+                      ></CloseButton>
+                    </Stack>
+                  </Center>
+                  {(user.email && !user.emailVerified) &&
+                    <Alert status='success' size="sm">
+                      <AlertIcon />
+                      <AlertDescription fontSize='md'>
+                        {message}
+                      </AlertDescription>
+                    </Alert>}
                 </Stack>
-
-                {(!user.email && !user.emailVerified) &&
-                  <Alert status='success' size="sm">
-                    <AlertIcon />
-                    <AlertDescription fontSize='md'>
-                      {message}
-                    </AlertDescription>
-                  </Alert>}
               </Center>
               :
               <>
@@ -386,6 +425,7 @@ function Register(props) {
                 <Divider />
               </>
             }
+
             <Center >
               <Link to="/register">
                 <Button

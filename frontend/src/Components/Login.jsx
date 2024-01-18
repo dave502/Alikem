@@ -90,8 +90,6 @@ function Login(props) {
   // }, [])
   
   onAuthStateChanged(auth, (user) => {
-    console.log("!!!!!!!!!!!!!")
-
     if (user) {
       // console.log("Name", user.getDisplayName())
       // User is signed in, see docs for a list of available properties
@@ -101,7 +99,7 @@ function Login(props) {
       setGoogleUser(user)
       // ...
     } else {
-      console.log("not user !!!!!!!!!!!!!")
+      console.log("not user")
       //setUserAuthorized(false)
     }
   });

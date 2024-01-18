@@ -11,7 +11,7 @@ type Good {
 
 type User {
     userId: ID!
-    name: String!
+    name: String
     socialIDs: [SocialID!]! @relationship(type: "DEFINED_BY", direction: IN)
     groups: [Group!]! @relationship(type: "BELONGS_TO", direction: OUT)
     friends: [User!]! @relationship(type: "FRIENDED", direction: OUT)
@@ -44,7 +44,7 @@ enum Socials {
 
 type SocialID {
     social: Socials!
-    username: String!
+    uid: String!
     user: User! @relationship(type: "DEFINED_BY", direction: OUT)
     display: Boolean
 }
