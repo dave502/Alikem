@@ -42,8 +42,8 @@ import {
 } from '@chakra-ui/react'
 
 const GET_USER_QUERY = gql`
-  query GetUser($social: String!, $username: String){
-    users(where: {socialIDs_SINGLE:{social: $social, username: $username}}) {
+  query GetUser($social: String!, $uid: String){
+    users(where: {socialIDs_SINGLE:{social: $social, uid: $uid}}) {
       userId
       approved
     }
@@ -60,7 +60,7 @@ const TEST = gql`
 
 const ADD_USER_QUERY = gql`
   # Add user
-  mutation CreateUser($social: String!, $username: String!) {
+  mutation CreateUser($social: String!, $uid: String!) {
     createUsers(input: [
       {
         socialIDs: {
@@ -68,7 +68,7 @@ const ADD_USER_QUERY = gql`
             {
               node: {
                 social: $social,
-                username: $username
+                uid: $uid
               }
             }
           ]
@@ -95,8 +95,8 @@ function Register(props) {
   const [readyToMoveOn, setReadyToMoveOn] = useState(false);
   const [resultEmailReg, setResultEmailReg] = useState(localStorage.getItem("email_confirmation"));
   const [resultGoogleReg, setResultGoogleReg] = useState();
-  const [social, setSocial] = useState();
-
+  const [social, setSocial] = useState(localStorage.getItem("social_type"));
+  
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
   
@@ -106,7 +106,7 @@ function Register(props) {
           refetch: gqlGetUser} = 
         useQuery(GET_USER_QUERY, 
           {
-            variables: { social: social, username: user.email || user.uid },
+            variables: { social: social, uid: user.email || user.uid },
           });
           
   const [gqlAddUser, { data, loading, error }] = useMutation(ADD_USER_QUERY);
@@ -168,6 +168,7 @@ function Register(props) {
               // const user = userCredential.user;
 
               setSocial("telegram")
+              localStorage.setItem("social_type", "telegram");
 
               const additionalUserInfo = {
                 displayName: tg_user.first_name,
@@ -227,15 +228,6 @@ function Register(props) {
     document.addEventListener("tg_user_logged", getLoggedTelegramUser, false);
   }, [user]);
 
-
-  //! listener for local storage
-  useEffect(() => {
-    window.addEventListener('storage', getLoggedTelegramUser)
-    return () => {
-      window.removeEventListener('storage', getLoggedTelegramUser)
-    }
-  }, [])
-
   
   // //! listener for neo user
   // useEffect(() => {  
@@ -254,8 +246,6 @@ function Register(props) {
   
   useEffect(() => {
     setReadyToMoveOn(user?.emailVerified)
-    setSocial("email")
-    console.log("user.emailVerified", user?.emailVerified)
   }, [user?.emailVerified])
 
 
@@ -267,6 +257,8 @@ function Register(props) {
           console.log('emailVerified', auth.currentUser);
           if (auth.currentUser.emailVerified) {
             setResultEmailReg("verified")
+            setSocial("email")
+            localStorage.setItem("social_type", "email");
           }
         });
     }
@@ -354,6 +346,7 @@ function Register(props) {
 
   function ResetUser() {
     if (social === "email") setResultEmailReg("cancelled")
+    localStorage.removeItem("social_type")
     setSocial(null)
     signOut(auth)
   }
@@ -366,8 +359,8 @@ function Register(props) {
     //   variables: { social: social, username: user.email || user.uid },
     // });
     // getUser()
-    gqlGetUser({ variables: { social: social, username: user.email || user.uid }});
-    gqlAddUser({ variables: { social: social, username: user.email || user.uid }})
+    gqlGetUser({ variables: { social: social, uid: user.email || user.uid }});
+    gqlAddUser({ variables: { social: social, uid: user.email || user.uid }})
     .then((response) => {
       console.log(response)
     })
