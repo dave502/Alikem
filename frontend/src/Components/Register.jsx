@@ -100,13 +100,31 @@ function Register(props) {
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
   
+  const { loading: gqlUserLoading, 
+          error: gqlUserError, 
+          data: gqlUserData, 
+          refetch: gqlGetUser} = 
+        useQuery(GET_USER_QUERY, 
+          {
+            variables: { social: social, username: user.email || user.uid },
+          });
+          
+  const [gqlAddUser, { data, loading, error }] = useMutation(ADD_USER_QUERY);
+  
   // const [getUser, { called, loading, data }] = useLazyQuery(
   //   GET_USER_QUERY,
   //   { variables: { social: social, username: user?.email || user?.uid } }
   // );
-  const { loading, error, data } = useQuery(TEST);
-  console.log("data", data);
+  // if ("user"){
 
+  //   console.log("data: ", data);
+  //   if (!data && social && (user.email || user.uid)){
+  //     const { loading, error, data } = useQuery(ADD_USER_QUERY, {
+  //         variables: { social: social, username: user.email || user.uid },
+  //       });
+  //   }
+  // }
+    
   const steps = [
     { title: ' 👋', description: 'Написать имя' },
     { title: '💖', description: 'Сделать добро' },
@@ -343,12 +361,22 @@ function Register(props) {
   const nextStep = async e => {
     e.preventDefault();
 
+    
     // const { loading, error, data } = useQuery(GET_USER_QUERY, {
     //   variables: { social: social, username: user.email || user.uid },
     // });
     // getUser()
-    setRedirect(true);
-    setRedirectTo(redirectTo);
+    gqlGetUser({ variables: { social: social, username: user.email || user.uid }});
+    gqlAddUser({ variables: { social: social, username: user.email || user.uid }})
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+    
+    // setRedirect(true);
+    // setRedirectTo(redirectTo);
   }
 
   return (
