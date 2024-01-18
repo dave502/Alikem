@@ -10,7 +10,7 @@ const typeDefs = readFileSync('./schema.graphql', { encoding: 'utf-8' });
 const host = process.env.HOST ? "neo4j" : "localhost"
 
 const driver = neo4j.driver(
-  "bolt://${host}:7687",
+  `bolt://${host}:7687`,
   neo4j.auth.basic(process.env.NEO4_USER, process.env.NEO4_PASS)
 );
 
