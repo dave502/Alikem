@@ -111,8 +111,7 @@ services:
       driver: "json-file"
       options:
         max-size: "0.3m"
-    profiles:
-      - dev
+        
 
     # Simple check testing whether the port 7474 is opened.
     # If so, the instance running inside the container is considered as "healthy".
@@ -184,8 +183,7 @@ services:
       driver: "json-file"
       options:
         max-size: "0.3m"
-    profiles:
-      - dev
+
     
   auth:
     depends_on:
@@ -278,43 +276,41 @@ services:
         driver: "json-file"
         options:
           max-size: "0.3m"
-    profiles:
-      - dev
+
 
   
-  rabbitmq:
-    hostname: ${RMQ_HOST:-rabbitmq}
-    container_name: 100f_rabbit
-    image: rabbitmq:3-management
-    restart: unless-stopped
-    #command: rabbitmq-server
-    expose:
-      - 5672:5672 #amqp
-      - 15672:15672 #http
-      - 15692:15692  #prometheus
-    volumes:
-      - rabbit_data:/var/lib/rabbitmq
-    # env_file:
-    #   - dev.env
-    environment:
-      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE:-secret_cookie}
-      RABBITMQ_DEFAULT_USER: ${RMQ_USERNAME:-admin}
-      RABBITMQ_DEFAULT_PASS: ${RMQ_PASSWORD:-admin}
-      # для прода желательно задать пороговое значение 2 гигабита
-      #RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
-    # healthcheck:
-    #   test: rabbitmq-diagnostics -q ping
-    #   interval: 30s
-    #   timeout: 30s
-    #   retries: 3
-    networks:
-      - 100friends
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "0.3m"
-    profiles:
-      - dev
+  # rabbitmq:
+  #   hostname: ${RMQ_HOST:-rabbitmq}
+  #   container_name: 100f_rabbit
+  #   image: rabbitmq:3-management
+  #   restart: unless-stopped
+  #   #command: rabbitmq-server
+  #   expose:
+  #     - 5672:5672 #amqp
+  #     - 15672:15672 #http
+  #     - 15692:15692  #prometheus
+  #   volumes:
+  #     - rabbit_data:/var/lib/rabbitmq
+  #   # env_file:
+  #   #   - dev.env
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE:-secret_cookie}
+  #     RABBITMQ_DEFAULT_USER: ${RMQ_USERNAME:-admin}
+  #     RABBITMQ_DEFAULT_PASS: ${RMQ_PASSWORD:-admin}
+  #     # для прода желательно задать пороговое значение 2 гигабита
+  #     #RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+  #   # healthcheck:
+  #   #   test: rabbitmq-diagnostics -q ping
+  #   #   interval: 30s
+  #   #   timeout: 30s
+  #   #   retries: 3
+  #   networks:
+  #     - 100friends
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "0.3m"
+
         
   postgres:
     hostname: ${DB_HOST:-postgres}
@@ -337,7 +333,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    profiles: [dev]
+
 
 
   adminer:
@@ -407,7 +403,7 @@ volumes:
   chat_db:
   gql_server_modules:
   auth_modules:
-  rabbit_data:
+  # rabbit_data:
   bot_logs:
   
 networks:
