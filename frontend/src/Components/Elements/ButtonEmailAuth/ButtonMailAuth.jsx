@@ -1,40 +1,39 @@
 //import React, { Component, useState, useRef, useEffect } from 'react';
 import { useState, useEffect } from 'react';
 import IconMailSvg from "./IconMailSvg";
+import { useAuth } from '../../Auth/AuthContext';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import axios from 'axios';
 import {
     Container,
     FormControl,
     FormLabel,
     FormErrorMessage,
-    FormHelperText,
     Box,
     Input,
-    Stack,
     Button,
-    Link,
     Center,
   } from '@chakra-ui/react';
-
+import { useTranslation } from 'react-i18next';
 
 function ButtonMaillAuth(props) {
+  
+    const { mode, setResult} = props;
   
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isInvalid, setIsInvalid] = useState('');
     const [message, setMessage] = useState('');
     const [visibleLogin, setVisibleLogin] = useState(false);
-    // const [redirect, setRedirect] = useState(false); 
-    // const [redirectTo, setRedirectTo] = useState('/dogood?u='); 
     
-    const { auth, mode, setResult} = props;
+    const { login, register, verifyEmail, setError } = useAuth();
+    const { t } = useTranslation();  
     
+    console.log("verifyEmail func", verifyEmail)
     useEffect(() => {
       setVisibleLogin(false)
     }, [])
     
-    const endpoint = 'http://localhost:8080/register';
+    // const endpoint = 'http://localhost:8080/register';
     
     // on change of input, set the value to the message state
     const onChange = event => {
@@ -44,9 +43,6 @@ function ButtonMaillAuth(props) {
       if (event.target.name === "password") {
         setPassword(event.target.value);
       }
-  
-      //setState({ [event.target.name]: event.target.value });
-      //setMessage(event.target.value)
     };
 
     const onSubmit = async e => {
@@ -55,69 +51,33 @@ function ButtonMaillAuth(props) {
       switch (mode) {
         case "signup":
           // https://firebase.google.com/docs/auth/custom-email-handler
-          createUserWithEmailAndPassword(auth, userEmail, password)
+          register(userEmail, password)
           .then((userCredential) => {
-            // Signed up 
-            //var actionCodeSettings = {
-              //url: 'tes/registration?email=' + userEmail,
-              // iOS: {
-              //   bundleId: 'com.example.ios'
-              // },
-              // android: {
-              //   packageName: 'com.example.android',
-              //   installApp: true,
-              //   minimumVersion: '12'
-              // },
-              //handleCodeInApp: false,
-              // When multiple custom dynamic link domains are defined, specify which
-              // one to use.
-              //dynamicLinkDomain: "example.page.link"
-            //};
-            
-            sendEmailVerification(userCredential.user)
+            // Signed up           
+            verifyEmail()
             .then(() => {
               console.log("confirmation email is sent")
               setResult("wait")
               localStorage.setItem("email_confirmation", "wait") ;
-              //setUser(userCredential.user)
             })
             .catch(function(error) {
               console.log("sendEmailVerification error", error)
             });
-            // userCredential.user.
-            // setUser(userCredential.user)
-            // const user = userCredential.user;
-            // ...
           })
           .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
             if (error.code === "auth/email-already-in-use"){
-              setMessage("Пользователь с таким Email уже существует")
+              setMessage(t("email_exist"))
             }
-            console.log(error)
+            console.log(error.message)
             setIsInvalid(true)
-            //setMessage(error.code)
-            // ..
           });
           break;
         case "signin":
-          signInWithEmailAndPassword(auth, userEmail, password)
-          .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            // ...
-          })
-          .catch((error) => {
-            // const errorCode = error.code;
-            // const errorMessage = error.message;
-            setIsInvalid(true)
-            setMessage(error.code)
-          });
+          
+          setError("");
+          login(userEmail, password)
           break;
       }
-      // const userData = localStorage.getItem("userData") ;
-      // console.log(userData);
 
       // try {
       //   const res = await axios.post(endpoint, {
@@ -125,7 +85,6 @@ function ButtonMaillAuth(props) {
       //     password: password,
       //   });
 
-      //   console.log('register', res);
       //   if (res.data.status) {
       //     // const redirectTo = redirectTo + userEmail;
       //     setRedirect(true);
@@ -153,6 +112,7 @@ function ButtonMaillAuth(props) {
         <Center>
         <Button
             size="lg"
+            minW='280px'
             leftIcon={<IconMailSvg/>}
             colorScheme="green"
             variant="outline"
@@ -164,7 +124,7 @@ function ButtonMaillAuth(props) {
             onClick={onChangeVisibleLogin}
         >   
     
-          {mode === "signup"? "Sign up with Email" : "Sign in with Email"}
+          {mode === "signup"? t("signup_via_email") : t("signin_via_email")}
         </Button>
         </Center>
         { visibleLogin &&
@@ -194,27 +154,28 @@ function ButtonMaillAuth(props) {
             
             <FormControl>
               <Center>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t("password")}</FormLabel>
               </Center>
               <Input
                 type="password"
-                placeholder="Password"
+                placeholder={t("password")}
                 name="password"
                 value={password}
                 onChange={onChange}
               />
-              {/* <FormHelperText>use a dummy password</FormHelperText> */}
+              {/* <FormHelperText> hint </FormHelperText> */}
             </FormControl>  
             <Center pt="20px">
             <Button
-              size="lg"
-              //leftIcon={<EditIcon />}
+              size="s"
+              p='2'
               colorScheme="green"
               variant="solid"
               type="submit"
               onClick={onSubmit}
+              fontSize='smaller'
             >
-              {mode === "signup"? "Verify" : "Sign in"}
+              {mode === "signup"? t("checking") : t("signin")}
               
             </Button>
             </Center>

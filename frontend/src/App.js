@@ -1,44 +1,32 @@
 import React, {useState} from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './Components/Auth/AuthContext';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import theme from './theme';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+import "./i18n";
 
-import Header from './Components/Header';
-import Landing from './Components/Landing';
-import Register from './Components/Register';
-import Login from './Components/Login';
-import Chat from './Components/Chat/Chat';
-import Footer from './Components/Footer';
-import Words from './Components/Words';
-import DoGood from './Components/DoGood';
-import Home from './Components/Home';
+import Header from './Components/Elements/Header/Header';
+import Register from './Components/Pages/Register/Register';
+import Login from './Components/Pages/Login/Login';
+import Chat from './Components/Pages/Chat/Chat';
+import Footer from './Components/Elements/Footer/Footer';
+import Words from './Components/Pages/Register/Words';
+import DoGood from './Components/Pages/Register/DoGood';
+import Profile from './Components/Pages/Profile/Profile';
+import Friends from './Components/Pages/Friends/Friends';
+import ViewProfile from './Components/Pages/Friends/Components/ViewProfile';
+// import auth from './Configs/firebase';
 
-import { getAuth, onAuthStateChanged, getRedirectResult } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { onAuthStateChanged, getRedirectResult } from "firebase/auth";
+
+// import NeoUser from './Components/Elements/Header/NeoUser';
+
 // theme.styles.global['font-family'] = 'roboto';
+
 function App() {
   
-  const [user, setUser] = useState('');
-  // https://friends-a2c14.firebaseapp.com/__/auth/handler
-  const firebaseConfig = {
-    apiKey: "AIzaSyCJ2L2s2-0ucV5nGe8SNW1LXjIMGuqotWc",
-    authDomain: "100friends.ru", // Changed from "friends-a2c14.firebaseapp.com",
-    projectId: "friends-a2c14",
-    storageBucket: "friends-a2c14.appspot.com",
-    messagingSenderId: "161615978886",
-    appId: "1:161615978886:web:e4788c9464ebae7a5d4c07",
-    measurementId: "G-X8DKXH3C45"
-  };
-
-  const firebaseApp = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(firebaseApp);
-  const firebaseAuth = getAuth(firebaseApp);
-  //firebaseAuth.languageCode = 'ru';
-  firebaseAuth.useDeviceLanguage();
-  
+  // const [user, setUser] = useState('');
+ 
   // const google_redirected = localStorage.getItem("catchGoogleRedirect");
   // if (google_redirected){
   //   console.log("App google_redirected");
@@ -64,29 +52,33 @@ function App() {
   //  });
   // }
   
-  onAuthStateChanged(firebaseAuth, (user) => {
-    setUser(user)
-  });  
+  // onAuthStateChanged(firebaseAuth, (user) => {
+  //   setUser(user)
+  // });  
+  const user = null;
+  const firebaseAuth = null;
   
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="right">
-        <ColorModeSwitcher justifySelf="flex-end" />
-      </Box>
+      <AuthProvider>
       <Box textAlign="center" fontSize="xl">
         <BrowserRouter>
-          <Header></Header>
+          <Header auth={firebaseAuth} user={user}/>
           <Routes>
-            <Route path="/" element={<Home auth={firebaseAuth} user={user}/>} />
+            <Route path="/" element={user ? <Navigate to="/chat" replace /> : <Navigate to="/login" replace/>}/>
             <Route path="/register" element={<Register auth={firebaseAuth} user={user}/>} />
-            <Route path="/login" element={<Login auth={firebaseAuth} user={user}/>} />
+            <Route path="/login" element={<Login/>} />
             <Route path="/chat" element={<Chat />} />
-            <Route path="/words" element={<Words />} />
-            <Route path="/dogood" element={<DoGood />} />
+            <Route path="/words" element={<Words user={user}/>} />
+            <Route path="/dogood" element={<DoGood user={user}/>} />
+            <Route path="/profile" element={<Profile auth={firebaseAuth} user={user}/>} />
+            <Route path="/friends" element={<Friends auth={firebaseAuth} user={user}/>} />
+            <Route path="/viewprofile" element={<ViewProfile/>} />
           </Routes>
           <Footer></Footer>
         </BrowserRouter>
       </Box>
+      </AuthProvider>
     </ChakraProvider>
   );
 }

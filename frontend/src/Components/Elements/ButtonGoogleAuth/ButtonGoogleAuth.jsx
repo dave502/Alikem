@@ -2,6 +2,7 @@ import { getAuth, createUserWithEmailAndPassword, browserPopupRedirectResolver, 
     signInWithRedirect, getRedirectResult, EmailAuthProvider, GoogleAuthProvider  } from "firebase/auth";
 import { Button } from '@chakra-ui/react';
 import IconGoogleSvg from "./IconGoogleSvg"
+import { useTranslation } from 'react-i18next';
     
 function ButtonGoogleAuth(props) {
     
@@ -10,18 +11,16 @@ function ButtonGoogleAuth(props) {
   const google_auth_provider = new GoogleAuthProvider();
   google_auth_provider.addScope('profile');
   google_auth_provider.addScope('email');
+  const { t } = useTranslation();  
+    
   //google_auth_provider.addScope('https://www.googleapis.com/auth/plus.login');
 
   const GoogleSignIn = async() => {
-
-    //await signOut(auth);
-    console.log("auth2222222222222222: ", auth)
     
     try{
       localStorage.setItem("catchGoogleRedirect", true);
-      
+
       await signInWithRedirect(auth, google_auth_provider, browserPopupRedirectResolver);
-      console.log("auth233333333333333333: ", auth)
     } catch (error) {
       console.log(error)
       localStorage.setItem("catchGoogleRedirectError", error);
@@ -110,16 +109,14 @@ function ButtonGoogleAuth(props) {
     <Button
         size="lg"
         leftIcon={<IconGoogleSvg/>}
-        colorScheme="google"
         variant="outline"
         type="button"
-        // height='48px'
-        // width='200px'      
-        // fontSize='16px' 
-        
+        colorScheme="green"
+        width='280px'            
         onClick={GoogleSignIn}
+        isDisabled
     >   
-        {mode === "signup"? "Sign up with Google" : "Sign in with Google"}
+        {mode === "signup"? t("signup_via_google") : t("signin_via_google")}
          
     </Button>
   );

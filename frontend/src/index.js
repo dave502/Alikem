@@ -9,20 +9,24 @@ import {
   InMemoryCache,
   ApolloProvider,
   } from "@apollo/client";
+//import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import theme from './theme'
+
+
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 const client = new ApolloClient({
-  uri: "/graphql",
+  uri: "http://172.26.0.5:4000", //"/graphql",
   cache: new InMemoryCache(),
   });
 
 root.render(
   <StrictMode>
-    <ColorModeScript />
+    <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
     <ApolloProvider client={client}>
-    <App />
+      <App />
     </ApolloProvider>
   </StrictMode>
 );

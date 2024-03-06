@@ -66,12 +66,13 @@ services:
 
   neo4j:
     # Docker image to be used
-    image: neo4j:latest
+    image: neo4j:5.15.0
 
     # Hostname
-    hostname: neo4j
+    hostname: $NEO4_HOST
     container_name: 100f_neo4j
-    
+    environment:
+      NEO4J_AUTH: $NEO4_USER/$NEO4_PASS
     # Service-level network, which specifies the networks, from the list of the top-level networks (in this case only neo4j-internal), that the server will connect to.
     # Adds a network alias (used in neo4j.conf when configuring the discovery members)
     # networks:
@@ -87,22 +88,31 @@ services:
     # Uncomment the volumes to be mounted to make them accessible from outside the container.
     # https://neo4j.com/docs/operations-manual/current/docker/mounting-volumes/
     volumes:
+    # APOC ext https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/5.15.0
+    # APOC core https://github.com/neo4j/apoc/releases/5.15.0
+    
+    
       # - ./neo4j/conf/neo4j.conf:/conf/neo4j.conf # This is the main configuration file.
       # - ./neo4j/logs:/logs
       # - ./neo4j/import/:/import
-      - neo4j_data:/data/
-      # - ./neo4j/conf:/conf
+      - neo4j_data:/data
+      - ./neo4j/plugins:/plugins
+      - ./neo4j/conf:/conf
       #- ./metrics/server1:/metrics
       #- ./licenses/server1:/licenses
       #- ./ssl/server1:/ssl
-    env_file:
-      - .env.neo4j
+    # env_file:
+    #   - .env.neo4j
     networks:
       - 100friends
+    tmpfs:
+      - /var/lib/neo4j/run
     logging:
       driver: "json-file"
       options:
         max-size: "0.3m"
+    profiles:
+      - dev
 
     # Simple check testing whether the port 7474 is opened.
     # If so, the instance running inside the container is considered as "healthy".
@@ -141,34 +151,41 @@ services:
   #       options:
   #         max-size: "0.3m"
   
-  server:
+  gql_server:
     depends_on:
       - neo4j
         #condition: service_healthy
     build:
-      context: ./server
+      context: ./gql_server
       dockerfile: Dockerfile
-    container_name: 100f_server_graphql
+    container_name: 100f_graphql_server
     restart: unless-stopped
-    # environment:
-    #     REDIS_URL: ${REDIS_URL}
+    # env_file:
+    #   - .env
+    environment:
+      NEO4_USER:  ${NEO4_USER}
+      NEO4_PASS:  ${NEO4_PASS}
+      NEO4_HOST:  ${NEO4_HOST}
+      JWT_SECRET: ${JWT_SECRET}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.server.tls=true"  
-      - "traefik.http.routers.server.entrypoints=websecure"
-      - "traefik.http.routers.server.rule=Host(`${HOST}`) && PathPrefix(`/graphql`)"
+      - "traefik.http.routers.gql_server.tls=true"  
+      - "traefik.http.routers.gql_server.entrypoints=websecure"
+      - "traefik.http.routers.gql_server.rule=Host(`${HOST}`) && PathPrefix(`/graphql`)"
       - "traefik.http.routers.server.tls.certresolver=resolver"
     ports: [4000]
       #- 4000:4000
     volumes:
-      - ./server:/app
-      - server_modules:/app/node_modules
+      - ./gql_server:/app
+      - gql_server_modules:/app/node_modules
     networks:
       - 100friends
     logging:
       driver: "json-file"
       options:
         max-size: "0.3m"
+    profiles:
+      - dev
     
   auth:
     depends_on:
@@ -235,18 +252,162 @@ services:
     volumes:
       #- bot_data:/bot/db/sqlite
       - bot_logs:/bot/logs
+    # networks:
+    #   - 100friends
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "0.3m"
+
+  chat:
+    build:
+      context: ./chat
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    # depends_on:
+    #   # - rabbitmq
+    #   - influxdb
+    container_name: 100f_chat_server
+    env_file:
+      - .env
+    ports:
+     - ${CHAT_SERVER_PORT:-9010}:${CHAT_SERVER_PORT:-9010}
+    networks:
+      - 100friends
+    logging:
+        driver: "json-file"
+        options:
+          max-size: "0.3m"
+    profiles:
+      - dev
+
+  
+  rabbitmq:
+    hostname: ${RMQ_HOST:-rabbitmq}
+    container_name: 100f_rabbit
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    #command: rabbitmq-server
+    expose:
+      - 5672:5672 #amqp
+      - 15672:15672 #http
+      - 15692:15692  #prometheus
+    volumes:
+      - rabbit_data:/var/lib/rabbitmq
+    # env_file:
+    #   - dev.env
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE:-secret_cookie}
+      RABBITMQ_DEFAULT_USER: ${RMQ_USERNAME:-admin}
+      RABBITMQ_DEFAULT_PASS: ${RMQ_PASSWORD:-admin}
+      # для прода желательно задать пороговое значение 2 гигабита
+      #RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    # healthcheck:
+    #   test: rabbitmq-diagnostics -q ping
+    #   interval: 30s
+    #   timeout: 30s
+    #   retries: 3
     networks:
       - 100friends
     logging:
       driver: "json-file"
       options:
         max-size: "0.3m"
+    profiles:
+      - dev
+        
+  postgres:
+    hostname: ${DB_HOST:-postgres}
+    container_name: postgres_container
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_DATABASE}
+      PGDATA: /data/postgres
+    volumes:
+       - chat_db:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - 100friends
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d chat_db -U ${DB_USERNAME:-postgres}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    profiles: [dev]
 
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080  
+    networks:
+      - 100friends
+        
+  # docker compose build --progress plain --no-cache chat_backend     
+  # docker-compose up --build &> logs.txt
+  
+  # chat_backend:
+  #   depends_on:
+  #     - chat_db
+  #   build:
+  #     context: ./chat_backend
+  #     dockerfile: Dockerfile
+  #   container_name: 100f_chat_backend
+  #   restart: unless-stopped
+  #   environment:
+  #       PORT: $CHAT_SERVER_PORT
+  #       MONGO_URI: $CHAT_DB_URI
+  #   # labels:
+  #   #   - "traefik.enable=true"
+  #   #   - "traefik.http.routers.auth.tls=true"  
+  #   #   - "traefik.http.routers.auth.entrypoints=websecure"
+  #   #   - "traefik.http.routers.auth.rule=Host(`${HOST}`) && PathPrefix(`/auth/`)"
+  #   #   - "traefik.http.routers.auth.tls.certresolver=resolver"
+  #   ports: 
+  #     - ${CHAT_SERVER_PORT}:${CHAT_SERVER_PORT}
+  #   volumes:
+  #     - ./chat_backend:/app
+  #     - chat_backend_modules:/app/node_modules
+  #   networks:
+  #     - 100friends
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "0.3m"
+        
+  # chat_frontend:
+  #   build:
+  #     context: chat_frontend
+  #     target: development
+  #   container_name: 100f_chat_frontend
+  #   ports: 
+  #     - 3000:3000
+  #   # labels:
+  #   #   - "traefik.enable=true"
+  #   #   - "traefik.http.routers.frontend.rule=Host(`${HOST}`)"
+  #   #   - "traefik.http.routers.frontend.entrypoints=web, websecure"
+  #   #   - "traefik.http.routers.frontend.tls.certresolver=resolver"
+  #   # volumes:
+  #   #   - ./frontend/src:/code/src
+  #   #   - /code/node_modules
+  #   networks:
+  #     - 100friends
+  #   stdin_open: true
+  #   # depends_on:
+  #   #   - backend
+        
     
 volumes:
   neo4j_data:
-  server_modules:
+  chat_db:
+  gql_server_modules:
   auth_modules:
+  rabbit_data:
   bot_logs:
   
 networks:

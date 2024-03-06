@@ -1,0 +1,18 @@
+{
+    "profile": "Profile",
+    "words": "Words",
+    "settings": "Settings",
+    "photo": "Photo",
+    "name": "Name",
+    "city": "City",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "omit": "Omit",
+    "birthday": "Birthday",
+    "upload_photo_drag": "Drag photo here",
+    "upload_photo_click": " or press to upload",
+    "save": "Save",
+    "signout": "Sign out",
+    "do_good": "Do a good deed"
+}

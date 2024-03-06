@@ -55,4 +55,9 @@ dist
 
 .vscode
 
+*.bak
+*.bak/
+
 __debug_*
+
+friends-a2c14-*.json
