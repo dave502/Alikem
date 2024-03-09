@@ -1,16 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { varNeoUser } from '../../variables';
-import { gql, useQuery, useLazyQuery, useMutation, useReactiveVar } from "@apollo/client";
-import { useNavigate } from 'react-router-dom';
+import { gql, useQuery } from "@apollo/client";
 
 
 function NeoUser(props) {
     
     const { user } = props;
-    const [userAuthorized, setUserAuthorized] = useState(true);
-    const neoUser = useReactiveVar(varNeoUser);
-    const navigate = useNavigate();
-
       
     useEffect(() => {
       if (user){

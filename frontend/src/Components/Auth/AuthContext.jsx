@@ -8,7 +8,7 @@ import {
   signInWithCustomToken,
 } from "firebase/auth";
 import { varNeoUser } from '../../variables';
-import { gql, useQuery, useLazyQuery, useMutation, useReactiveVar } from "@apollo/client";
+import { gql, useQuery, useReactiveVar } from "@apollo/client";
 
 import auth from '../../Configs/firebase';
 
