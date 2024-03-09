@@ -89,7 +89,6 @@ services:
 
 
   neo4j:
-
     image: neo4j:5.15.0
     hostname: $NEO4_HOST
     container_name: al.neo4j
