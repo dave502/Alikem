@@ -194,23 +194,23 @@ services:
       options:
         max-size: "0.3m"
     
-  bot:
-    build:
-      context: ./bot
-      dockerfile: Dockerfile
-    container_name: al.bot
-    restart: on-failure
-    stop_signal: SIGINT
-    env_file:
-      - ./bot/.bot.env
-    volumes:
-      - bot_logs:/bot/logs
-    networks:
-      - alikem
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "0.3m"
+  # bot:
+  #   build:
+  #     context: ./bot
+  #     dockerfile: Dockerfile
+  #   container_name: al.bot
+  #   restart: on-failure
+  #   stop_signal: SIGINT
+  #   env_file:
+  #     - ./bot/.bot.env
+  #   volumes:
+  #     - bot_logs:/bot/logs
+  #   networks:
+  #     - alikem
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "0.3m"
 
   chat:
     build:
