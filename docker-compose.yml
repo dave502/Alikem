@@ -1,14 +1,10 @@
 version: '3.8'
 
-# Custom top-level network
-# networks:
-#   neo4j-internal:
-
 services:
 
   traefik:
     image: traefik:v2.10
-    container_name: 100f_traefik
+    container_name: al.traefik
     restart: unless-stopped
     command:
       - --api
@@ -22,7 +18,7 @@ services:
       - "--entrypoints.grpc.address=:50051"
       - "--certificatesresolvers.resolver.acme.tlschallenge=true"
       #- "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.resolver.acme.email=d.n.davtyan@gmail.com"
+      - "--certificatesresolvers.resolver.acme.email=${CERTIFICATE_EMAIL}"
       - "--certificatesresolvers.resolver.acme.storage=/letsencrypt/acme.json"
       - "--certificatesresolvers.resolver.acme.httpchallenge=true"
       - "--certificatesresolvers.resolver.acme.httpchallenge.entrypoint=web"
@@ -45,10 +41,10 @@ services:
       - "traefik.http.routers.redirect-router.entrypoints=websecure"
       - "traefik.http.routers.redirect-router.tls=true"
       - "traefik.http.routers.redirect-router.tls.certresolver=resolver"  
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=dave:$$apr1$$rylKatpr$$zWOmPJxqtkuFJjYoVW/8.1"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${BASICAUTH}"
       - "traefik.http.routers.redirect-router.rule=Host(`${HOST}`) && PathPrefix(`/__/auth/`)"
       - "traefik.http.routers.redirect-router.middlewares=redirect-regex"
-      - "traefik.http.middlewares.redirect-regex.redirectregex.regex=^https://100friends.ru/__/auth/(.*)" #(.)*"
+      - "traefik.http.middlewares.redirect-regex.redirectregex.regex=^https://alikem.com/__/auth/(.*)" #(.)*"
       - "traefik.http.middlewares.redirect-regex.redirectregex.replacement=https://friends-a2c14.firebaseapp.com/__/auth/$${1}"
       - "traefik.http.middlewares.redirect-regex.redirectregex.permanent=false"
       # - "traefik.http.middlewares.redirect-google.redirectregex.regex: `^https?://auth\\.100friends\\.ru/__/auth/handler`"
@@ -58,29 +54,20 @@ services:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
-      - 100friends
+      - alikem
     logging:
       driver: "json-file"
       options:
         max-size: "0.3m"
 
   neo4j:
-    # Docker image to be used
-    image: neo4j:5.15.0
 
-    # Hostname
+    image: neo4j:5.15.0
     hostname: $NEO4_HOST
-    container_name: 100f_neo4j
+    container_name: al.neo4j
     environment:
       NEO4J_AUTH: $NEO4_USER/$NEO4_PASS
-    # Service-level network, which specifies the networks, from the list of the top-level networks (in this case only neo4j-internal), that the server will connect to.
-    # Adds a network alias (used in neo4j.conf when configuring the discovery members)
-    # networks:
-    #   neo4j-internal:
-    #     aliases:
-    #       - neo4j-network
-
-    # The ports that will be accessible from outside the container - HTTP (7474) and Bolt (7687).
+    # HTTP (7474) ; Bolt (7687)
     ports:
       - "7474:7474"
       - "7687:7687"
@@ -91,20 +78,18 @@ services:
     # APOC ext https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/5.15.0
     # APOC core https://github.com/neo4j/apoc/releases/5.15.0
     
-    
-      # - ./neo4j/conf/neo4j.conf:/conf/neo4j.conf # This is the main configuration file.
-      # - ./neo4j/logs:/logs
-      # - ./neo4j/import/:/import
       - neo4j_data:/data
       - ./neo4j/plugins:/plugins
       - ./neo4j/conf:/conf
+      # - ./neo4j/conf/neo4j.conf:/conf/neo4j.conf 
+      # - ./neo4j/logs:/logs
+      # - ./neo4j/import/:/import
       #- ./metrics/server1:/metrics
       #- ./licenses/server1:/licenses
       #- ./ssl/server1:/ssl
-    # env_file:
-    #   - .env.neo4j
+
     networks:
-      - 100friends
+      - alikem
     tmpfs:
       - /var/lib/neo4j/run
     logging:
@@ -122,33 +107,6 @@ services:
     # # Set up the user
     # user: ${USER_ID}:${GROUP_ID}
     
-  # backend:
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.grpc.rule=Host(`rpc.${HOST}`)"
-  #     - "traefik.http.routers.grpc.entrypoints=grpc"
-  #     - "traefik.http.services.grpc.loadbalancer.server.scheme=h2c"
-  #     - "traefik.http.middlewares.mw-grpc.grpcweb.allowOrigins=*"
-  #     - "traefik.http.routers.grpc.middlewares=mw-grpc"
-  #     - "traefik.http.routers.grpc.tls.certresolver=resolver"
-  #     - "traefik.http.routers.grpc.tls=true"
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   # depends_on:
-  #   #   #- rabbitmq
-  #   #   - influxdb
-  #   container_name: 100f_backend
-  #   ports: [50051]
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - 100friends
-  #   logging:
-  #       driver: "json-file"
-  #       options:
-  #         max-size: "0.3m"
   
   gql_server:
     depends_on:
@@ -157,10 +115,8 @@ services:
     build:
       context: ./gql_server
       dockerfile: Dockerfile
-    container_name: 100f_graphql_server
+    container_name: al.gql_server
     restart: unless-stopped
-    # env_file:
-    #   - .env
     environment:
       NEO4_USER:  ${NEO4_USER}
       NEO4_PASS:  ${NEO4_PASS}
@@ -173,12 +129,11 @@ services:
       - "traefik.http.routers.gql_server.rule=Host(`${HOST}`) && PathPrefix(`/graphql`)"
       - "traefik.http.routers.server.tls.certresolver=resolver"
     ports: [4000]
-      #- 4000:4000
     volumes:
       - ./gql_server:/app
       - gql_server_modules:/app/node_modules
     networks:
-      - 100friends
+      - alikem
     logging:
       driver: "json-file"
       options:
@@ -192,12 +147,10 @@ services:
     build:
       context: ./auth
       dockerfile: Dockerfile
-    container_name: 100f_server_auth
+    container_name: al.auth_server
     restart: unless-stopped
     env_file:
       - ./auth/.auth.env
-    # environment:
-    #     REDIS_URL: ${REDIS_URL}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.auth.tls=true"  
@@ -205,12 +158,11 @@ services:
       - "traefik.http.routers.auth.rule=Host(`${HOST}`) && PathPrefix(`/auth/`)"
       - "traefik.http.routers.auth.tls.certresolver=resolver"
     ports: [8055]
-      #- 8055:8055
     volumes:
       - ./auth:/app
       - auth_modules:/app/node_modules
     networks:
-      - 100friends
+      - alikem
     logging:
       driver: "json-file"
       options:
@@ -220,8 +172,11 @@ services:
     build:
       context: frontend
       target: development
-    container_name: 100f_frontend
+    container_name: al.frontend
     ports: [3000]
+    depends_on:
+      - bot
+      - chat
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`${HOST}`)"
@@ -231,7 +186,7 @@ services:
       - ./frontend/src:/code/src
       - /code/node_modules
     networks:
-      - 100friends
+      - alikem
     stdin_open: true
     # depends_on:
     #   - backend
@@ -240,18 +195,15 @@ services:
     build:
       context: ./bot
       dockerfile: Dockerfile
-    container_name: 100f_bot
+    container_name: al.bot
     restart: on-failure
     stop_signal: SIGINT
     env_file:
       - ./bot/.bot.env
-    # depends_on:
-    #   - web
     volumes:
-      #- bot_data:/bot/db/sqlite
       - bot_logs:/bot/logs
-    # networks:
-    #   - 100friends
+    networks:
+      - alikem
     logging:
       driver: "json-file"
       options:
@@ -262,16 +214,13 @@ services:
       context: ./chat
       dockerfile: Dockerfile
     restart: unless-stopped
-    # depends_on:
-    #   # - rabbitmq
-    #   - influxdb
-    container_name: 100f_chat_server
+    container_name: al.chat_server
     env_file:
       - .env
     ports:
      - ${CHAT_SERVER_PORT:-9010}:${CHAT_SERVER_PORT:-9010}
     networks:
-      - 100friends
+      - alikem
     logging:
         driver: "json-file"
         options:
@@ -305,7 +254,7 @@ services:
   #   #   timeout: 30s
   #   #   retries: 3
   #   networks:
-  #     - 100friends
+  #     - alikem
   #   logging:
   #     driver: "json-file"
   #     options:
@@ -314,7 +263,7 @@ services:
         
   postgres:
     hostname: ${DB_HOST:-postgres}
-    container_name: postgres_container
+    container_name: al.postgres
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: ${DB_USERNAME:-postgres}
@@ -323,10 +272,9 @@ services:
       PGDATA: /data/postgres
     volumes:
        - chat_db:/data/postgres
-    ports:
-      - 5432:5432
+    ports: [5432]
     networks:
-      - 100friends
+      - alikem
     restart: unless-stopped
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -d chat_db -U ${DB_USERNAME:-postgres}" ]
@@ -342,69 +290,16 @@ services:
     ports:
       - 8080:8080  
     networks:
-      - 100friends
+      - alikem
         
-  # docker compose build --progress plain --no-cache chat_backend     
-  # docker-compose up --build &> logs.txt
-  
-  # chat_backend:
-  #   depends_on:
-  #     - chat_db
-  #   build:
-  #     context: ./chat_backend
-  #     dockerfile: Dockerfile
-  #   container_name: 100f_chat_backend
-  #   restart: unless-stopped
-  #   environment:
-  #       PORT: $CHAT_SERVER_PORT
-  #       MONGO_URI: $CHAT_DB_URI
-  #   # labels:
-  #   #   - "traefik.enable=true"
-  #   #   - "traefik.http.routers.auth.tls=true"  
-  #   #   - "traefik.http.routers.auth.entrypoints=websecure"
-  #   #   - "traefik.http.routers.auth.rule=Host(`${HOST}`) && PathPrefix(`/auth/`)"
-  #   #   - "traefik.http.routers.auth.tls.certresolver=resolver"
-  #   ports: 
-  #     - ${CHAT_SERVER_PORT}:${CHAT_SERVER_PORT}
-  #   volumes:
-  #     - ./chat_backend:/app
-  #     - chat_backend_modules:/app/node_modules
-  #   networks:
-  #     - 100friends
-  #   logging:
-  #     driver: "json-file"
-  #     options:
-  #       max-size: "0.3m"
-        
-  # chat_frontend:
-  #   build:
-  #     context: chat_frontend
-  #     target: development
-  #   container_name: 100f_chat_frontend
-  #   ports: 
-  #     - 3000:3000
-  #   # labels:
-  #   #   - "traefik.enable=true"
-  #   #   - "traefik.http.routers.frontend.rule=Host(`${HOST}`)"
-  #   #   - "traefik.http.routers.frontend.entrypoints=web, websecure"
-  #   #   - "traefik.http.routers.frontend.tls.certresolver=resolver"
-  #   # volumes:
-  #   #   - ./frontend/src:/code/src
-  #   #   - /code/node_modules
-  #   networks:
-  #     - 100friends
-  #   stdin_open: true
-  #   # depends_on:
-  #   #   - backend
-        
-    
+
 volumes:
   neo4j_data:
   chat_db:
   gql_server_modules:
   auth_modules:
-  # rabbit_data:
   bot_logs:
+  # rabbit_data:
   
 networks:
-  100friends:
+  alikem:
