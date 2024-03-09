@@ -17,7 +17,7 @@ const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 const client = new ApolloClient({
-  uri: "/graphql", 
+  uri: "/gql", 
   cache: new InMemoryCache(),
   });
 
