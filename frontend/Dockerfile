@@ -7,7 +7,7 @@ WORKDIR /code
 COPY package.json /code/package.json
 #COPY package-lock.json /code/package-lock.json
 #RUN npm ci
-RUN npm install
+RUN npm i
 COPY . /code
 
 CMD [ "npm", "start" ]
@@ -32,5 +32,18 @@ COPY --from=gloursdocker/docker / /
 CMD [ "npm", "start" ]
 
 FROM nginx:1.13-alpine
+
+ARG REACT_APP_FIREBASE_API_KEY
+ARG REACT_APP_FIREBASE_AUTH_DOMAIN
+ARG REACT_APP_FIREBASE_PROJECT_ID
+ARG REACT_APP_FIREBASE_STORAGE_BUCKET
+ARG REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+ARG REACT_APP_FIREBASE_APP_ID 
+
+RUN sh env_to_file.sh \
+    REACT_APP_FIREBASE_API_KEY=$REACT_APP_FIREBASE_API_KEY \
+    REACT_APP_FIREBASE_AUTH_DOMAIN=$REACT_APP_FIREBASE_AUTH_DOMAIN
+
+CMD ["cat", ".env"]
 
 COPY --from=builder /code/build /usr/share/nginx/html

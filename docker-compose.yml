@@ -65,6 +65,9 @@ services:
     build:
       context: frontend
       target: development
+      args:
+        REACT_APP_FIREBASE_API_KEY=$REACT_APP_FIREBASE_API_KEY
+        REACT_APP_FIREBASE_AUTH_DOMAIN=$REACT_APP_FIREBASE_AUTH_DOMAIN
     container_name: al.frontend
     ports: [3000]
     depends_on:
