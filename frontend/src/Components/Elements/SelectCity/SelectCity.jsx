@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, HStack, Input, Text, VisuallyHidden } from '@chakra-ui/react';
+import { Box, HStack, Text, VisuallyHidden } from '@chakra-ui/react';
 import Geonames from 'geonames.js';  // https://github.com/kinotto/geonames.js
 //import Script from 'react-load-script';
 import {

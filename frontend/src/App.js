@@ -16,11 +16,8 @@ import Profile from './Components/Pages/Profile/Profile';
 import Friends from './Components/Pages/Friends/Friends';
 import ViewProfile from './Components/Pages/Friends/Components/ViewProfile';
 // import auth from './Configs/firebase';
-
 // import { onAuthStateChanged, getRedirectResult } from "firebase/auth";
-
 // import NeoUser from './Components/Elements/Header/NeoUser';
-
 // theme.styles.global['font-family'] = 'roboto';
 
 function App() {

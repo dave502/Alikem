@@ -1,14 +1,13 @@
 // import { signOut, getRedirectResult, GoogleAuthProvider, signInWithCustomToken } from 'firebase/auth';
 import { Button, useToast } from "@chakra-ui/react"
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { gql, useQuery, useReactiveVar } from "@apollo/client";
+import { useReactiveVar } from "@apollo/client";
 import { varNeoUser } from '../../../variables';
 import { useAuth } from "../../Auth/AuthContext";
 
 const Signout = (props) => {
     //const {auth, user} = props;
     const toast = useToast();
-    const neoUser = useReactiveVar(varNeoUser);
     const { currentUser, logout } = useAuth();
     
     const signout = () => {

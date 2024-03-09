@@ -1,5 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, browserPopupRedirectResolver, signOut,
-    signInWithRedirect, getRedirectResult, EmailAuthProvider, GoogleAuthProvider  } from "firebase/auth";
+import { browserPopupRedirectResolver, signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
 import { Button } from '@chakra-ui/react';
 import IconGoogleSvg from "./IconGoogleSvg"
 import { useTranslation } from 'react-i18next';

@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { gql, useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import ResizeTextarea from "react-textarea-autosize";
+import { gql, useMutation } from "@apollo/client";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useTranslation } from "react-i18next";
 import {
     Container,
     FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     Textarea,
     Box,
     Progress,

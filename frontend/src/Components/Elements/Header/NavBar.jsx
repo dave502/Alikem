@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Text, Link, Flex, Stack, HStack, Center, Container, Button, IconButton, Image } from "@chakra-ui/react"
-
-
+import React from 'react';
+import { Box, Text, Flex, Stack, HStack, Container } from "@chakra-ui/react"
 import { CgMenuGridR as MenuIcon, CgCloseR as CloseIcon, CgProfile as Profile } from "react-icons/cg";
-
-import { RiChatSmile3Line as Chat, RiGhostFill } from "react-icons/ri";
+import { RiChatSmile3Line as Chat } from "react-icons/ri";
 import { FaUserFriends as Friends } from "react-icons/fa";
-//import MenuToggle from "./MenuToggleButtton"
-import {  useLocation } from 'react-router-dom'; // Link
 import { NavLink } from 'react-router-dom';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { LanguageSwitcher } from './LanguageSwitcher';

@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import IconMailSvg from "./IconMailSvg";
 import { useAuth } from '../../Auth/AuthContext';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import {
     Container,
     FormControl,

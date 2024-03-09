@@ -3,13 +3,9 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
-    MenuDivider,
-    Icon,
+    Text, 
+    IconButton
   } from '@chakra-ui/react'
-import { Box, Text, Link, Flex, Stack, HStack, Center, Container, Button, IconButton, Image } from "@chakra-ui/react"
 import { useTranslation } from "react-i18next";
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import IconLanguageSwitcher from "./IconLanguageSwitcher"

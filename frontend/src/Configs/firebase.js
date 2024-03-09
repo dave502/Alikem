@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics, setUserProperties } from "firebase/analytics";
+import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 
 // https://friends-a2c14.firebaseapp.com/__/auth/handler
@@ -12,6 +12,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
+
+console.log("firebaseConfig", firebaseConfig)
 
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
