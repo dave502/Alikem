@@ -128,7 +128,7 @@ services:
       - "traefik.http.routers.neo4j.tls=true"
       - "traefik.http.routers.neo4j.service=neo4j"
       - "traefik.http.routers.neo4j.entrypoints=support"
-      - "traefik.http.routers.neo4j.middlewares=neo4j-auth,security-headers-middleware"
+      - "traefik.http.routers.neo4j.middlewares=neo4j-auth"
       - "traefik.http.services.neo4j.loadbalancer.server.port=7474"
       - "traefik.http.middlewares.neo4j-auth.basicauth.users=${BASICAUTH}"
 
