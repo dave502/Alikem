@@ -1,7 +1,9 @@
 // ws/index.js
 let websocket = (newMessage, jwt) => {
   console.log("connecting")
-  var socket = new WebSocket(`ws://172.26.0.6:9010/v1/ws`);
+  const host = window.location.hostname;
+  console.log("const host", host)
+  var socket = new WebSocket("ws://" + host + "/chat/v1/ws");
 
   socket.onopen = () => {
     console.log("Successfully Connected");

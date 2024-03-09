@@ -221,12 +221,18 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     container_name: al.chat_server
+    hostname: ${CHAT_HOST:-chat}
     depends_on:
       - postgres
     env_file:
       - .env
-    ports:
-     - ${CHAT_SERVER_PORT:-9010}:${CHAT_SERVER_PORT:-9010}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth.tls=true"  
+      - "traefik.http.routers.auth.entrypoints=websecure"
+      - "traefik.http.routers.auth.rule=Host(`${HOST}`) && PathPrefix(`/chat`)"
+      - "traefik.http.routers.auth.tls.certresolver=resolver"
+    ports: [$CHAT_SERVER_PORT]
     networks:
       - alikem
     logging:
