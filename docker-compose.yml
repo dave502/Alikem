@@ -155,7 +155,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.gql_server.tls=true"  
       - "traefik.http.routers.gql_server.entrypoints=websecure"
-      - "traefik.http.routers.gql_server.rule=Host(`${HOST}`) && PathPrefix(`/graphql`)"
+      - "traefik.http.routers.gql_server.rule=Host(`${HOST}`) && PathPrefix(`/gql`)"
       - "traefik.http.routers.server.tls.certresolver=resolver"
     ports: [4000]
     volumes:

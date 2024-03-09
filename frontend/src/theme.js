@@ -8,7 +8,8 @@ const config = {
 
 
 const theme = extendTheme({
-  config
+  
+  //config
   // fonts: {
   //   heading: `'Merriweather', serif`,
   //   body: `'Merriweather', serif;`,

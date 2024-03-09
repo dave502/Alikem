@@ -9,7 +9,6 @@ import {
   InMemoryCache,
   ApolloProvider,
   } from "@apollo/client";
-//import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import theme from './theme'
 
 
@@ -18,7 +17,7 @@ const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 const client = new ApolloClient({
-  uri: "http://172.26.0.5:4000", //"/graphql",
+  uri: "/gql", 
   cache: new InMemoryCache(),
   });
 
