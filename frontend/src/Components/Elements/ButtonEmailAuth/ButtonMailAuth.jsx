@@ -24,7 +24,7 @@ function ButtonMaillAuth(props) {
     const [message, setMessage] = useState('');
     const [visibleLogin, setVisibleLogin] = useState(false);
     
-    const { login, register, verifyEmail, error } = useAuth();
+    const { login, register, verifyEmail, setError, error } = useAuth();
     const { t } = useTranslation();  
     
     useEffect(() => {
