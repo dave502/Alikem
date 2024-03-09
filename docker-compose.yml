@@ -115,7 +115,12 @@ services:
       #- ./metrics/server1:/metrics
       #- ./licenses/server1:/licenses
       #- ./ssl/server1:/ssl
-
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`neo4j.${HOST}`)"
+      - "traefik.http.routers.frontend.entrypoints=web, websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=resolver"
+      - "traefik.http.middlewares.neo4j-auth.basicauth.users=${BASICAUTH}"
     networks:
       - alikem
     tmpfs:

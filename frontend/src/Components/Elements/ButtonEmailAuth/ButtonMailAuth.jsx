@@ -73,7 +73,13 @@ function ButtonMaillAuth(props) {
         case "signin":
           
           setError("");
-          login(userEmail, password)
+          login(userEmail, password).
+          .catch((error) => {
+            if (error.message === "INVALID_EMAIL"){
+              setMessage(t("invalid email"))
+            }
+            setIsInvalid(true)
+          });
           break;
       }
     };

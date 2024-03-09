@@ -18,12 +18,6 @@ if (!process.env.JWT_SECRET){
   host = process.env.NEO4_HOST
 }
 
-//const typeDefs = readFileSync('./schema.graphql', { encoding: 'utf-8' });
-
-//const host = process.env.HOST ? "neo4j" : "127.0.0.1"
-
-console.log("neo4 host", host, "user", process.env.NEO4_USER, process.env.NEO4_PASS)
-
 const driver = neo4j.driver(
   `bolt://${host}:7687`,
   neo4j.auth.basic(process.env.NEO4_USER, process.env.NEO4_PASS)
