@@ -60,6 +60,31 @@ services:
       options:
         max-size: "0.3m"
 
+
+  frontend:
+    build:
+      context: frontend
+      target: development
+    container_name: al.frontend
+    ports: [3000]
+    depends_on:
+      - bot
+      - chat
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.frontend.entrypoints=web, websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=resolver"
+    volumes:
+      - ./frontend/src:/code/src
+      - /code/node_modules
+    networks:
+      - alikem
+    stdin_open: true
+    # depends_on:
+    #   - backend
+
+
   neo4j:
 
     image: neo4j:5.15.0
@@ -169,29 +194,6 @@ services:
       options:
         max-size: "0.3m"
     
-  frontend:
-    build:
-      context: frontend
-      target: development
-    container_name: al.frontend
-    ports: [3000]
-    depends_on:
-      - bot
-      - chat
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`${HOST}`)"
-      - "traefik.http.routers.frontend.entrypoints=web, websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=resolver"
-    volumes:
-      - ./frontend/src:/code/src
-      - /code/node_modules
-    networks:
-      - alikem
-    stdin_open: true
-    # depends_on:
-    #   - backend
-    
   bot:
     build:
       context: ./bot
@@ -216,6 +218,8 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     container_name: al.chat_server
+    depends_on:
+      - postgres
     env_file:
       - .env
     ports:
@@ -287,6 +291,7 @@ services:
 
   adminer:
     image: adminer
+    container_name: al.pgadminer
     restart: always
     ports:
       - 8080:8080  
