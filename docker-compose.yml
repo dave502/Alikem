@@ -116,6 +116,7 @@ services:
       context: ./gql_server
       dockerfile: Dockerfile
     container_name: al.gql_server
+    hostname: $GQL_HOST
     restart: unless-stopped
     environment:
       NEO4_USER:  ${NEO4_USER}
