@@ -13,6 +13,7 @@ import { EditIcon, CloseIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import ButtonGoogleAuth from '../../Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from '../../Elements/ButtonEmailAuth/ButtonMailAuth';
 import { varNeoUser } from '../../../variables';
+import './login.css';
 import {
   Container,
   Divider,

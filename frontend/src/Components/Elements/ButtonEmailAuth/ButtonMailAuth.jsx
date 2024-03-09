@@ -77,29 +77,6 @@ function ButtonMaillAuth(props) {
           login(userEmail, password)
           break;
       }
-
-      // try {
-      //   const res = await axios.post(endpoint, {
-      //     userEmail: userEmail,
-      //     password: password,
-      //   });
-
-      //   if (res.data.status) {
-      //     // const redirectTo = redirectTo + userEmail;
-      //     setRedirect(true);
-      //     setRedirectTo(redirectTo + userEmail);
-      //     //setState({ redirect: true, redirectTo });
-      //   } else {
-      //     // on failed
-      //     setMessage(res.data.message)
-      //     setIsInvalid(true)
-      //     //setState({ message: res.data.message, isInvalid: true });
-      //   }
-      // } catch (error) {
-      //   console.log(error);
-      //   setMessage('something went wrong')
-      //   setIsInvalid(true)
-      // }
     };
     
     const onChangeVisibleLogin = event => {
