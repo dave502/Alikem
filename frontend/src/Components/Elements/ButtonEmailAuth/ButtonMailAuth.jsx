@@ -24,12 +24,18 @@ function ButtonMaillAuth(props) {
     const [message, setMessage] = useState('');
     const [visibleLogin, setVisibleLogin] = useState(false);
     
-    const { login, register, verifyEmail, setError } = useAuth();
+    const { login, register, verifyEmail, error } = useAuth();
     const { t } = useTranslation();  
     
     useEffect(() => {
       setVisibleLogin(false)
     }, [])
+    
+    useEffect(() => {
+      if (error){
+        setMessage(error)
+      }
+    }, [error])
     
     // const endpoint = 'http://localhost:8080/register';
     
