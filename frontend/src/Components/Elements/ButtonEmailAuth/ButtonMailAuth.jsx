@@ -33,6 +33,7 @@ function ButtonMaillAuth(props) {
     
     useEffect(() => {
       if (error){
+        setIsInvalid(true)
         setMessage(error)
       }
     }, [error])
