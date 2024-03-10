@@ -64,7 +64,7 @@ const [gqlSetUserGood, { data, loading, error }] = useMutation(SET_USER_GOOD);
 
   const organisations = [
     {name: "Биосфера Балтики", country: "ru", description: "Центр реабилитации и реинтродукции диких животных", url: "https://balticbiosphere.ru"},
-    {name: "Дом-приют «Лохматые судьбы»", country: "ru", description: "Приют, помогающий обрести хозяев для кошек и собак", url: "https://lohmatiesudby.ru/"},
+    {name: "Реабилитационный центр морских млекопитающих «Тюлень»", country: "ru", description: "Первый в России центр спасения тюленей и других морских млнеопитающих", url: "https://largahelp.com"},
     {name: 'WWF',  country: "en", description: "The leading organization in wildlife conservation and endangered species.", url: "https://protect.worldwildlife.org/page/63250/donate/1"},
   ]
   
@@ -72,45 +72,6 @@ const [gqlSetUserGood, { data, loading, error }] = useMutation(SET_USER_GOOD);
     index: 1,
     count: steps.length,
   })
-
-  // on change of input, set the value to the message state
-  // const onChange = event => {
-  //   console.log(event.target.name )
-  //   if (event.target.name === "username") {
-  //     setUsername(event.target.value);
-  //   }
-  //   if (event.target.name === "password") {
-  //     setPassword(event.target.value);
-  //   }
-
-    //setState({ [event.target.name]: event.target.value });
-    //setMessage(event.target.value)
-  //};
-
-  // const onSubmit = async e => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const res = await axios.post(endpoint, {
-  //       username: username,
-  //       password: password,
-  //     });
-  //     if (res.data.status) {
-  //       // const redirectTo = redirectTo + username;
-  //       setRedirect(true);
-  //       setRedirectTo(redirectTo + username);
-  //       //setState({ redirect: true, redirectTo });
-  //     } else {
-  //       // on failed
-  //       setMessage(res.data.message)
-  //       setIsInvalid(true)
-  //       //setState({ message: res.data.message, isInvalid: true });
-  //     }
-  //   } catch (error) {
-  //     setMessage('something went wrong')
-  //     setIsInvalid(true)
-  //   }
-  // };
     
   const handleCardsFilter = (event) => setCardsFilter(event.target.value.toLowerCase())
   
@@ -125,25 +86,6 @@ const [gqlSetUserGood, { data, loading, error }] = useMutation(SET_USER_GOOD);
     .catch((error) => {
       console.log(error)
     });
-    // try {
-    //   const res = await axios.post(endpoint, {
-    //     username: username,
-    //     password: password,
-    //   });
-
-    //   console.log('register', res);
-    //   if (res.data.status) {
-
-    //   } else {
-    //     // on failed
-    //     setMessage(res.data.message)
-    //     setIsInvalid(true)
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   setMessage('something went wrong')
-    //   setIsInvalid(true)
-    // }
   };
   
   return (
@@ -206,19 +148,6 @@ const [gqlSetUserGood, { data, loading, error }] = useMutation(SET_USER_GOOD);
               <Button onClick={nextStep}>{t("do_good")}</Button>
             </CardFooter>
           </Card>)
-          // organisations.forEach(element => {
-          //               <Card>
-          //               <CardHeader>
-          //                 <Heading size='md'>Подари жизнь</Heading>
-          //               </CardHeader>
-          //               <CardBody>
-          //                 <Text fontSize='md'>Благотворительный Фонд Помощи Детям.</Text>
-          //               </CardBody>
-          //               <CardFooter>
-          //                 <Button>View here</Button>
-          //               </CardFooter>
-          //             </Card>
-          //   });
           }
         </SimpleGrid>
       </Container>

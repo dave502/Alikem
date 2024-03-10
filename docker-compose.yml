@@ -156,12 +156,6 @@ services:
       - "traefik.tcp.routers.neo4j-bolt.tls=true"  
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
   
-      
-      # - "traefik.http.routers.neo4j.rule=Host(`neo4j.${HOST}`)"
-      # - "traefik.http.routers.neo4j.entrypoints=websecure"
-      # - "traefik.http.routers.neo4j.tls.certresolver=resolver"
-      # - "traefik.http.routers.neo4j.middlewares=neo4j-auth"
-      # - "traefik.http.middlewares.neo4j-auth.basicauth.users=${BASICAUTH}"
     networks:
       - alikem
     tmpfs:
@@ -341,14 +335,14 @@ services:
 
 
 
-  adminer:
-    image: adminer
-    container_name: al.pgadminer
-    restart: always
-    ports:
-      - 8080:8080  
-    networks:
-      - alikem
+  # adminer:
+  #   image: adminer
+  #   container_name: al.pgadminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080  
+  #   networks:
+  #     - alikem
         
 
 volumes:
