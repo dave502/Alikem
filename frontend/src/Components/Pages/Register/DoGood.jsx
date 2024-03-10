@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../Auth/AuthContext';
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { useNavigate, useLocation  } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 

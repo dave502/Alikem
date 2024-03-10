@@ -3,15 +3,15 @@
 //https://gist.github.com/anonymous/6516521b1fb3b464534fbc30ea3573c2
 //https://firebase.google.com/docs/auth/web/google-signin?hl=ru
 
-import React, { Component, useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { gql, useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { Navigate, Link } from 'react-router-dom';
-import { EditIcon, CloseIcon, ExternalLinkIcon, ArrowRightIcon, } from '@chakra-ui/icons';
+import { EditIcon, ArrowRightIcon, } from '@chakra-ui/icons';
 import ButtonGoogleAuth from '../../Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from '../../Elements/ButtonEmailAuth/ButtonMailAuth';
-import { signOut, getRedirectResult, GoogleAuthProvider, signInWithCustomToken } from 'firebase/auth';
 import { useAuth } from '../../Auth/AuthContext';
+import { useTranslation } from "react-i18next";
 
 import {
   Container,
@@ -69,35 +69,9 @@ const ADD_USER_QUERY = gql`
   }
 `;
 
-// const ADD_USER_QUERY = gql`
-//   # Add user
-//   mutation createSocialId($social: Socials!, $uid: String!) {
-//     createSocialIds(input: 
-//       {
-//         social: $social,
-//         uid: $uid,
-//         user: { create: { node: { 
-//           approved: false,
-//           privateProfile: false } } }
-//       }
-//     ) 
-//     {
-//       info {
-//         nodesCreated
-//       }
-//       socialIds {
-//         user {
-//           userId
-//         }
-//       }
-//     }
-//   }
-// // `;
-
 
 function Register(props) {
 
-  // const { user } = props;
   const { currentUser, signInWithToken, logout } = useAuth();
   
   console.log("Register currentUser", currentUser);
@@ -116,6 +90,7 @@ function Register(props) {
   
   const timerIdRef = useRef(null);
   const telegramWrapperRef = useRef(null);
+  const { t } = useTranslation();
   
   const { loading: gqlUserLoading, 
           error: gqlUserError, 
@@ -262,12 +237,12 @@ function Register(props) {
 
     switch (resultEmailReg) {
       case "wait":
-        setMessage("Ожидание подтверждения email")
+        setMessage(t("wait_confirmation"))
         startPolling();
         break;
       case "verified":
         stopPolling();
-        setMessage("Подтверждение получено")
+        setMessage(t("got_confirmation"))
         localStorage.removeItem("email_confirmation")
         setReadyToMoveOn(true)
         break;
@@ -441,7 +416,7 @@ function Register(props) {
                   loadingText='Waiting...'
                   onClick={nextStep}
                 >
-                  Дальше
+                  {t("next")}
                 </Button>
               </Link>
             </Center>

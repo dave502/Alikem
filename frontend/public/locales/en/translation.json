@@ -41,5 +41,8 @@
     "register": "Registration",
     "signin": "Sign in",
     "checking": "Confirm",
-    "do_good": "Do a good deed"
+    "do_good": "Do a good deed",
+    "wait_confirmation": "Waiting for email confirmation",
+    "got_confirmation": "Confirmation received",
+    "next": "Next"
 }

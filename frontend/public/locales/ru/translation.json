@@ -41,5 +41,8 @@
     "register": "Регистрация",
     "signin": "Вход",
     "checking": "Подтвердить", 
-    "do_good": "Сделать добро"
+    "do_good": "Сделать добро",
+    "wait_confirmation": "Ожидание подтверждения email",
+    "got_confirmation": "Подтверждение получено",
+    "next": "Дальше"
 }
