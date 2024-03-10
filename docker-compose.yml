@@ -130,7 +130,7 @@ services:
       
       # Neo4j browser service
       - "traefik.http.routers.neo4j.rule=Host(`neo4j.${HOST}`)"
-      - "traefik.http.routers.neo4j.tls=true"
+      - "traefik.http.routers.neo4j.tls.certresolver=resolver"
       - "traefik.http.routers.neo4j.service=neo4j"
       - "traefik.http.routers.neo4j.entrypoints=websecure"
       - "traefik.http.routers.neo4j.middlewares=neo4j-auth"
@@ -139,7 +139,7 @@ services:
 
       # Neo4j bolt service for browser websocket
       - "traefik.http.routers.neo4j-bolt.rule=Host(`${HOST}`)"
-      - "traefik.http.routers.neo4j-bolt.tls=true"
+      - "traefik.http.routers.neo4j.tls.certresolver=resolver"
       - "traefik.http.routers.neo4j-bolt.service=neo4j-bolt"
       - "traefik.http.routers.neo4j-bolt.entrypoints=websecure"
       - "traefik.http.services.neo4j-bolt.loadbalancer.server.port=7687"
