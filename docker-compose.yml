@@ -138,7 +138,7 @@ services:
       - "traefik.http.middlewares.neo4j-auth.basicauth.users=${BASICAUTH}"
 
       # Neo4j bolt service for browser websocket
-      - "traefik.http.routers.neo4j-bolt.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.neo4j-bolt.rule=Host(`${HOST}`) && PathPrefix(`/neo4j`)"
       - "traefik.http.routers.neo4j-bolt.tls=true"  
       - "traefik.http.routers.neo4j-bolt.entrypoints=websecure"
       - "traefik.http.routers.neo4j-bolt.tls.certresolver=resolver"
