@@ -78,11 +78,11 @@ export function AuthProvider({ children }) {
         varNeoUser(neo_user)
       })
       .catch((error) => {
-        setError("gqlReadUserProfile error: " + error)
+        setError("gqlReadUserProfile error: " + error.message)
       });
     })
     .catch((error) => {
-      setError("signInWithEmailAndPassword error: " + error)
+      setError("signInWithEmailAndPassword error: " + error.message)
     });
   }
 
