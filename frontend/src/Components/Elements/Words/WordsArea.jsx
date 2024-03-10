@@ -52,7 +52,7 @@ function WordsArea(props) {
       }
     })
     .catch((error) => {
-      console.log("error", error)
+      console.log("error (user " + uid + " )", error.message)
     });
   };
   
