@@ -3,31 +3,20 @@ package main
 import (
 	"chat/dbconnection"
 	"fmt"
-	"html"
 
 	"net/http"
 	"os"
 
-	"chat/http_api/routes"
-	"chat/logger"
-	"chat/models"
-
-	level "github.com/sirupsen/logrus"
-	// "gorm.io/gorm/logger"
-	// 	"chat/services/rabbitmq"
-	/*"chat/dbconnection"
-	"fmt"
-
-	"net/http"
-	"os"
-	"github.com/rs/cors"
 	"chat/http_api/routes"
 	"chat/logger"
 	"chat/models"
 
 	"github.com/gorilla/mux"
-
-	level "github.com/sirupsen/logrus"*/)
+	"github.com/rs/cors"
+	level "github.com/sirupsen/logrus"
+	// "gorm.io/gorm/logger"
+	// 	"chat/services/rabbitmq"
+)
 
 func main() {
 	if err := run(); err != nil {
@@ -65,9 +54,7 @@ func run() error {
 	// }
 
 	// Setup app routes
-	//r := mux.NewRouter()
-	r := http.NewServeMux()
-	r.HandleFunc("/wschat/test", HomeHandler)
+	r := mux.NewRouter()
 	routes.RegisterChatRoutes(r)
 	routes.RegisterWebsocketRoute(r)
 
@@ -75,28 +62,19 @@ func run() error {
 	// loggingMiddleware := middlewares.LoggingMiddleware(logger)
 	// loggedRoutes := loggingMiddleware(r)
 	// handler := middlewares.Cors(loggedRoutes)
+	corsDebug := os.Getenv("CORS_DEBUG")
 
-	// corsDebug := os.Getenv("CORS_DEBUG")
-
-	// handler := cors.New(cors.Options{
-	// 	Debug:          (corsDebug == "true"),
-	// 	AllowedOrigins: []string{"*"},
-	// 	// AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
-	// 	// AllowedHeaders: []string{"Authorization", "content_type"},
-	// }).Handler(r)
+	handler := cors.New(cors.Options{
+		Debug:          (corsDebug == "true"),
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
+		AllowedHeaders: []string{"Authorization", "content_type"},
+	}).Handler(r)
 
 	// Start api server
 	port := os.Getenv("CHAT_SERVER_PORT")
 	logger.Info("Server is starting on port", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
-	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
-
-	// //http.HandleFunc("/", HomeHandler)
-	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
 
 	return err
-}
-
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 }

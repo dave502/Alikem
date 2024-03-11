@@ -2,6 +2,8 @@ package routes
 
 import (
 	"chat/logger"
+	"encoding/json"
+	"log"
 
 	"net/http"
 
@@ -9,22 +11,21 @@ import (
 
 	// "github.com/golang-jwt/jwt"
 	"github.com/golang-jwt/jwt"
-	// "github.com/gorilla/mux"
+	"github.com/gorilla/mux"
+	"github.com/ong-gtp/go-chat/http/responses"
+	"github.com/ong-gtp/go-chat/utils/errors"
 
 	// "github.com/ong-gtp/go-chat/http/responses"
 	"chat/websocket"
 	// "github.com/ong-gtp/go-chat/utils/errors"
 )
 
-var RegisterWebsocketRoute = func(router *http.ServeMux) {
+var RegisterWebsocketRoute = func(router *mux.Router) {
 	pool := websocket.NewPool()
-
-	logger.Trace("RegisterWebsocketRoute")
-
 	go pool.Start()
-	// sb := router.PathPrefix("/v1").Subrouter()
+	sb := router.PathPrefix("/wschat/v1").Subrouter()
 
-	router.HandleFunc("/v1/ws", func(w http.ResponseWriter, r *http.Request) {
+	sb.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		// jwtToken := r.URL.Query().Get("jwt")
 		// jwtSecret := os.Getenv("JWT_SECRET")
 		// token, err := jwt.Parse(jwtToken, func(token *jwt.Token) (interface{}, error) {
@@ -71,12 +72,12 @@ func serveWS(pool *websocket.Pool, w http.ResponseWriter, r *http.Request, claim
 	// go rabbitBroker.PublishMessage(requestBody)
 }
 
-// func handleWebsocketAuthenticationErr(w http.ResponseWriter, err error) {
-// 	logger.Trace("websocket authentication error: ", err)
-// 	w.WriteHeader(http.StatusUnauthorized)
-// 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-// 	res := responses.ErrorResponse{Message: err.Error(), Status: false, Code: http.StatusUnauthorized}
-// 	data, err := json.Marshal(res)
-// 	errors.ErrorCheck(err)
-// 	w.Write(data)
-// }
+func handleWebsocketAuthenticationErr(w http.ResponseWriter, err error) {
+	log.Println("websocket error: ", err)
+	w.WriteHeader(http.StatusUnauthorized)
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	res := responses.ErrorResponse{Message: err.Error(), Status: false, Code: http.StatusUnauthorized}
+	data, err := json.Marshal(res)
+	errors.ErrorCheck(err)
+	w.Write(data)
+}
