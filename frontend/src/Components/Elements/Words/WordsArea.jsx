@@ -16,7 +16,7 @@ import { ArrowRightIcon } from '@chakra-ui/icons';
 
 function WordsArea(props) {
     
-  const { setReady, uid } = props;
+  const { setReady, uid, isDisabled } = props;
   const [wordsCount, setWordsCount] = useState(0);
   const [words, setWords] = useState('');
   const [isWordsEnough, setWordsEnough] = useState(false);
@@ -65,26 +65,27 @@ function WordsArea(props) {
         <Progress colorScheme='green' size='sm' value={wordsCount} />
         <FormControl>
           <Textarea
-           minHeight="50vh"
-        //    colorScheme='green' 
-           focusBorderColor='green.600' 
-           css={{
-            '&::-webkit-scrollbar': {
-              width: '30',
-            },
-            '&::-webkit-scrollbar-track': {
-              width: '60px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: "green",
-              borderRadius: '24px',
-            },
-          }}
+            minHeight="50vh"
+            //    colorScheme='green' 
+            focusBorderColor='green.600' 
+            css={{
+              '&::-webkit-scrollbar': {
+                width: '30',
+              },
+              '&::-webkit-scrollbar-track': {
+                width: '60px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: "green",
+                borderRadius: '24px',
+              },
+            }}
             size='md'
             resize='vertical'
             value={words}
             onChange={countWords}
             placeholder={t("words_hint")}
+            isDisabled={isDisabled}
             // minRows={50}
             // as={ResizeTextarea}
           />

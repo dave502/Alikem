@@ -12,7 +12,6 @@ import (
 	"chat/models"
 
 	"github.com/gorilla/mux"
-	"github.com/rs/cors"
 	level "github.com/sirupsen/logrus"
 	// "gorm.io/gorm/logger"
 	// 	"chat/services/rabbitmq"
@@ -64,17 +63,18 @@ func run() error {
 	// handler := middlewares.Cors(loggedRoutes)
 	corsDebug := os.Getenv("CORS_DEBUG")
 
-	handler := cors.New(cors.Options{
-		Debug:          (corsDebug == "true"),
-		AllowedOrigins: []string{"*"},
-		AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
-		AllowedHeaders: []string{"Authorization", "content_type"},
-	}).Handler(r)
+	// handler := cors.New(cors.Options{
+	// 	Debug:          (corsDebug == "true"),
+	// 	AllowedOrigins: []string{"*"},
+	// 	AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
+	// 	AllowedHeaders: []string{"Authorization", "content_type"},
+	// }).Handler(r)
 
 	// Start api server
 	port := os.Getenv("CHAT_SERVER_PORT")
 	logger.Info("Server is starting on port", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
+	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 
 	return err
 }
