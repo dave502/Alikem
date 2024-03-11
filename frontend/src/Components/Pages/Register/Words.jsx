@@ -51,6 +51,16 @@ function Words(props) {
     index: 2,
     count: steps.length,
   })
+  
+  useEffect(() => {
+    if (!currentUser) {
+      if (socket != null) {
+        socket.close()
+      }
+      navigate("/login");
+    }
+    return
+  }, [currentUser, navigate]);
 
   
   return (

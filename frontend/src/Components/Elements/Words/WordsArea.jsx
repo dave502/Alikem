@@ -21,6 +21,7 @@ function WordsArea(props) {
   const [words, setWords] = useState('');
   const [isWordsEnough, setWordsEnough] = useState(false);
   const { t } = useTranslation();
+  
   const SET_USER_EMBEDDING = gql`
     mutation setUserEmbedding($uid: String!, $text: String!){
         setEmbedding(uid: $uid, text: $text) {
