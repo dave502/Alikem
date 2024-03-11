@@ -79,8 +79,8 @@ func run() error {
 	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
 	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 
-	http.HandleFunc("/", HomeHandler)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
+	//http.HandleFunc("/", HomeHandler)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 
 	return err
 }
