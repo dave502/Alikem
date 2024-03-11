@@ -3,6 +3,7 @@ package main
 import (
 	"chat/dbconnection"
 	"fmt"
+	"html"
 
 	"net/http"
 	"os"
@@ -54,6 +55,7 @@ func run() error {
 
 	// Setup app routes
 	r := mux.NewRouter()
+	r.HandleFunc("/", HomeHandler)
 	routes.RegisterChatRoutes(r)
 	routes.RegisterWebsocketRoute(r)
 
@@ -75,7 +77,11 @@ func run() error {
 	port := os.Getenv("CHAT_SERVER_PORT")
 	logger.Info("Server is starting on port", port)
 	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 
 	return err
+}
+
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 }
