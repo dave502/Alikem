@@ -223,8 +223,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.auth.entrypoints=websecure"
-      - "traefik.http.routers.auth.rule=HostSNI(`${HOST}`)"
-      #Host(`${HOST}`) && PathPrefix(`/auth`)"
+      - "traefik.http.routers.auth.rule=Host(`${HOST}`) && PathPrefix(`/auth`)"
       - "traefik.http.routers.auth.tls.certresolver=resolver"
     ports: [8055]
     volumes:
