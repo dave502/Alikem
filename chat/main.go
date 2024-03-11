@@ -11,7 +11,6 @@ import (
 	"chat/logger"
 	"chat/models"
 
-	"github.com/rs/cors"
 	level "github.com/sirupsen/logrus"
 	// "gorm.io/gorm/logger"
 	// 	"chat/services/rabbitmq"
@@ -20,7 +19,7 @@ import (
 
 	"net/http"
 	"os"
-
+	"github.com/rs/cors"
 	"chat/http_api/routes"
 	"chat/logger"
 	"chat/models"
@@ -76,14 +75,14 @@ func run() error {
 	// loggedRoutes := loggingMiddleware(r)
 	// handler := middlewares.Cors(loggedRoutes)
 
-	corsDebug := os.Getenv("CORS_DEBUG")
+	// corsDebug := os.Getenv("CORS_DEBUG")
 
-	handler := cors.New(cors.Options{
-		Debug:          (corsDebug == "true"),
-		AllowedOrigins: []string{"*"},
-		// AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
-		// AllowedHeaders: []string{"Authorization", "content_type"},
-	}).Handler(r)
+	// handler := cors.New(cors.Options{
+	// 	Debug:          (corsDebug == "true"),
+	// 	AllowedOrigins: []string{"*"},
+	// 	// AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
+	// 	// AllowedHeaders: []string{"Authorization", "content_type"},
+	// }).Handler(r)
 
 	// Start api server
 	port := os.Getenv("CHAT_SERVER_PORT")
