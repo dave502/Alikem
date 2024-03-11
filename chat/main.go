@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 
-	"chat/http_api/routes"
 	"chat/logger"
 	"chat/models"
 
@@ -56,8 +55,8 @@ func run() error {
 	// Setup app routes
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler)
-	routes.RegisterChatRoutes(r)
-	routes.RegisterWebsocketRoute(r)
+	// routes.RegisterChatRoutes(r)
+	// routes.RegisterWebsocketRoute(r)
 
 	// // Wrap routes with logging and cors middlewares
 	// loggingMiddleware := middlewares.LoggingMiddleware(logger)
