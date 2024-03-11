@@ -81,8 +81,8 @@ func run() error {
 	handler := cors.New(cors.Options{
 		Debug:          (corsDebug == "true"),
 		AllowedOrigins: []string{"*"},
-		AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
-		AllowedHeaders: []string{"Authorization", "content_type"},
+		// AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
+		// AllowedHeaders: []string{"Authorization", "content_type"},
 	}).Handler(r)
 
 	// Start api server
