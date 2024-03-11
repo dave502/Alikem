@@ -54,9 +54,6 @@ function Words(props) {
   
   useEffect(() => {
     if (!currentUser) {
-      if (socket != null) {
-        socket.close()
-      }
       navigate("/login");
     }
     return
