@@ -78,6 +78,8 @@ services:
       - "traefik.http.routers.frontend.rule=Host(`${HOST}`)"
       - "traefik.http.routers.frontend.entrypoints=web, websecure"
       - "traefik.http.routers.frontend.tls.certresolver=resolver"
+      - "traefik.http.routers.frontend.tls=true"  
+      - "traefik.docker.network=alikem"
     volumes:
       - ./frontend/src:/code/src
       - /code/node_modules
@@ -270,6 +272,7 @@ services:
       - "traefik.http.routers.chat.rule=Host(`${HOST}`) && PathPrefix(`/wschat`)"
       - "traefik.http.routers.chat.tls.certresolver=resolver"
       - "traefik.http.routers.chat.tls=true"
+      - "traefik.docker.network=alikem"
       # - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https,wss"
       # - "traefik.http.routers.chat.middlewares=sslheader"
     ports: [$CHAT_SERVER_PORT]
