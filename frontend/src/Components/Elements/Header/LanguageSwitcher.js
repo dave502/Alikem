@@ -39,12 +39,10 @@ export const LanguageSwitcher = props => {
           {...props}
         />
         <MenuList minW='32px' p='1' border='0' >
-          <MenuItem p='0' onClick={() => i18n.changeLanguage('en')} isActive={i18n.language === 'en'}>
-            <IconEn/>
+          <MenuItem icon={<IconEn />} p='0' onClick={() => i18n.changeLanguage('en')} isDisabled={i18n.language === 'en'}>
             <Text px='2' m='0'>En</Text>
           </MenuItem>
-          <MenuItem p='0' onClick={() => i18n.changeLanguage('ru')} isActive={i18n.language === 'ru'}>
-            <IconRu/>
+          <MenuItem icon={<IconRu />} p='0' onClick={() => i18n.changeLanguage('ru')} isDisabled={i18n.language === 'ru'}>
             <Text px='2' m='0'>Ru</Text>
           </MenuItem>
         </MenuList>
