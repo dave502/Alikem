@@ -1,8 +1,10 @@
 // ws/index.js
 let websocket = (newMessage, jwt) => {
-  console.log("connecting")
+  
   const host = window.location.hostname;
-  console.log("const host", "wss://" + host + "/wschat/v1/ws")
+  
+  console.log("connecting to", "wss://" + host + "/wschat/v1/ws");
+  
   var socket = new WebSocket("wss://" + host + "/wschat/v1/ws");
 
   socket.onopen = () => {
