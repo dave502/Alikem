@@ -80,7 +80,7 @@ func run() error {
 	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 
 	http.HandleFunc("/", HomeHandler)
-	http.ListenAndServe(":9010", nil)
+	http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 
 	//return err
 	return nil
