@@ -61,7 +61,8 @@ func run() error {
 	// loggingMiddleware := middlewares.LoggingMiddleware(logger)
 	// loggedRoutes := loggingMiddleware(r)
 	// handler := middlewares.Cors(loggedRoutes)
-	corsDebug := os.Getenv("CORS_DEBUG")
+
+	// corsDebug := os.Getenv("CORS_DEBUG")
 
 	// handler := cors.New(cors.Options{
 	// 	Debug:          (corsDebug == "true"),
