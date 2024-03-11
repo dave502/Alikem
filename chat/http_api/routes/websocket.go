@@ -2,8 +2,6 @@ package routes
 
 import (
 	"chat/logger"
-	"encoding/json"
-	"log"
 
 	"net/http"
 
@@ -12,8 +10,6 @@ import (
 	// "github.com/golang-jwt/jwt"
 	"github.com/golang-jwt/jwt"
 	"github.com/gorilla/mux"
-	"github.com/ong-gtp/go-chat/http/responses"
-	"github.com/ong-gtp/go-chat/utils/errors"
 
 	// "github.com/ong-gtp/go-chat/http/responses"
 	"chat/websocket"
@@ -22,6 +18,9 @@ import (
 
 var RegisterWebsocketRoute = func(router *mux.Router) {
 	pool := websocket.NewPool()
+
+	logger.Trace("RegisterWebsocketRoute")
+
 	go pool.Start()
 	sb := router.PathPrefix("/v1").Subrouter()
 
@@ -63,8 +62,6 @@ func serveWS(pool *websocket.Pool, w http.ResponseWriter, r *http.Request, claim
 	wsReader := &websocket.WSReader{
 		Connection: conn,
 		Pool:       pool,
-		// Email:      claims["Email"].(string),
-		// UserID:     uint(claims["UserID"].(float64)),
 	}
 
 	pool.Register <- wsReader
@@ -74,12 +71,12 @@ func serveWS(pool *websocket.Pool, w http.ResponseWriter, r *http.Request, claim
 	// go rabbitBroker.PublishMessage(requestBody)
 }
 
-func handleWebsocketAuthenticationErr(w http.ResponseWriter, err error) {
-	log.Println("websocket error: ", err)
-	w.WriteHeader(http.StatusUnauthorized)
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	res := responses.ErrorResponse{Message: err.Error(), Status: false, Code: http.StatusUnauthorized}
-	data, err := json.Marshal(res)
-	errors.ErrorCheck(err)
-	w.Write(data)
-}
+// func handleWebsocketAuthenticationErr(w http.ResponseWriter, err error) {
+// 	logger.Trace("websocket authentication error: ", err)
+// 	w.WriteHeader(http.StatusUnauthorized)
+// 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+// 	res := responses.ErrorResponse{Message: err.Error(), Status: false, Code: http.StatusUnauthorized}
+// 	data, err := json.Marshal(res)
+// 	errors.ErrorCheck(err)
+// 	w.Write(data)
+// }

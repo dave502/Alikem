@@ -32,6 +32,9 @@ func NewPool() *Pool {
 }
 
 func (p *Pool) Start() {
+
+	logger.Trace("Pool Start")
+
 	defer p.ReviveWebsocket()
 	for {
 		select {

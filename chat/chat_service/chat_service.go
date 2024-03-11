@@ -36,8 +36,6 @@ func (c *chat) ChatMessages(chatId string) (ChatMessagesResponse, error) {
 	var msgModel models.Message
 	_ = msgModel.List(chatId, &msgList)
 
-	// fmt.Printf("type of returnec value msgModel.List : %T\n", err)
-	// logger.PanicIfErr(err)
 	// transform chats
 	chatMsgList := []Message{}
 	for _, msg := range msgList {
