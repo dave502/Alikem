@@ -5,7 +5,7 @@ let websocket = (newMessage, jwt) => {
   
   console.log("connecting to", "wss://" + host + "/wschat/v1/ws");
   
-  var socket = new WebSocket("wss://" + host + "/wschat/v1/ws");
+  var socket = new WebSocket("host" + "/wschat/v1/ws");
 
   socket.onopen = () => {
     console.log("Successfully Connected");
