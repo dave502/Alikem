@@ -67,7 +67,7 @@ func run() error {
 	// Setup app routes
 	//r := mux.NewRouter()
 	r := http.NewServeMux()
-	r.HandleFunc("/test", HomeHandler)
+	r.HandleFunc("/wschat/test", HomeHandler)
 	routes.RegisterChatRoutes(r)
 	routes.RegisterWebsocketRoute(r)
 
