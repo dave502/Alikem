@@ -12,10 +12,23 @@ import (
 	"chat/models"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	level "github.com/sirupsen/logrus"
 	// "gorm.io/gorm/logger"
 	// 	"chat/services/rabbitmq"
-)
+	/*"chat/dbconnection"
+	"fmt"
+
+	"net/http"
+	"os"
+
+	"chat/http_api/routes"
+	"chat/logger"
+	"chat/models"
+
+	"github.com/gorilla/mux"
+
+	level "github.com/sirupsen/logrus"*/)
 
 func main() {
 	if err := run(); err != nil {
@@ -63,23 +76,23 @@ func run() error {
 	// loggedRoutes := loggingMiddleware(r)
 	// handler := middlewares.Cors(loggedRoutes)
 
-	// corsDebug := os.Getenv("CORS_DEBUG")
+	corsDebug := os.Getenv("CORS_DEBUG")
 
-	// handler := cors.New(cors.Options{
-	// 	Debug:          (corsDebug == "true"),
-	// 	AllowedOrigins: []string{"*"},
-	// 	AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
-	// 	AllowedHeaders: []string{"Authorization", "content_type"},
-	// }).Handler(r)
+	handler := cors.New(cors.Options{
+		Debug:          (corsDebug == "true"),
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PATCH", "DELETE"},
+		AllowedHeaders: []string{"Authorization", "content_type"},
+	}).Handler(r)
 
 	// Start api server
 	port := os.Getenv("CHAT_SERVER_PORT")
 	logger.Info("Server is starting on port", port)
-	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
 	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 
-	//http.HandleFunc("/", HomeHandler)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
+	// //http.HandleFunc("/", HomeHandler)
+	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 
 	return err
 }
