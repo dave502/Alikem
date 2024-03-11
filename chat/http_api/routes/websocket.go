@@ -9,22 +9,22 @@ import (
 
 	// "github.com/golang-jwt/jwt"
 	"github.com/golang-jwt/jwt"
-	"github.com/gorilla/mux"
+	// "github.com/gorilla/mux"
 
 	// "github.com/ong-gtp/go-chat/http/responses"
 	"chat/websocket"
 	// "github.com/ong-gtp/go-chat/utils/errors"
 )
 
-var RegisterWebsocketRoute = func(router *mux.Router) {
+var RegisterWebsocketRoute = func(router *http.ServeMux) {
 	pool := websocket.NewPool()
 
 	logger.Trace("RegisterWebsocketRoute")
 
 	go pool.Start()
-	sb := router.PathPrefix("/v1").Subrouter()
+	// sb := router.PathPrefix("/v1").Subrouter()
 
-	sb.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/v1/ws", func(w http.ResponseWriter, r *http.Request) {
 		// jwtToken := r.URL.Query().Get("jwt")
 		// jwtSecret := os.Getenv("JWT_SECRET")
 		// token, err := jwt.Parse(jwtToken, func(token *jwt.Token) (interface{}, error) {

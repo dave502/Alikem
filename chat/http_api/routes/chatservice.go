@@ -1,15 +1,14 @@
 package routes
 
 import (
-	"github.com/gorilla/mux"
-
 	"chat/chat_service"
 	"chat/logger"
+	"net/http"
 )
 
-var RegisterChatRoutes = func(router *mux.Router) {
+var RegisterChatRoutes = func(router *http.ServeMux) {
 
-	sb := router.PathPrefix("/v1/api/chat").Subrouter()
+	//sb := router.PathPrefix("/v1/api/chat").Subrouter()
 	// sb.Use(middlewares.HeaderMiddleware)
 	// sb.Use(middlewares.Authenticated)
 
@@ -17,5 +16,6 @@ var RegisterChatRoutes = func(router *mux.Router) {
 
 	logger.Trace("call RegisterChatRoutes")
 
-	sb.HandleFunc("/messages", chat_serv.HttpChatMessages).Methods("GET")
+	router.HandleFunc("/v1/api/chat/messages", chat_serv.HttpChatMessages)
+	//.Methods("GET")
 }
