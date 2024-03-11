@@ -267,7 +267,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.chat.entrypoints=websecure"
-      - "traefik.http.routers.chat.rule=Host(`${HOST}`) && PathPrefix(`/chat`)"
+      - "traefik.http.routers.chat.rule=Host(`${HOST}`) && PathPrefix(`/wschat`)"
       - "traefik.http.routers.chat.tls.certresolver=resolver"
     ports: [$CHAT_SERVER_PORT]
     networks:

@@ -46,21 +46,21 @@ const GET_USER_QUERY = gql`
     }
   }
 `;
-// good
+
 
    
 function Login(props) {
   
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [isInvalid, setIsInvalid] = useState('');
-  const [redirect, setRedirect] = useState(false); 
-  const [redirectTo, setRedirectTo] = useState('/profile'); 
-  const [token, setToken] = useState(''); 
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [message, setMessage] = useState('');
+  // const [isInvalid, setIsInvalid] = useState('');
+  // const [redirect, setRedirect] = useState(false); 
+  // const [redirectTo, setRedirectTo] = useState('/profile'); 
+  // const [token, setToken] = useState(''); 
   const [googleUser, setGoogleUser] = useState('');
   const [loginError, setLoginError] = useState('');
-  // const [user, setUser] = useState();
+  
   
   const { currentUser, login, setError } = useAuth();
   
@@ -193,19 +193,11 @@ function Login(props) {
                     leftIcon={<EditIcon/>}
                     colorScheme="green"
                     variant='link'
-                    //onClick={SignIn}
-                    //variant="solid"
-                    //type="button"
-                    // height='48px'
-                    // width='200px'      
-                    // fontSize='16px' 
-                    //onClick={GoogleToggleSignIn}
                 >  {t("register")}
                 </Button>
               </Link>          
             </Center>
           </Stack>
-
         </Box>
       </Container>
     </Container>

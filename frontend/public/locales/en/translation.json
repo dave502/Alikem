@@ -11,7 +11,10 @@
     "female": "Female",
     "omit": "Do not specify",
     "birthday": "Birthday",
+    "age": "Age",
     "upload_photo": "Drag photo here or click to upload",
+    "upload_photo_drag": "Drag photo here",
+    "upload_photo_click": "or click to upload",
     "save": "Save",
     "signout": "Sign out",
     "words_hint": "Write at least one hundred words or phrases.\nWrite each on a new line.",
@@ -44,5 +47,6 @@
     "do_good": "Do a good deed",
     "wait_confirmation": "Waiting for email confirmation",
     "got_confirmation": "Confirmation received",
-    "next": "Next"
+    "next": "Next",
+    "no_recommendations": "No recommendations found"
 }

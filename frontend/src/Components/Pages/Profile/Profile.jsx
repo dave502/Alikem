@@ -5,14 +5,7 @@ import Signout from  '../../Elements/Header/Signout';
 import { useAuth } from '../../Auth/AuthContext';
 import { varNeoUser } from '../../../variables';
 import { gql, useQuery, useLazyQuery, useMutation, useReactiveVar } from "@apollo/client";
-import {
-  Grid,
-  GridItem,
-  Center,
-  Spacer,
-  Flex,
-  VStack
-} from '@chakra-ui/react';
+import { Center, Flex, VStack } from '@chakra-ui/react';
 import { useTranslation } from "react-i18next";
 import { Tabs, TabList, TabPanels, Tab, TabPanel, useToast, useColorModeValue } from '@chakra-ui/react'
 import WordsArea from '../../Elements/Words/WordsArea';
@@ -20,11 +13,11 @@ import WordsArea from '../../Elements/Words/WordsArea';
 
 function Profile(props) {
 
-  const [userData, setUserData] = useState(); 
-  const [params, setParams] = useSearchParams();
+  // const [userData, setUserData] = useState(); 
+  // const [params, setParams] = useSearchParams();
+  // const neoUser = useReactiveVar(varNeoUser);
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-  const neoUser = useReactiveVar(varNeoUser);
   const toast = useToast();
   const { t } = useTranslation();
   const newUser = true;
@@ -32,9 +25,10 @@ function Profile(props) {
   useEffect(() => {
     if (!currentUser) {
         navigate("/login");
+        return;
       }
   }, [currentUser, navigate]);
-  
+    
   
   const UPDATE_USER_POFILE = gql`
   mutation updateUser($uid: String!, 
@@ -105,68 +99,37 @@ function Profile(props) {
       
   return (
     <>
-    <Tabs defaultIndex={0} colorScheme="green">
-    <Center  bg={bgTabBar}>
-    <TabList>
-      <Tab>{t("profile")}</Tab>
-      <Tab>{t("words")}</Tab>
-      <Tab>{t("settings")}</Tab>
-      <Flex position={"absolute"} right="5"><Signout/></Flex>
-    </TabList>
-    </Center>
-
-  <TabPanels>
-    <TabPanel>
-      <VStack>
-        { currentUser?.uid&&
-        <ProfileForm 
-            uid={currentUser.uid}
-            updateUserProfile={updateUserProfile}/>
-        }
-      </VStack>
-    </TabPanel>
-    <TabPanel>
-      { currentUser?.uid&&
-        <WordsArea uid={currentUser.uid} setReady={swowWordsSavedMessage}/>
-      }
-    </TabPanel>
-    <TabPanel>
-      {t("settings")}
-    </TabPanel>
-  </TabPanels>
-</Tabs>
-    
-    {/* <Grid
-      templateAreas={`"header header"
-                      "main main"
-                      "footer footer"`}
-      gridTemplateRows={'50px 1fr 30px'}
-      gridTemplateColumns={'250px 1fr'}
-      h='200px'
-      gap='1'
-      color='blackAlpha.700'
-      fontWeight='bold'
-    >
-      <GridItem pl='2' bg='green.50' area={'header'}>
-        <Flex>
-        <Spacer/>
-          <Signout auth={auth} user={user}/>
-        </Flex>
-      </GridItem>
-      <GridItem pl='2' area={'nav'}>
-     
-      </GridItem>
-      <GridItem pl='2' area={'main'} >
-        <Center>
-        <ProfileForm 
-          {...userData}
-          updateUserProfile={updateUserProfile}/>
+      <Tabs defaultIndex={0} colorScheme="green">
+        <Center  bg={bgTabBar}>
+        <TabList>
+          <Tab>{t("profile")}</Tab>
+          <Tab>{t("words")}</Tab>
+          <Tab>{t("settings")}</Tab>
+          <Flex position={"absolute"} right="5"><Signout/></Flex>
+        </TabList>
         </Center>
-      </GridItem>
-      <GridItem pl='2' area={'footer'}>
 
-      </GridItem> 
-    </Grid> */}
+        <TabPanels>
+          <TabPanel>
+            <VStack>
+              { currentUser?.uid&&
+              <ProfileForm 
+                  uid={currentUser.uid}
+                  updateUserProfile={updateUserProfile}/>
+              }
+            </VStack>
+          </TabPanel>
+          <TabPanel>
+            { currentUser?.uid&&
+              <WordsArea uid={currentUser.uid} setReady={swowWordsSavedMessage} isDisabled={true}/>
+            }
+          </TabPanel>
+          <TabPanel>
+            {t("settings")}
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+
     </>
   );
 }

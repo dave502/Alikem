@@ -79,7 +79,7 @@ export default function Chat(props) {
   const { t } = useTranslation();
   const location = useLocation();
   
-  const wsChatURL = "/chat"
+  const wsChatURL = "/wschat"
   
   const scrollToLastMessage = () => {
     refLastMessage.current?.scrollIntoView({ behavior: "smooth" })

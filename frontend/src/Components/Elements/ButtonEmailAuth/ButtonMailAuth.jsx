@@ -98,11 +98,7 @@ function ButtonMaillAuth(props) {
             leftIcon={<IconMailSvg/>}
             colorScheme="green"
             variant="outline"
-            type="button"
-            // height='48px'
-            // width='200px'      
-            // fontSize='16px' 
-            
+            type="button"          
             onClick={onChangeVisibleLogin}
         >   
     
@@ -149,7 +145,7 @@ function ButtonMaillAuth(props) {
             </FormControl>  
             <Center pt="20px">
             <Button
-              size="s"
+              size= {mode === "signup"? "s" : "lg"}
               p='2'
               colorScheme="green"
               variant="solid"

@@ -107,11 +107,11 @@ function ButtonGoogleAuth(props) {
   return (
     <Button
         size="lg"
+        minW='280px'   
         leftIcon={<IconGoogleSvg/>}
+        colorScheme="green"  
         variant="outline"
-        type="button"
-        colorScheme="green"
-        width='280px'            
+        type="button"      
         onClick={GoogleSignIn}
         isDisabled
     >   

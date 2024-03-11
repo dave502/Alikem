@@ -43,7 +43,7 @@ function SearchForm(props) {
     const [city, setCity] = useState(neoUser?.city);
     const [cityID, setCityID] = useState(neoUser?.cityID);
     const [minAge, setMinAge] = useState(0);
-    const [maxAge, setMaxAge] = useState(0);
+    const [maxAge, setMaxAge] = useState(100);
     
     useEffect(() => {
       const userAge = getAge(neoUser.birthday)
@@ -96,11 +96,11 @@ function SearchForm(props) {
         initialValues={{ 
                         similarity: similarity,
                         gender: gender, 
-                        city: city, 
-                        cityID: cityID, 
+                        city: city || "", 
+                        cityID: cityID || 0, 
                         // location: location,
-                        minAge: minAge,
-                        maxAge: maxAge,
+                        minAge: minAge || 0,
+                        maxAge: maxAge || 100,
                       }}
         onSubmit={async (values, { setSubmitting }) => {
           await new Promise((r) => setTimeout(r, 500));
