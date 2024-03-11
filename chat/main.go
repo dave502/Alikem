@@ -77,7 +77,10 @@ func run() error {
 	port := os.Getenv("CHAT_SERVER_PORT")
 	logger.Info("Server is starting on port", port)
 	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
+	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
+
+	http.HandleFunc("/", HomeHandler)
+	http.ListenAndServe(":9010", nil)
 
 	return err
 }
