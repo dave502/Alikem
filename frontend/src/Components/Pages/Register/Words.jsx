@@ -57,6 +57,8 @@ function Words(props) {
       navigate("/login");
     }
   }, [currentUser, navigate]);
+  
+  if (!currentUser) navigate("/login");
 
   
   return (
