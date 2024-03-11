@@ -69,7 +69,7 @@ services:
         - REACT_APP_FIREBASE_API_KEY=$REACT_APP_FIREBASE_API_KEY
         - REACT_APP_FIREBASE_AUTH_DOMAIN=$REACT_APP_FIREBASE_AUTH_DOMAIN
     environment:
-        - WDS_SOCKET_PORT=3001
+        - WDS_SOCKET_PORT=0
     container_name: al.frontend
     ports: [3000]
     depends_on:
