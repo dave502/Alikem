@@ -80,10 +80,9 @@ func run() error {
 	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 
 	http.HandleFunc("/", HomeHandler)
-	http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 
-	//return err
-	return nil
+	return err
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
