@@ -59,10 +59,10 @@ function Words(props) {
     }
   }, [currentUser, navigate]);
   
-  // if (!currentUser) {
-  //   navigate("/login");
-  //   return;
-  // }
+  if (!currentUser) {
+    navigate("/login");
+    return;
+  }
 
   
   return (
