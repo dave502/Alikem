@@ -82,7 +82,8 @@ func run() error {
 	http.HandleFunc("/", HomeHandler)
 	http.ListenAndServe(":9010", nil)
 
-	return err
+	//return err
+	return nil
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
