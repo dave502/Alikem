@@ -56,7 +56,6 @@ function Words(props) {
     if (!currentUser) {
       navigate("/login");
     }
-    return
   }, [currentUser, navigate]);
 
   
