@@ -11,7 +11,6 @@ import (
 	"chat/logger"
 	"chat/models"
 
-	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 	level "github.com/sirupsen/logrus"
 	// "gorm.io/gorm/logger"
@@ -66,7 +65,8 @@ func run() error {
 	// }
 
 	// Setup app routes
-	r := mux.NewRouter()
+	//r := mux.NewRouter()
+	r := http.NewServeMux()
 	r.HandleFunc("/", HomeHandler)
 	// routes.RegisterChatRoutes(r)
 	// routes.RegisterWebsocketRoute(r)
@@ -88,7 +88,7 @@ func run() error {
 	// Start api server
 	port := os.Getenv("CHAT_SERVER_PORT")
 	logger.Info("Server is starting on port", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 	// err := http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 
 	// //http.HandleFunc("/", HomeHandler)
