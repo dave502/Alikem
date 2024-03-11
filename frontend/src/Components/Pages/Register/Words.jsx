@@ -55,10 +55,14 @@ function Words(props) {
   useEffect(() => {
     if (!currentUser) {
       navigate("/login");
+      return;
     }
   }, [currentUser, navigate]);
   
-  if (!currentUser) navigate("/login");
+  if (!currentUser) {
+    navigate("/login");
+    return;
+  }
 
   
   return (
