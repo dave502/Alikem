@@ -15,8 +15,8 @@ import DoGood from './Components/Pages/Register/DoGood';
 import Profile from './Components/Pages/Profile/Profile';
 import Friends from './Components/Pages/Friends/Friends';
 import ViewProfile from './Components/Pages/Friends/Components/ViewProfile';
+import CookieConsentBottom from "./Tools/cookie_consent"
 
-import CookieConsent from "react-cookie-consent";
 
 // import auth from './Configs/firebase';
 // import { onAuthStateChanged, getRedirectResult } from "firebase/auth";
@@ -64,17 +64,7 @@ function App() {
       <Box textAlign="center" fontSize="xl">
         <BrowserRouter>
           <Header auth={firebaseAuth} user={user}/>
-          <CookieConsent
-            location="bottom"
-            buttonText="I agree"
-            cookieName="AlikemCookieConsent"
-            style={{ background: "#2B373B" }}
-            buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
-            expires={150}
-            debug={true}
-            >
-              This website uses cookies to enhance the user experience.
-          </CookieConsent>
+          <CookieConsentBottom/>
           <Routes>
             <Route path="/" element={user ? <Navigate to="/chat" replace /> : <Navigate to="/login" replace/>}/>
             <Route path="/register" element={<Register auth={firebaseAuth} user={user}/>} />
