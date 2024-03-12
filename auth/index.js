@@ -25,7 +25,6 @@ server.post("/auth/get-jwt", function(req, res) {
   
   auth.createCustomToken(uid, additionalClaims)
     .then((token) => {
-      console.log('resp token:', token);
       res.status(200).json({token, success: true});
     })
     .catch((error) => {

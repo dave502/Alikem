@@ -137,7 +137,7 @@ function Register() {
       })//
         .then(res => {
           console.log("res.data.token", res.data.token)
-          signInWithToken("tg::"+tg_user.id)
+          signInWithToken(res.data.token)
             .then((userCredential) => {
               // Signed in
               // const user = userCredential.user;
