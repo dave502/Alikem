@@ -13,16 +13,19 @@ auth = app.auth()
 const port = process.env.PORT || 8055;
 
 server.post("/auth/get-jwt", function(req, res) {
-  console.log('req:', req)
+
   if (!req.body ) {
     res.status(400).send('text field is required');
   }
   console.log('req.body.uid:', req.body.uid, typeof(req.body.uid));
+  console.log('req.body.data:', req.body.data);
+  
   var uid = req.body.uid;
   var additionalClaims = req.body.data;
   
   auth.createCustomToken(uid, additionalClaims)
     .then((token) => {
+      console.log('resp token:', token);
       res.status(200).json({token, success: true});
     })
     .catch((error) => {
