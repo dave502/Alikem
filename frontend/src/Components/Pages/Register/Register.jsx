@@ -147,7 +147,7 @@ function Register() {
                 "uid": String("tg::"+tg_user.id), "data": additionalUserInfo
               })
               .then( ()=>{
-                if(currentUser === null) currentUser.reload()
+                if(currentUser) currentUser.reload()
               })
               // ...
             })
