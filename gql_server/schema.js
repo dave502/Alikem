@@ -1,7 +1,8 @@
 import * as dotenv from 'dotenv'
 import gql from 'graphql-tag';
 
-if (!process.env.PROXY) {
+if (!process.env.OPENAI_KEY) {
+    console.log("no OPENAI_KEY")
     dotenv.config({path:process.cwd()+'/../.env'})
 }
 

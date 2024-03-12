@@ -194,6 +194,8 @@ services:
       NEO4_PASS:  ${NEO4_PASS}
       NEO4_HOST:  ${NEO4_HOST}
       JWT_SECRET: ${JWT_SECRET}
+      OPENAI_URL: ${OPENAI_URL}
+      OPENAI_KEY: ${OPENAI_KEY}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.gql_server.entrypoints=websecure"
