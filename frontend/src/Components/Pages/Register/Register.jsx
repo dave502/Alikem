@@ -116,13 +116,6 @@ function Register() {
 
     if (e.value) {
       const tg_user = e.value
-      //setUserData(item)
-
-      // data_check_string = ...
-      // secret_key = SHA256(<bot_token>)
-      // if (hex(HMAC_SHA256(data_check_string, secret_key)) == hash) {
-      //   // data is from Telegram
-      // }
 
       const additionalClaims = {
         displayName: tg_user.first_name,
@@ -133,7 +126,7 @@ function Register() {
 
       //axios.get("/get-jwt", {params: {uid: String(tg_user.id)}})
       axios.post("/auth/get-jwt", {
-        "uid": String("tg::"+tg_user.id)//, "data": additionalClaims
+        "uid": String("tg::"+tg_user.id), "data": additionalClaims
       })//
         .then(res => {
           console.log("res.data.token", res.data.token)
@@ -150,6 +143,7 @@ function Register() {
                 emailVerified: true,
                 photoURL: tg_user.photo_url,
               };
+              console.log(additionalUserInfo)
               axios.post("/auth/edit-user", {
                 "uid": String("tg::"+tg_user.id), "data": additionalUserInfo
               })
