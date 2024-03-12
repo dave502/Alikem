@@ -106,6 +106,7 @@ export function AuthProvider({ children }) {
     logout,
     verifyEmail,
     updateUserProfile,
+    signInWithToken,
   };
 
   return (

@@ -136,6 +136,7 @@ function Register() {
         "uid": String(tg_user.id), "data": additionalClaims
       })//
         .then(res => {
+          console.log("signInWithToken", signInWithToken)
           signInWithToken("tg::"+res.data.token)
             .then((userCredential) => {
               // Signed in
