@@ -136,7 +136,7 @@ function Register() {
         "uid": String(tg_user.id), "data": additionalClaims
       })//
         .then(res => {
-          console.log("signInWithToken", signInWithToken)
+          console.log("res.data.token", res.data.token)
           signInWithToken("tg::"+res.data.token)
             .then((userCredential) => {
               // Signed in
@@ -156,7 +156,7 @@ function Register() {
               // ...
             })
             .catch((error) => {
-              console.log(error.message)
+              console.log("signIn with token failed:", error.message)
             });
         })
         .catch((error) => {
