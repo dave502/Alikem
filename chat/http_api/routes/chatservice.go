@@ -9,7 +9,7 @@ import (
 
 var RegisterChatRoutes = func(router *mux.Router) {
 
-	sb := router.PathPrefix("wschat/v1/api/chat").Subrouter()
+	sb := router.PathPrefix("/wschat/v1/api/chat").Subrouter()
 	// sb.Use(middlewares.HeaderMiddleware)
 	// sb.Use(middlewares.Authenticated)
 
