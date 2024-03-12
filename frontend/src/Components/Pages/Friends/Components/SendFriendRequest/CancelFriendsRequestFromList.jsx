@@ -63,7 +63,7 @@ export default function CancelFriendsRequestFromList(props){
     
     return(
         <Tooltip hasArrow label={tooltips[mode]} bg='red.200'>
-          <SmallCloseIcon onClick={cancelFriendsRequest} color='red.300' viewBox='0 0 24 24' boxSize={12}/>
+          <SmallCloseIcon onClick={cancelFriendsRequest} color='red.300' viewBox='-4 -4 24 24' boxSize={12}/>
           {/* <IconButton
               variant='ghost'
               colorScheme='green'
