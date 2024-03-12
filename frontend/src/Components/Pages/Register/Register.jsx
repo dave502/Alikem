@@ -4,7 +4,7 @@
 //https://firebase.google.com/docs/auth/web/google-signin?hl=ru
 
 import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { gql, useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { Navigate, Link } from 'react-router-dom';
 import { EditIcon, ArrowRightIcon, } from '@chakra-ui/icons';
@@ -12,6 +12,7 @@ import ButtonGoogleAuth from '../../Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from '../../Elements/ButtonEmailAuth/ButtonMailAuth';
 import { useAuth } from '../../Auth/AuthContext';
 import { useTranslation } from "react-i18next";
+import TgUserAuth from "../../../Tools/tg_user_auth"
 
 import {
   Container,
@@ -115,49 +116,54 @@ function Register() {
     // const tg_user = localStorage.getItem('userData')
 
     if (e.value) {
-      const tg_user = e.value
+      
+      TgUserAuth(e.value)
+      setSocial("telegram")
+      localStorage.setItem("social_type", "telegram");
+      
+      // const tg_user = e.value
 
-      const additionalClaims = {
-        displayName: tg_user.first_name,
-        userName: tg_user.username,
-        photoURL: tg_user.photo_url,
-        userID: tg_user.id,
-      };
+      // const additionalClaims = {
+      //   displayName: tg_user.first_name,
+      //   userName: tg_user.username,
+      //   photoURL: tg_user.photo_url,
+      //   userID: tg_user.id,
+      // };
 
-      //axios.get("/get-jwt", {params: {uid: String(tg_user.id)}})
-      axios.post("/auth/get-jwt", {
-        "uid": String("tg#"+tg_user.id), "data": additionalClaims
-      })//
-        .then(res => {
-          console.log("res.data.token", res.data.token)
-          signInWithToken(res.data.token)
-            .then((userCredential) => {
-              // Signed in
-              // const user = userCredential.user;
+      // //axios.get("/get-jwt", {params: {uid: String(tg_user.id)}})
+      // axios.post("/auth/get-jwt", {
+      //   "uid": String("tg#"+tg_user.id), "data": additionalClaims
+      // })//
+      //   .then(res => {
+      //     console.log("res.data.token", res.data.token)
+      //     signInWithToken(res.data.token)
+      //       .then((userCredential) => {
+      //         // Signed in
+      //         // const user = userCredential.user;
 
-              setSocial("telegram")
-              localStorage.setItem("social_type", "telegram");
+      //         setSocial("telegram")
+      //         localStorage.setItem("social_type", "telegram");
 
-              const additionalUserInfo = {
-                displayName: tg_user.first_name,
-                emailVerified: true,
-                photoURL: tg_user.photo_url,
-              };
-              axios.post("/auth/edit-user", {
-                "uid": String("tg#"+tg_user.id), "data": additionalUserInfo
-              })
-              .then( ()=>{
-                if(currentUser) currentUser.reload()
-              })
-              // ...
-            })
-            .catch((error) => {
-              console.log("signIn with token failed:", error.message)
-            });
-        })
-        .catch((error) => {
-          console.log('Error creating custom token:', error.message);
-        });
+      //         const additionalUserInfo = {
+      //           displayName: tg_user.first_name,
+      //           emailVerified: true,
+      //           photoURL: tg_user.photo_url,
+      //         };
+      //         axios.post("/auth/edit-user", {
+      //           "uid": String("tg#"+tg_user.id), "data": additionalUserInfo
+      //         })
+      //         .then( ()=>{
+      //           if(currentUser) currentUser.reload()
+      //         })
+      //         // ...
+      //       })
+      //       .catch((error) => {
+      //         console.log("signIn with token failed:", error.message)
+      //       });
+      //   })
+      //   .catch((error) => {
+      //     console.log('Error creating custom token:', error.message);
+      //   });
     }
   }
 

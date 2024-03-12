@@ -61,3 +61,4 @@ dist
 __debug_*
 
 friends-a2c14-*.json
+package-lock.json

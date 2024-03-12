@@ -12,6 +12,7 @@ import { EditIcon } from '@chakra-ui/icons';
 import ButtonGoogleAuth from '../../Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from '../../Elements/ButtonEmailAuth/ButtonMailAuth';
 import { varNeoUser } from '../../../variables';
+import TgUserAuth from "../../../Tools/tg_user_auth"
 import './login.css';
 import {
   Container,
@@ -86,8 +87,9 @@ function Login(props) {
     
     var f = function onTelegramAuth(user) {
 
-      window.tg_username = user.first_name
-      localStorage.setItem("userData", JSON.stringify(user));
+      TgUserAuth(user);
+      // window.tg_username = user.first_name
+      // localStorage.setItem("userData", JSON.stringify(user));
       
     }
     const scriptElement2 = document.createElement('script');
@@ -99,9 +101,12 @@ function Login(props) {
   }, []);
   
   
+  console.log("Login Curr User 1", currentUser)
+  
   useEffect(() => {
-
+    console.log("Login Curr User 2 useEffect", currentUser)
     if (currentUser){
+      console.log("Login Curr User 2 useEffect True", currentUser)
       gqlGetUser({ variables: { uid: currentUser.uid }})
         .then((response) => {
           if (response.data.users.length){

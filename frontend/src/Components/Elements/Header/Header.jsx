@@ -4,7 +4,6 @@ import { Box } from '@chakra-ui/react';
 
 import NavBar from './NavBar';
 
-
 function Header(props) {
 
   return (
