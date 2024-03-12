@@ -138,6 +138,7 @@ export function AuthProvider({ children }) {
     .catch((error) => {
         console.log('Error creating custom token:', error.message);
     });
+  }
 
   const value = {
     currentUser,
