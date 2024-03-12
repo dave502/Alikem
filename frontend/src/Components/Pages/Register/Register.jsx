@@ -143,7 +143,6 @@ function Register() {
                 emailVerified: true,
                 photoURL: tg_user.photo_url,
               };
-              console.log(additionalUserInfo)
               axios.post("/auth/edit-user", {
                 "uid": String("tg::"+tg_user.id), "data": additionalUserInfo
               })
@@ -286,14 +285,12 @@ function Register() {
   // }, [])
 
   async function ResetUser() {
-    console.log("ResetUser EmailReg", resultEmailReg, social, currentUser)
     //if (social === "email") 
     setResultEmailReg("cancelled")   
     await logout()
     .catch(err => console.log("Failed to logout", JSON.stringify(err)) )
     localStorage.removeItem("social_type")
     setSocial(null)
-
   }
 
   const nextStep = async e => {
@@ -362,7 +359,7 @@ function Register() {
                           src={currentUser.photoURL}
                           alt=""
                         />}
-                      <Text>{currentUser.email || currentUser.displayName + " (" + currentUser.uid + ")"}</Text>
+                      <Text>{currentUser.email || currentUser.displayName}</Text>
                       <CloseButton
                         size="md"
                         ml={3}
