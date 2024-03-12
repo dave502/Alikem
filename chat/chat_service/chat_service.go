@@ -80,6 +80,8 @@ func (c *chat) HttpChatMessages(resp http.ResponseWriter, req *http.Request) {
 
 	chat_id := req.URL.Query().Get("chat_id")
 
+	logger.Info("chat_id", chat_id)
+
 	messages, err := c.ChatMessages(chat_id)
 	if http_api.ErrResponseIfErr(err, resp) != nil {
 		return
