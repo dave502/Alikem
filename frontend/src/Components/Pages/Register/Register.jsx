@@ -151,7 +151,7 @@ function Register() {
                 photoURL: tg_user.photo_url,
               };
               axios.post("/auth/edit-user", {
-                "uid": String(tg_user.id), "data": additionalUserInfo
+                "uid": String("tg::"+tg_user.id), "data": additionalUserInfo
               })
               // ...
             })
