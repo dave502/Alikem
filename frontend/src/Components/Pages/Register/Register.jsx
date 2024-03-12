@@ -147,6 +147,7 @@ function Register() {
               axios.post("/auth/edit-user", {
                 "uid": String("tg::"+tg_user.id), "data": additionalUserInfo
               })
+              .then( currentUser.reload())
               // ...
             })
             .catch((error) => {
