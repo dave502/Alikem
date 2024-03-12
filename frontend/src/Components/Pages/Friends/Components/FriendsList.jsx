@@ -195,7 +195,10 @@ function FriendsList(props){
               confirmed={friend.confirmed} 
               initiator={friend.initiator}
               deleteFriend={deleteFriendFromArray}
-              mode="friends"/>)
+              mode="friends"
+              key={uid}
+            />
+          )
       }
       
       {(!friends.length && !sentOutRequests.length && !sentInRequests.length) &&
