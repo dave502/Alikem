@@ -112,12 +112,8 @@ function Login(props) {
     }
   }
   
-  console.log("Login Curr User 1", currentUser)
-  
   useEffect(() => {
-    console.log("Login Curr User 2 useEffect", currentUser)
     if (currentUser){
-      console.log("Login Curr User 2 useEffect True", currentUser)
       gqlGetUser({ variables: { uid: currentUser.uid }})
         .then((response) => {
           if (response.data.users.length){
@@ -129,7 +125,7 @@ function Login(props) {
             } else if (!response.data.users[0].embeddingCreationTime){
               navigate("/words");
             } else {
-              navigate("/profile"); // navigate("/");
+              navigate("/chat"); // navigate("/");
             }
           } else {
             // user is in firebase, but is absent in neo4j
