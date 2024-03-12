@@ -12,7 +12,7 @@ import ButtonGoogleAuth from '../../Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from '../../Elements/ButtonEmailAuth/ButtonMailAuth';
 import { useAuth } from '../../Auth/AuthContext';
 import { useTranslation } from "react-i18next";
-import TgUserAuth from "../../../Tools/tg_user_auth"
+// import TgUserAuth from "../../../Tools/tg_user_auth"
 
 import {
   Container,
@@ -73,7 +73,7 @@ const ADD_USER_QUERY = gql`
 
 function Register() {
 
-  const { currentUser, signInWithToken, logout } = useAuth();
+  const { currentUser, signInWithToken, logout, tgUserAuth } = useAuth();
 
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');

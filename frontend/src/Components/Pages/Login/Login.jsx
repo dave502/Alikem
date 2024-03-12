@@ -12,7 +12,7 @@ import { EditIcon } from '@chakra-ui/icons';
 import ButtonGoogleAuth from '../../Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from '../../Elements/ButtonEmailAuth/ButtonMailAuth';
 import { varNeoUser } from '../../../variables';
-import TgUserAuth from "../../../Tools/tg_user_auth"
+// import TgUserAuth from "../../../Tools/tg_user_auth"
 import './login.css';
 import {
   Container,
@@ -56,7 +56,7 @@ function Login(props) {
   const [loginError, setLoginError] = useState('');
   
   
-  const { currentUser, login, setError } = useAuth();
+  const { currentUser, login, setError, tgUserAuth } = useAuth();
   
   const telegramWrapperRef = useRef(null);
   const navigate = useNavigate();
