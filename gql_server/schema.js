@@ -103,10 +103,10 @@ type Query{
         @cypher (
             statement: """
                 MATCH (u:User)
-                WHERE u.uid = $uid AND u.name IS NOT NULL
+                WHERE u.uid = $uid
                 CALL db.index.vector.queryNodes('text_similarity', 20, u.embedding)
                 YIELD node AS similarUser, score
-                WHERE NOT (similarUser.uid = $uid)
+                WHERE (NOT (similarUser.uid = $uid)) AND (similarUser.name IS NOT NULL)
                 RETURN similarUser{.*, score} as result
             """,
             columnName: "result"
