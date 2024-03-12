@@ -180,7 +180,7 @@ function Login(props) {
               <div ref={telegramWrapperRef}></div>
             </Center>
             <Center >
-              <ButtonGoogleAuth auth={auth} setUser={setGoogleUser} setToken={setToken} setError={setLoginError}/>
+              <ButtonGoogleAuth auth={auth} setUser={setGoogleUser} setError={setLoginError}/>
             </Center>
             <Center >
               <ButtonMailAuth auth={auth} mode="signin" />    
