@@ -87,7 +87,7 @@ function Login(props) {
     
     var f = function onTelegramAuth(user) {
 
-      TgUserAuth(user);
+      tgUserAuth(user);
       // window.tg_username = user.first_name
       // localStorage.setItem("userData", JSON.stringify(user));
       

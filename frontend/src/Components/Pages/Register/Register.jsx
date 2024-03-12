@@ -117,7 +117,7 @@ function Register() {
 
     if (e.value) {
       
-      TgUserAuth(e.value)
+      tgUserAuth(e.value)
       setSocial("telegram")
       localStorage.setItem("social_type", "telegram");
       
