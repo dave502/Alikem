@@ -73,7 +73,7 @@ function UserListItem(props){
                 <Avatar name={user.name} src='default_avatar.jpeg' />
 
                 <Box>
-                    {/* <Heading size='sm'>Segun Adebayo</Heading> */}
+                    {/* <Heading size='sm'>Head</Heading> */}
                     
                     <LinkOverlay href={"/viewprofile?id=" + user.uid}>
                         <Text fontSize={"md"}>{user.name}</Text>
