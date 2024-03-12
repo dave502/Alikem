@@ -126,7 +126,7 @@ function Register() {
 
       //axios.get("/get-jwt", {params: {uid: String(tg_user.id)}})
       axios.post("/auth/get-jwt", {
-        "uid": String("tg::"+tg_user.id), "data": additionalClaims
+        "uid": String("tg#"+tg_user.id), "data": additionalClaims
       })//
         .then(res => {
           console.log("res.data.token", res.data.token)
@@ -144,7 +144,7 @@ function Register() {
                 photoURL: tg_user.photo_url,
               };
               axios.post("/auth/edit-user", {
-                "uid": String("tg::"+tg_user.id), "data": additionalUserInfo
+                "uid": String("tg#"+tg_user.id), "data": additionalUserInfo
               })
               .then( ()=>{
                 if(currentUser) currentUser.reload()

@@ -4,22 +4,14 @@ import { gql, useQuery } from "@apollo/client";
 import { useAuth } from '../../../../Auth/AuthContext';
 import {
   Spinner,
-  Button,
-  Divider,
-  SkeletonText,
-  SkeletonCircle,
   VStack,
   Container,
   Text,
   Flex,
-  Spacer, 
-  IconButton,
-  HStack,
   Center,
   useColorModeValue,
+  Card, CardBody, Image,
 } from '@chakra-ui/react';
-
-import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, ButtonGroup,  } from '@chakra-ui/react'
 
 export default function ChatMemberInfo(props) {
   

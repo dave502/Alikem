@@ -138,7 +138,7 @@ type Mutation {
                     ) YIELD value
                     CALL db.create.setNodeVectorProperty(u, 'embedding', value.data[0].embedding)
                     SET u.embeddingCreationTime = datetime()
-                    SET u.rawtext = $text
+                    SET u.embedding_source = $text
                 } 
                 RETURN u AS user
             """,
