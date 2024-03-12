@@ -10,6 +10,8 @@ const openai_api_header_content_type="application/json";
 const openai_api_header_auth="Bearer " + process.env.OPENAI_KEY;
 const openai_embedding_model="text-embedding-ada-002";
 
+console.log("OPENAI_URL", process.env.OPENAI_URL, "OPENAI_KEY", process.env.OPENAI_KEY)
+
 const typeDefs = gql`
 
 enum Gender {
