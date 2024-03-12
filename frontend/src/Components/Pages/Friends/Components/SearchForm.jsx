@@ -112,7 +112,6 @@ function SearchForm(props) {
           toDate.setFullYear(toDate.getFullYear() - result.maxAge);
           result.minAge = fromDate.toISOString().split('T')[0];
           result.maxAge = toDate.toISOString().split('T')[0];;
-          alert(JSON.stringify(result, null, 2));
           setSearchFilter(result);
           // searchUsers(result);
           setSubmitting(false);

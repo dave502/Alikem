@@ -103,7 +103,6 @@ function ProfileForm(props) {
           await new Promise((r) => setTimeout(r, 500));
           const result = new Object();
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
-          alert(JSON.stringify(result, null, 2));
           updateUserProfile(result);
           setSubmitting(false);
         }}  

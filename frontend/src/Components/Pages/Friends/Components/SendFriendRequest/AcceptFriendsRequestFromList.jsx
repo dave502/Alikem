@@ -26,8 +26,8 @@ const ACCEPT_FRIENDSHIP_QUERY = gql`
       }
     )
     {
-      users {
-        uid
+      info {
+        relationshipsCreated
       }
     }
   }
@@ -52,7 +52,7 @@ export default function AcceptFriendsRequestFromList(props){
     }
     
     useEffect(() => {
-      if (data?.updateUsers.info.relationshipsDeleted){
+      if (data?.updateUsers.info.relationshipsCreated){
         AddFriend(addedUserUid, mode);
       }
     }, [data, loading, error ]);
