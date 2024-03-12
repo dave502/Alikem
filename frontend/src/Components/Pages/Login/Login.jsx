@@ -89,7 +89,7 @@ function Login(props) {
       
       const event = new Event('tg_user_logged');
       event.key = "user";
-      event.value = currentUser;
+      event.value = user;
       document.dispatchEvent(event);
       // tgUserAuth(user);
       // window.tg_username = user.first_name
