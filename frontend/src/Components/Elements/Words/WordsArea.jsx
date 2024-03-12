@@ -31,12 +31,19 @@ function WordsArea(props) {
     `;
   const [gqlSetUserEmbedding, { data, loading, error }] = useMutation(SET_USER_EMBEDDING);
   
+  
+  useEffect(() => {
+    if (data && setReady) {
+      setReady(true)
+      setWords("")
+    }
+    if (error) {
+      console.log("error (user " + uid + " )", error.message)
+    }
+  }, [data, loading, error]);
+    
   const countWords = e => {
     let words_count = e.target.value.split(/(?:;|\n|\r)+/).filter(s => s.trim().length > 0).length
-
-    // var arr = str.split(",").map(function(item) {
-    //   return item.trim();
-    // });
     setWordsCount(words_count)
     setWordsEnough(words_count >= 100)
     setWords(e.target.value)
@@ -44,20 +51,9 @@ function WordsArea(props) {
   
   const saveEmbedding = async e => {
     e.preventDefault();
-
     gqlSetUserEmbedding({ variables: { uid: uid, text: words }})
-    .then((response) => {
-      if (response.data.setEmbedding.uid && setReady){
-        setReady(true)
-        setWords("")
-      }
-    })
-    .catch((error) => {
-      console.log("error (user " + uid + " )", error.message)
-    });
   };
   
-    
   return (
     <Container marginBlockStart={10} textAlign={'left'} maxW="2xl">
     <Box borderRadius="lg" padding={10} borderWidth="2px">

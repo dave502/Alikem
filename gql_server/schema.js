@@ -5,11 +5,9 @@ if (!process.env.PROXY) {
     dotenv.config({path:process.cwd()+'/../.env'})
 }
 
-const openaiAPI = "sk-U5wZStLNzne9Ni2d8JifTJtnf9pCVQEa";//process.env.PROXY;
-// api parameters
-const openai_api_url='https://api.proxyapi.ru/openai/v1/embeddings';
+const openai_api_url=process.env.OPENAI_URL;
 const openai_api_header_content_type="application/json";
-const openai_api_header_auth="Bearer " + openaiAPI;
+const openai_api_header_auth="Bearer " + process.env.OPENAI_KEY;
 const openai_embedding_model="text-embedding-ada-002";
 
 const typeDefs = gql`
@@ -105,7 +103,7 @@ type Query{
         @cypher (
             statement: """
                 MATCH (u:User)
-                WHERE u.uid = $uid
+                WHERE u.uid = $uid AND u.name IS NOT NULL
                 CALL db.index.vector.queryNodes('text_similarity', 20, u.embedding)
                 YIELD node AS similarUser, score
                 WHERE NOT (similarUser.uid = $uid)
