@@ -86,20 +86,31 @@ function Login(props) {
     scriptElement1.async = true;
     
     var f = function onTelegramAuth(user) {
-
-      tgUserAuth(user);
+      
+      const event = new Event('tg_user_logged');
+      event.key = "user";
+      event.value = currentUser;
+      document.dispatchEvent(event);
+      // tgUserAuth(user);
       // window.tg_username = user.first_name
       // localStorage.setItem("userData", JSON.stringify(user));
-      
     }
     const scriptElement2 = document.createElement('script');
     scriptElement2.type = 'text/javascript'
     scriptElement2.innerHTML = f;
-
-    telegramWrapperRef.current.appendChild(scriptElement1);
-    telegramWrapperRef.current.appendChild(scriptElement2);
-  }, []);
+    if (telegramWrapperRef.current) {
+      telegramWrapperRef.current.appendChild(scriptElement1);
+      telegramWrapperRef.current.appendChild(scriptElement2);
+    }
+    document.addEventListener("tg_user_logged", getLoggedTelegramUser, false);
+  }, [currentUser]);
   
+  
+  const getLoggedTelegramUser = (e) => {
+    if (e.value) {
+      tgUserAuth(e.value)
+    }
+  }
   
   console.log("Login Curr User 1", currentUser)
   
