@@ -5,11 +5,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../../Auth/AuthContext';
 import { gql, useQuery, useReactiveVar } from "@apollo/client";
-import { Navigate,   Link } from 'react-router-dom';
-// import { onAuthStateChanged} from "firebase/auth";
+import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { EditIcon, CloseIcon, ExternalLinkIcon } from '@chakra-ui/icons';
+import { EditIcon } from '@chakra-ui/icons';
 import ButtonGoogleAuth from '../../Elements/ButtonGoogleAuth/ButtonGoogleAuth';
 import ButtonMailAuth from '../../Elements/ButtonEmailAuth/ButtonMailAuth';
 import { varNeoUser } from '../../../variables';
@@ -51,13 +50,7 @@ const GET_USER_QUERY = gql`
    
 function Login(props) {
   
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [message, setMessage] = useState('');
-  // const [isInvalid, setIsInvalid] = useState('');
-  // const [redirect, setRedirect] = useState(false); 
-  // const [redirectTo, setRedirectTo] = useState('/profile'); 
-  // const [token, setToken] = useState(''); 
+
   const [googleUser, setGoogleUser] = useState('');
   const [loginError, setLoginError] = useState('');
   

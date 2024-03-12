@@ -70,19 +70,14 @@ const ADD_USER_QUERY = gql`
 `;
 
 
-function Register(props) {
+function Register() {
 
   const { currentUser, signInWithToken, logout } = useAuth();
-  
-  console.log("Register currentUser", currentUser);
 
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [isInvalid, setIsInvalid] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [redirectTo, setRedirectTo] = useState('/dogood');
-  const [token, setToken] = useState('');
   const [readyToMoveOn, setReadyToMoveOn] = useState(false);
   const [resultEmailReg, setResultEmailReg] = useState(localStorage.getItem("email_confirmation"));
   const [resultGoogleReg, setResultGoogleReg] = useState();
@@ -141,7 +136,7 @@ function Register(props) {
         "uid": String(tg_user.id), "data": additionalClaims
       })//
         .then(res => {
-          signInWithToken(res.data.token)
+          signInWithToken("tg::"+res.data.token)
             .then((userCredential) => {
               // Signed in
               // const user = userCredential.user;
@@ -160,8 +155,6 @@ function Register(props) {
               // ...
             })
             .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
               console.log(error.message)
             });
         })
