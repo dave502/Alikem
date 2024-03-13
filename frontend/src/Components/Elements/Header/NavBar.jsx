@@ -11,7 +11,7 @@ const Logo = (props) => {
   return (
     <Box {...props}>
       <Text fontSize="lg" fontWeight="bold">
-        Alikem
+        ALIKEM
       </Text>
     </Box>
   )
@@ -19,8 +19,9 @@ const Logo = (props) => {
 
 const MenuToggle = ({ toggle, isOpen }) => {
   return (
-    <Box display={{ base: "block", md: "none" }} onClick={toggle}>
-      {isOpen ? <CloseIcon /> : <MenuIcon />}
+    <Box display={{ base: "block", md: "none" }} onClick={toggle} minH="36px" minW="36px">
+      {isOpen ? <CloseIcon size='2em'/> : 
+                <MenuIcon  size='2em'/>}
     </Box>
   )
 }
@@ -53,7 +54,7 @@ const NavBarContainer = ({ children, ...props }) => {
       w="100%"
       //mb={1}
       p={1}
-      bg={["primary.500", "primary.500", "green.600", "green.600"]}
+      bg={["green.600", "green.600", "green.600", "green.600"]}
       color={["white", "white", "primary.700", "primary.700"]}
       {...props}
     >
@@ -72,9 +73,9 @@ const MenuLinks = ( {isOpen} ) => {
       <Stack
         spacing={8}
         align="left"
-        justify={["center", "space-between", "flex-end", "center"]}
-        direction={["column", "row", "row", "row"]}
-        pt={[4, 4, 0, 0]}
+        justify={["center", "center", "center", "center"]}
+        direction={["row", "row", "row", "row"]}
+        pt={[0, 0, 0, 0]}
       >
         <MainMenuItem to="/profile" Icon={Profile} decription="profile"/>
         <MainMenuItem to="/chat" Icon={Chat} decription="chat"/>
@@ -98,8 +99,8 @@ const NavBar = (props) => {
       <NavBarContainer {...props}>
         <MenuToggle toggle={toggle} isOpen={isOpen} />
         <MenuLinks isOpen={isOpen} />
-        <LanguageSwitcher style={{position:"absolute", right: 50}}/>
-        <ColorModeSwitcher style={{position:"absolute", right: 5}}/>    
+        <LanguageSwitcher style={{position:"absolute", right: 50, top: 5}}/>
+        <ColorModeSwitcher style={{position:"absolute", right: 5, top: 5}}/>    
       </NavBarContainer>
 
       </Box>  
