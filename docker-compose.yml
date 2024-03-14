@@ -108,8 +108,7 @@ services:
       - NEO4J_apoc_trigger_enabled=true
     # HTTP (7474) ; Bolt (7687)
     ports: [7474, 7687]
-      # - "7474:7474"
-      # - "7687:7687"
+
     # Uncomment the volumes to be mounted to make them accessible from outside the container.
     # https://neo4j.com/docs/operations-manual/current/docker/mounting-volumes/
     volumes:
@@ -136,22 +135,11 @@ services:
       - "traefik.http.routers.neo4j.middlewares=neo4j-auth"
       - "traefik.http.services.neo4j.loadbalancer.server.port=7474"
       - "traefik.http.middlewares.neo4j-auth.basicauth.users=${BASICAUTH}"
-      
-      # # Neo4j bolt service for browser websocket
-      # - "traefik.http.routers.neo4j-bolt.rule=Host(`neo4jbolt.${HOST}`)"
-      # - "traefik.http.routers.neo4j-bolt.tls=true"  
-      # - "traefik.http.routers.neo4j-bolt.entrypoints=websecure"
-      # - "traefik.http.routers.neo4j-bolt.tls.certresolver=resolver"
-      # - "traefik.http.routers.neo4j-bolt.service=neo4j-bolt"
-      # - "traefik.http.services.neo4j-bolt.loadbalancer.server.port=7687"
-      # - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https,wss"
-      # - "traefik.http.routers.neo4j-bolt.middlewares=sslheader"
    
       # Neo4j bolt service
       - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`neo4jbolt.${HOST}`)"
       - "traefik.tcp.routers.neo4j-bolt.tls.certresolver=resolver"
       - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
-      # - "traefik.tcp.routers.neo4j-bolt.tls.passthrough=true"
       - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
       - "traefik.tcp.routers.neo4j-bolt.tls=true"  
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
