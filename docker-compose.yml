@@ -153,9 +153,9 @@ services:
       # Bolt service for drivers
       - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`*`)"
       # - "traefik.tcp.routers.neo4j-bolt.tls.certresolver=resolver"
-      # - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
-      - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
+      - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
       - "traefik.tcp.routers.neo4j-bolt.tls.passthrough=true"
+      - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
       - "traefik.tcp.routers.neo4j-bolt.tls=true"  
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
   
