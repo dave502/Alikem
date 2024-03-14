@@ -151,8 +151,8 @@ services:
       - "traefik.http.routers.neo4j-bolt.middlewares=sslheader"
    
       # Bolt service for drivers
-      - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`*`)"
-      # - "traefik.tcp.routers.neo4j-bolt.tls.certresolver=resolver"
+      - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(${HOST}`) && PathPrefix(`/neo4j`)"
+      - "traefik.tcp.routers.neo4j-bolt.tls.certresolver=resolver"
       - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
       - "traefik.tcp.routers.neo4j-bolt.tls.passthrough=true"
       - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
