@@ -145,15 +145,15 @@ services:
       - "traefik.http.services.neo4j.loadbalancer.server.port=7474"
       - "traefik.http.middlewares.neo4j-auth.basicauth.users=${BASICAUTH}"
 
-      # # Neo4j bolt service for browser websocket
-      # - "traefik.http.routers.neo4j-bolt.rule=Host(`${HOST}`) && PathPrefix(`/neo4j`)"
-      # - "traefik.http.routers.neo4j-bolt.tls=true"  
-      # - "traefik.http.routers.neo4j-bolt.entrypoints=websecure"
-      # - "traefik.http.routers.neo4j-bolt.tls.certresolver=resolver"
-      # - "traefik.http.routers.neo4j-bolt.service=neo4j-bolt"
-      # - "traefik.http.services.neo4j-bolt.loadbalancer.server.port=7687"
-      # - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https,wss"
-      # - "traefik.http.routers.neo4j-bolt.middlewares=sslheader"
+      # Neo4j bolt service for browser websocket
+      - "traefik.http.routers.neo4j-bolt.rule=Host(`${HOST}`) && PathPrefix(`/neo4j`)"
+      - "traefik.http.routers.neo4j-bolt.tls=true"  
+      - "traefik.http.routers.neo4j-bolt.entrypoints=websecure"
+      - "traefik.http.routers.neo4j-bolt.tls.certresolver=resolver"
+      - "traefik.http.routers.neo4j-bolt.service=neo4j-bolt"
+      - "traefik.http.services.neo4j-bolt.loadbalancer.server.port=7687"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https,wss"
+      - "traefik.http.routers.neo4j-bolt.middlewares=sslheader"
    
       # Bolt service for drivers
       - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`${HOST}`)"
