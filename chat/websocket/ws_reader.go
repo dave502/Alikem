@@ -32,7 +32,13 @@ func (c *WSReader) Read(bodyChan chan []byte) {
 
 	for {
 		messageType, bMessage, err := c.Connection.ReadMessage()
-		logger.PanicIfErr(err)
+		if err != nil {
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+				logger.Error("error: %v", err)
+			}
+			break
+		}
+		// logger.Error(err)
 
 		logger.Trace("messageType", messageType)
 
