@@ -149,7 +149,7 @@ export default function EventList(props) {
         {data && 
         <Container  p={0} overflowY='scroll' color='green'>
               <div ref={refChatsNavBar}></div>
-              {showAdd && 
+              {/* {showAdd && 
                 <ChatAdd 
                   uid={currentUser.uid} 
                   updateList={setChatsList} 
@@ -168,7 +168,7 @@ export default function EventList(props) {
                   chat={selectedChat} 
                   updateList={setChatsList} 
                   setShowDel={setShowDel}/>
-              }
+              } */}
             <Box width='full' height='calc(100vh - 120px)'>
             {/* {chatRooms.length === 0 ? (
               <div className="alert alert-danger">Нет доступных чатов</div>
