@@ -14,7 +14,7 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.websecure.bolt=:7687"
+      - "--entrypoints.bolt.address=:7687"
       # - "--entrypoints.redis.address=:6379"
       # - "--entrypoints.grpc.address=:50051"
       - "--certificatesresolvers.resolver.acme.tlschallenge=true"
