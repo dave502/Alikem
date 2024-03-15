@@ -49,9 +49,6 @@ export default function Events(props) {
   
   useEffect(() => {
     if (!currentUser) {
-      if (socket != null) {
-        socket.close()
-      }
       navigate("/login");
     }
     return
@@ -67,7 +64,7 @@ export default function Events(props) {
 
   
   const handleEventClicked = ({ EventID }) => {
-    setCurrentEventID(GroupID)
+    setCurrentEventID(EventID)
     navigate(location.pathname, {}); // to clear Location state with chat ID
   }
   
@@ -109,9 +106,6 @@ export default function Events(props) {
               <BarButton type='basic' style={{ color: "green"}} onClick={ToggleGroupListPanel}>
                 {leftPanelWidth ? <ArrowLeftIcon />: <ArrowRightIcon />}
               </BarButton>
-              <Text alignSelf='center' m='0'>
-                {currentGroupName}
-              </Text>
               <Menu>
                 <MenuButton
                   as={IconButton}
@@ -124,7 +118,7 @@ export default function Events(props) {
             { (currentEventID !== null) &&
               <VStack  style={{ height: 'calc(100vh - 110px)'}}>
                 <AlertBox alertText={alertText}/>
-                <Event 
+                <EventInfo 
                   currentUserUid={currentUser.uid} 
                   eventID={currentEventID} 
                   eventMembers={currentEventMembers}
