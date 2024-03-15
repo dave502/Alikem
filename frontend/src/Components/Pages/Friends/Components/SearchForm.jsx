@@ -118,7 +118,7 @@ function SearchForm(props) {
         }}  
       >
         {({ values, isSubmitting, setFieldValue }) => (
-          <Form>
+          <Form width='full'>
             
             <Field name='similarity' validate={validateName}>
               {({ field, form }) => (
