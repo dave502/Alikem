@@ -87,8 +87,7 @@ services:
     networks:
       - alikem
     stdin_open: true
-    # depends_on:
-    #   - backend
+
 
 
   neo4j:
@@ -100,7 +99,7 @@ services:
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
       # Connections
       - NEO4J_server_http_advertised__address=neo4j.${HOST}:443
-      - NEO4J_server_bolt_advertised__address=neo4jbolt.${HOST}:443
+      - NEO4J_server_bolt_advertised__address=neo4jbolt.${HOST}:7687
       # APOC plugin:
       - NEO4J_apoc_export_file_enabled=true
       - NEO4J_apoc_import_file_enabled=true
@@ -127,6 +126,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=alikem"
+      
       # Neo4j browser service
       - "traefik.http.routers.neo4j.rule=Host(`neo4j.${HOST}`)"
       - "traefik.http.routers.neo4j.tls.certresolver=resolver"
@@ -137,9 +137,10 @@ services:
       - "traefik.http.middlewares.neo4j-auth.basicauth.users=${BASICAUTH}"
    
       # Neo4j bolt service
+      # bolt+s://neo4jbolt.alikem.com:443
       - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`neo4jbolt.${HOST}`)"
       - "traefik.tcp.routers.neo4j-bolt.tls.certresolver=resolver"
-      - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
+      # - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
       - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
       - "traefik.tcp.routers.neo4j-bolt.tls=true"  
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"

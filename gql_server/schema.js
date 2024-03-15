@@ -45,6 +45,8 @@ type User {
     privateProfile: Boolean 
     displayGroups: Boolean
     groups: [Group!]! @relationship(type: "MEMBER_OF", direction: OUT)
+    interests: [Interest!]! @relationship(type: "INTERESTED_IN", direction: OUT)
+    events: [Event!]! @relationship(type: "TAKESPART_IN", direction: OUT)
     friends: [User!]! @relationship(type: "FRIENDED", properties: "Friended", direction: OUT)
     friended: [User!]! @relationship(type: "FRIENDED", properties: "Friended", direction: IN)
     goodDeed: [Good!]! @relationship(type: "DID", direction: OUT)
@@ -75,6 +77,22 @@ type Group {
     directChat: Boolean @default(value: false)
     users(first: Int = 20, offset: Int = 0): [User!]!  
         @relationship(type: "MEMBER_OF", direction: IN)
+}
+
+type Interest {
+    interestID: ID! @id @unique
+    interestName: String!
+    users(first: Int = 20, offset: Int = 0): [User!]!  
+        @relationship(type: "INTERESTED_IN", direction: IN)
+}
+
+type Event {
+    eventID: ID! @id @unique
+    eventName: String!
+    eventDate: DateTime!
+    eventDescription: String
+    users(first: Int = 20, offset: Int = 0): [User!]!  
+        @relationship(type: "TAKESPART_IN", direction: IN)
 }
 
 type Fund {
