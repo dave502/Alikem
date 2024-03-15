@@ -18,6 +18,7 @@ import (
 	// 	"chat/services/rabbitmq"
 )
 
+// https://pkg.go.dev/github.com/gorilla/websocket@v1.5.0/examples/chat#section-readme
 // https://github.com/gorilla/websocket
 func main() {
 	if err := run(); err != nil {
