@@ -98,7 +98,7 @@ export default function EventMembers(props) {
     const txtColor = useColorModeValue('darkslategrey', 'green.200')
 
   return(
-    !showAdd ?
+    // !showAdd ?
       <>
         <Flex
               as="nav"
@@ -173,7 +173,7 @@ export default function EventMembers(props) {
             </Container>
         
       </>
-      :
+      // :
       // <AddChatMembers 
       //   chatID={chatID} 
       //   setShowAdd={setShowAdd} 
