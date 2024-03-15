@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Auth/AuthContext.jsx';
 import { useTranslation } from "react-i18next";
-import { Center, VStack } from '@chakra-ui/react';
+import { Center, VStack, Text } from '@chakra-ui/react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, useColorModeValue } from '@chakra-ui/react';
 import SearchForm from"./Components/SearchForm.jsx";
 import FriendsList from './Components/FriendsList.jsx';
@@ -45,6 +45,7 @@ function Friends(props) {
             <Tab>{t("friends")}</Tab>
             <Tab>{t("recommendations")}</Tab>
             <Tab>{t("search")}</Tab>
+            <Tab>{t("events")}</Tab>
           </TabList>
           </Center>
 
@@ -60,6 +61,9 @@ function Friends(props) {
               <SearchForm setSearchFilter={setSearchFilter}/>
               {searchFilter && <FoundList searchFilter={searchFilter} uid={currentUser.uid} update={tabIndex===2}/>}
             </VStack>
+          </TabPanel>
+          <TabPanel>
+              <Text> {t("events")} </Text>
           </TabPanel>
         </TabPanels>
       </Tabs>
