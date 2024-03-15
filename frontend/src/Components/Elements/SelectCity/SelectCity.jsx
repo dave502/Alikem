@@ -121,7 +121,7 @@ const SelectCity = (props) => {
         onChange={FindCity}             
         onBlur={onFocusLost}
         value={city} 
-        width={600}
+        width="full"
       />
       <AutoCompleteList >
         {cityList.map((cityobj) => (

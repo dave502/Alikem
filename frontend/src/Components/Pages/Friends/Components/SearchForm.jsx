@@ -159,7 +159,7 @@ function SearchForm(props) {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <HStack>
-                    <FormLabel width={"100px"}>{t("city")}</FormLabel>
+                    <FormLabel >{t("city")}</FormLabel>
                     <SelectCity field={field} setFieldValue={setFieldValue} />
                   </HStack>
                   <FormErrorMessage>{form.errors.city}</FormErrorMessage>

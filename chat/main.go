@@ -18,6 +18,7 @@ import (
 	// 	"chat/services/rabbitmq"
 )
 
+// https://github.com/gorilla/websocket
 func main() {
 	if err := run(); err != nil {
 		fmt.Fprintf(os.Stderr, "%v", err)
