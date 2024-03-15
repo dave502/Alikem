@@ -24,7 +24,7 @@ import {
   IconButton,
 } from '@chakra-ui/react'
 import { useTranslation } from "react-i18next";
-import AlertBox from '../../../AlertBox/AlertBox.jsx';
+import AlertBox from '../../Elements/AlertBox/AlertBox.jsx'
 
 
 export default function Events(props) {
