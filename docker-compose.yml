@@ -16,6 +16,7 @@ services:
       - "--entrypoints.websecure.address=:443"
       # - "--entrypoints.redis.address=:6379"
       # - "--entrypoints.grpc.address=:50051"
+      - "--entrypoints.bolt.address=:7687"
       - "--certificatesresolvers.resolver.acme.tlschallenge=true"
       #- "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.resolver.acme.email=${CERTIFICATE_EMAIL}"
@@ -25,6 +26,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
+      - "7687:7687"
     labels:
       # Traefik Dashboard
       - "traefik.enable=true"
@@ -99,7 +101,7 @@ services:
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
       # Connections
       - NEO4J_server_http_advertised__address=neo4j.${HOST}:443
-      - NEO4J_server_bolt_advertised__address=neo4jbolt.${HOST}:443
+      - NEO4J_server_bolt_advertised__address=neo4jbolt.${HOST}:7687
       # APOC plugin:
       - NEO4J_apoc_export_file_enabled=true
       - NEO4J_apoc_import_file_enabled=true
