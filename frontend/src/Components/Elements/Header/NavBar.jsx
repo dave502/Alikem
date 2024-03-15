@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Text, Flex, Stack, HStack, Container } from "@chakra-ui/react"
-import { CgMenuGridR as MenuIcon, CgCloseR as CloseIcon, CgProfile as Profile } from "react-icons/cg";
+import { CgMenuGridR as MenuIcon, CgCloseR as CloseIcon, 
+  CgProfile as Profile, CgEventbrite as Event } from "react-icons/cg";
 import { RiChatSmile3Line as Chat } from "react-icons/ri";
 import { FaUserFriends as Friends } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
@@ -80,6 +81,7 @@ const MenuLinks = ( {isOpen} ) => {
         <MainMenuItem to="/profile" Icon={Profile} decription="profile"/>
         <MainMenuItem to="/chat" Icon={Chat} decription="chat"/>
         <MainMenuItem to="/friends" Icon={Friends} decription="chat"/>
+        <MainMenuItem to="/events" Icon={Event} decription="events"/>
       </Stack>
 
     </Box>

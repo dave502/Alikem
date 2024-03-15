@@ -45,7 +45,6 @@ function Friends(props) {
             <Tab>{t("friends")}</Tab>
             <Tab>{t("recommendations")}</Tab>
             <Tab>{t("search")}</Tab>
-            <Tab>{t("events")}</Tab>
           </TabList>
           </Center>
 
@@ -61,9 +60,6 @@ function Friends(props) {
               <SearchForm setSearchFilter={setSearchFilter}/>
               {searchFilter && <FoundList searchFilter={searchFilter} uid={currentUser.uid} update={tabIndex===2}/>}
             </VStack>
-          </TabPanel>
-          <TabPanel>
-              <Text> {t("events")} </Text>
           </TabPanel>
         </TabPanels>
       </Tabs>
