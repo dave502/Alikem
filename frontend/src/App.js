@@ -16,6 +16,7 @@ import Profile from './Components/Pages/Profile/Profile';
 import Friends from './Components/Pages/Friends/Friends';
 import ViewProfile from './Components/Pages/Friends/Components/ViewProfile';
 import CookieConsentBottom from "./Tools/cookie_consent"
+import Events from './Components/Pages/Events/Events';
 
 
 // import auth from './Configs/firebase';
@@ -75,6 +76,7 @@ function App() {
             <Route path="/profile" element={<Profile auth={firebaseAuth} user={user}/>} />
             <Route path="/friends" element={<Friends auth={firebaseAuth} user={user}/>} />
             <Route path="/viewprofile" element={<ViewProfile/>} />
+            <Route path="/events" element={<Events/>} />
           </Routes>
           <Footer></Footer>
         </BrowserRouter>
