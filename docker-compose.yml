@@ -142,7 +142,7 @@ services:
       # bolt+s://neo4jbolt.alikem.com:443
       - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`neo4jbolt.${HOST}`)"
       - "traefik.tcp.routers.neo4j-bolt.tls.certresolver=resolver"
-      # - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
+      - "traefik.tcp.routers.neo4j-bolt.entrypoints=bolt"
       - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
       - "traefik.tcp.routers.neo4j-bolt.tls=true"  
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
