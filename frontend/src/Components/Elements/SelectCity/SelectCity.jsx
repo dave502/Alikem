@@ -113,7 +113,7 @@ const SelectCity = (props) => {
   const bgFocusGrey = useColorModeValue('whitesmoke', 'dimgrey')
 
   return (
-    <Box width='100%' id='qqqqqqqq'>
+    <Box width='100%'>
     <AutoComplete openOnFocus>
       <AutoCompleteInput 
         id="city" 

@@ -14,6 +14,7 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.bolt=:7687"
       # - "--entrypoints.redis.address=:6379"
       # - "--entrypoints.grpc.address=:50051"
       - "--certificatesresolvers.resolver.acme.tlschallenge=true"
@@ -25,6 +26,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
+      - "7687:7687"
     labels:
       # Traefik Dashboard
       - "traefik.enable=true"
@@ -99,17 +101,17 @@ services:
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
       # Connections
       - NEO4J_server_http_advertised__address=neo4j.${HOST}:443
-      - NEO4J_server_bolt_advertised__address=neo4jbolt.${HOST}:443
+      - NEO4J_server_bolt_advertised__address=neo4jbolt.${HOST}:7687
       # APOC plugin:
       - NEO4J_apoc_export_file_enabled=true
       - NEO4J_apoc_import_file_enabled=true
       - NEO4J_apoc_import_file_use__neo4j__config=true
       - NEO4J_apoc_trigger_enabled=true
     # HTTP (7474) ; Bolt (7687)
-    # ports: [7474, 7687]
-    ports:
-      - "7474:7474"
-      - "7687:7687"
+    ports: [7474, 7687]
+    # ports:
+    #   - "7474:7474"
+    #   - "7687:7687"
     # Uncomment the volumes to be mounted to make them accessible from outside the container.
     # https://neo4j.com/docs/operations-manual/current/docker/mounting-volumes/
     volumes:
@@ -142,7 +144,7 @@ services:
       # bolt+s://neo4jbolt.alikem.com:443
       - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`neo4jbolt.${HOST}`)"
       - "traefik.tcp.routers.neo4j-bolt.tls.certresolver=resolver"
-      - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
+      - "traefik.tcp.routers.neo4j-bolt.entrypoints=bolt"
       - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
       - "traefik.tcp.routers.neo4j-bolt.tls=true"  
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"

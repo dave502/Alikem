@@ -10,6 +10,8 @@ import {
   Button,
   Radio, RadioGroup,
   HStack,
+  Stack,
+  Flex,
 } from '@chakra-ui/react';
 
 import { 
@@ -118,7 +120,7 @@ function SearchForm(props) {
         }}  
       >
         {({ values, isSubmitting, setFieldValue }) => (
-          <Form style={{'width':'100%'}}>
+          <Form style={{'width':'100%', 'maxWidth': '600px'}}>
             
             <Field name='similarity' validate={validateName}>
               {({ field, form }) => (
@@ -159,7 +161,7 @@ function SearchForm(props) {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <HStack>
-                    <FormLabel >{t("city")}</FormLabel>
+                    <FormLabel style={{"width":'100px'}}>{t("city")}</FormLabel>
                     <SelectCity field={field} setFieldValue={setFieldValue} />
                   </HStack>
                   <FormErrorMessage>{form.errors.city}</FormErrorMessage>
@@ -171,18 +173,24 @@ function SearchForm(props) {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <RadioGroup  colorScheme='green' value={field.value}>  
-                  <HStack spacing={5}>
+                  <Flex
+                    mx={{ base: 0, md: 0 }}
+                    w="100%"
+                    direction={{ base:'column' , md: 'row' }}
+                  >
+                  {/* <Stack w={{ md: '35%' }} justify="center" spacing={3}> */}
                     <FormLabel width={"100px"}>{t("gender")}</FormLabel>
-                    <Radio {...field} value="male" checked={field.value === 'male'} size='lg'>
+                    <Radio {...field} value="male" checked={field.value === 'male'} size='lg' pr='20px'>
                     {t("male")}
                     </Radio>
-                    <Radio {...field} value="female" checked={field.value === 'female'} size='lg'>
+                    <Radio {...field} value="female" checked={field.value === 'female'} size='lg' pr='20px'>
                     {t("female")}
                     </Radio>
-                    <Radio {...field} value="" checked={field.value === ''} size='lg'>
+                    <Radio {...field} value="" checked={field.value === ''} size='lg' pr='20px'>
                     {t("omit")}
                     </Radio>
-                  </HStack>
+                  {/* </Stack> */}
+                  </Flex>
                   {/* <HStack ml={"120px"}>
                   <FormHelperText>Select only if you're a fan.</FormHelperText>
                   </HStack> */}
@@ -193,8 +201,8 @@ function SearchForm(props) {
             </Field>
             
             <HStack>
-            <FormLabel width={"100px"} >{t("age")}</FormLabel>
-            <HStack>
+            <FormLabel style={{"width":"100px"}} >{t("age")}</FormLabel>
+
             <Field name='minAge' validate={validateAge}>
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name}>
@@ -202,7 +210,7 @@ function SearchForm(props) {
                     <HStack  spacing='5px' verticalAlign={"bottom"}>
                       <FormLabel>{t("from")}</FormLabel>
                       <NumberInput 
-                        maxW='100px' mr='2rem' 
+                        minW='30px' maxW='100px'
                         {...field}
                         onChange={(v)=>setFieldValue("minAge", v)}
                         // value={minAge} 
@@ -225,7 +233,7 @@ function SearchForm(props) {
                   <HStack  spacing='5px'>
                       <FormLabel>{t("to")}</FormLabel>
                       <NumberInput 
-                        maxW='100px' mr='2rem' 
+                        minW='30px' maxW='100px' 
                         {...field}
                         // value={maxAge} 
                         // onChange={(v)=>setMaxAge(v)}
@@ -242,7 +250,6 @@ function SearchForm(props) {
                 </FormControl>
               )}
             </Field>
-            </HStack>
             </HStack>
             
             <Button
