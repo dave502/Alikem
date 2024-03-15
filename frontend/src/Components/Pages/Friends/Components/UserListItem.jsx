@@ -65,7 +65,7 @@ function UserListItem(props){
                                          
                         
     return (
-    <Card maxW='md'  minW="600"  key={user.uid} variant={"elevated"}>
+    <Card width='full' maxW="600"  key={user.uid} variant={"elevated"}>
      <CardHeader p='2'>
         <Flex spacing='4' pb='2'>
             <LinkBox>
