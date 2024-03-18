@@ -117,7 +117,7 @@ function ProfileForm(props) {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <HStack>
-                    <FormLabel width={"100px"}>{t("photo")}</FormLabel>
+                    <FormLabel style={{"width":'100px'}}>{t("photo")}</FormLabel>
                     <UploadAvatar setFieldValue={setFieldValue} field={field} img={values.avatar}/>
                   </HStack>
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
