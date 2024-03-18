@@ -266,7 +266,7 @@ export default function Chat(props) {
           </Box>
 
 
-          {(leftPanelWidth === 0) && <Box minWidth={[900, "full"]} style={{ flex: 1}}>
+          {(!full && leftPanelWidth === 0) && <Box minWidth={[900, "full"]} style={{ flex: 1}}>
           {/* <Flex
               as="nav"
               align="center"
