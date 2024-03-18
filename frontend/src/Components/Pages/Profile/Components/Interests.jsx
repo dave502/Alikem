@@ -29,7 +29,10 @@ export default function Interests(props) {
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
   
+  console.log("activeInterests", activeInterests)
+  
   useEffect(() => {
+    console.log("activeInterests", activeInterests)
     if (data) { 
       console.log("data interests", data)
       setAllInterests(data.interests)
