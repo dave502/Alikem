@@ -153,7 +153,7 @@ function ProfileForm(props) {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <RadioGroup  colorScheme='green' defaultValue='' value={field.value}>  
-                  <HStack spacing={5}>
+                  <Stack spacing={5} direction={['column', 'row']}>
                     <FormLabel width={"100px"} >{t("gender")}</FormLabel>
                     <Radio {...field} value="male" checked={field.value === 'male'} size='lg'>
                       {t("male")}
@@ -164,7 +164,7 @@ function ProfileForm(props) {
                     <Radio {...field} value="" checked={field.value === ''} size='lg'>
                       {t("omit")}
                     </Radio>
-                  </HStack>
+                  </Stack>
                   </RadioGroup>
                 
                 </FormControl>
