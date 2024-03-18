@@ -267,7 +267,7 @@ export default function Chat(props) {
 
 
           {((!full && leftPanelWidth === 0) || full) && <Box minWidth={[900, "full"]} style={{ flex: 1}}>
-          {/* <Flex
+          <Flex
               as="nav"
               align="center"
               justify="space-between"
@@ -281,7 +281,7 @@ export default function Chat(props) {
               </BarButton>
               <Text alignSelf='center' m='0'>
                 {currentGroupName}
-              </Text> */}
+              </Text>
               {/*<Menu>
                 <MenuButton
                   as={IconButton}
@@ -304,7 +304,7 @@ export default function Chat(props) {
                   </MenuItem>
                 </MenuList> 
               </Menu>*/}
-            {/* </Flex> */}
+            </Flex>
             {/* { (currentChatID !== null) &&
               <VStack  style={{ height: 'calc(100vh - 110px)'}}>
                 <ChatMessages 
