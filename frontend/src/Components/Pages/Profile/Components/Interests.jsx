@@ -25,34 +25,33 @@ export default function Interests(props) {
   
   const { field, setFieldValue } = props;
   const [allInterests, setAllInterests] = useState(['Music', 'Sport', 'Painting']);
-  const [activeInterests, setActiveInterests] = useState(field.value || []);
+  // const [activeInterests, setActiveInterests] = useState(field.value || []);
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
   
-  console.log("activeInterests 0", activeInterests)
+  console.log("activeInterests field", field.value)
   
   useEffect(() => {
-    console.log("activeInterests 1", activeInterests)
     if (data) { 
       console.log("data interests", data)
       setAllInterests(data.interests)
     }
   }, [data, loading, error]);
   
-  useEffect(() => {
-    if(field.value) {setActiveInterests(field.value)}
-  }, [field.value]);
+  // useEffect(() => {
+  //   if(field.value) {setActiveInterests(field.value)}
+  // }, [field.value]);
     
   const toggleInterest = (e) => {
     if (e.target.classList.contains("active")){
       e.target.classList.remove("active")
-      setActiveInterests(activeInterests.filter(i => i !== e.target.textContent))
+      setFieldValue(field.value.filter(i => i !== e.target.textContent))
     } else {
-      console.log("activeInterests 2", activeInterests)
+      console.log("activeInterests 2", field.value)
       e.target.classList.add('active')
-      setActiveInterests([e.target.textContent, ...activeInterests])
+      setFieldValue([e.target.textContent, ...field.value])
     }
-    setFieldValue("interests", activeInterests)
+    // setFieldValue("interests", activeInterests)
   }
   
   return (
@@ -61,11 +60,11 @@ export default function Interests(props) {
         <Tag 
           size='md' 
           key={interestID} 
-          variant={activeInterests?.includes(interestName)?'solid' :'outline'} 
+          variant={field.value?.includes(interestName)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          className={activeInterests?.includes(interestName)?'active':'noactive'}
+          className={field.value?.includes(interestName)?'active':'noactive'}
         >
         {interestName}
         </Tag>
