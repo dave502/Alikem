@@ -179,10 +179,10 @@ function ProfileForm(props) {
             <Field name='birthday' validate={validateName}>
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
-                  <HStack>
+                  <Box display='flex' alignItems='baseline'>
                     <FormLabel style={{"width":'100px'}}>{t("birthday")}</FormLabel>
                     <Input {...field} placeholder='' width='full' type="date"/>
-                  </HStack>
+                  </Box>
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
                 </FormControl>
               )}
