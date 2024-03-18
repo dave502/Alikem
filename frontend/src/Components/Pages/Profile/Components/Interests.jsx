@@ -25,7 +25,7 @@ export default function Interests(props) {
   
   const { field, setFieldValue } = props;
   const [allInterests, setAllnterests] = useState(['Music', 'Sport', 'Painting']);
-  const [activeInterests, setActiveInterests] = useState(field.value);
+  const [activeInterests, setActiveInterests] = useState(field.value || []);
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
   
@@ -46,7 +46,7 @@ export default function Interests(props) {
       setActiveInterests(activeInterests.filter(i => i !== e.target.textContent))
     } else {
       e.target.classList.add('active')
-      setActiveInterests((prev)=>[e.target.textContent, ...prev])
+      setActiveInterests((prev) => [e.target.textContent, ...prev])
     }
     setFieldValue("interests", activeInterests)
   }
