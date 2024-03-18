@@ -105,6 +105,7 @@ function ProfileForm(props) {
                         avatar: data.users[0].avatar, 
                         city: data.users[0].city, 
                         birthday: data.users[0].birthday,
+                        interests: data.users[0].interests,
                       }}
         onSubmit={async (values, { setSubmitting }) => {
           await new Promise((r) => setTimeout(r, 500));
