@@ -181,7 +181,7 @@ function ProfileForm(props) {
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <HStack>
                     <FormLabel style={{"width":'100px'}}>{t("birthday")}</FormLabel>
-                    <Input {...field} placeholder='' maxW={600} type="date"/>
+                    <Input {...field} placeholder='' width='full' type="date"/>
                   </HStack>
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
                 </FormControl>
