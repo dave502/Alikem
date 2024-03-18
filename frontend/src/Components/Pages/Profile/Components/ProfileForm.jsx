@@ -130,7 +130,7 @@ function ProfileForm(props) {
                 <FormControl isInvalid={form.errors.name && form.touched.name} isRequired mb={3}>
                   <HStack>
                     <FormLabel width={"100px"}>{t("name")}</FormLabel>
-                    <Input {...field} placeholder={t("name_hint")} width={600}/>
+                    <Input {...field} placeholder={t("name_hint")} maxW={600}/>
                   </HStack>
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
                 </FormControl>
