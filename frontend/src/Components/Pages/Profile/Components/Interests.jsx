@@ -24,7 +24,7 @@ const GET_ALL_INTERESTS = gql`
 export default function Interests(props) { 
   
   const { field, setFieldValue } = props;
-  const [allInterests, setAllnterests] = useState(['Music', 'Sport', 'Painting']);
+  const [allInterests, setAllInterests] = useState(['Music', 'Sport', 'Painting']);
   const [activeInterests, setActiveInterests] = useState(field.value || []);
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
@@ -32,7 +32,7 @@ export default function Interests(props) {
   useEffect(() => {
     if (data) { 
       console.log("data interests", data)
-      setAllnterests(data.interests)
+      setAllInterests(data.interests)
     }
   }, [data, loading, error]);
   
@@ -46,17 +46,17 @@ export default function Interests(props) {
       setActiveInterests(activeInterests.filter(i => i !== e.target.textContent))
     } else {
       e.target.classList.add('active')
-      setActiveInterests((prev) => [e.target.textContent, ...prev])
+      setActiveInterests([e.target.textContent, ...activeInterests])
     }
     setFieldValue("interests", activeInterests)
   }
   
   return (
     <HStack spacing={4}>
-    {allInterests.map(({interestName}) => (
+    {allInterests.map(({interestID, interestName}) => (
         <Tag 
           size='md' 
-          key={interestName} 
+          key={interestID} 
           variant={activeInterests?.includes(interestName)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
