@@ -246,16 +246,15 @@ export default function Chat(props) {
       } */}
 
         <Split 
-          // lineBar visible={leftPanelWidth !== 0}
-          // renderBar={({ onMouseDown, ...props }) => {
-          //   return (
-          //     <div {...props} style={{ maxWidth:'2px', boxShadow: 'none', background: 'transparent', zIndex:'1000'}}>
-          //       <div onMouseDown={onMouseDown} style={{ backgroundColor: '#2f855a', boxShadow: 'none' }} />
-          //     </div>
-          //   );
-          // }}
-          // style={{ height: "100hv", borderBottom: '3px solid #2F855A', borderRadius: 3 }}
-          
+          lineBar visible={leftPanelWidth !== 0}
+          renderBar={({ onMouseDown, ...props }) => {
+            return (
+              <div {...props} style={{ maxWidth:'2px', boxShadow: 'none', background: 'transparent', zIndex:'1000'}}>
+                <div onMouseDown={onMouseDown} style={{ backgroundColor: '#2f855a', boxShadow: 'none' }} />
+              </div>
+            );
+          }}
+          style={{ height: "100hv", borderBottom: '3px solid #2F855A', borderRadius: 3 }}
         >
          
           <Box style={{ width: leftPanelWidth, minWidth: leftPanelWidth, overflow: 'hidden' }}>
