@@ -188,7 +188,7 @@ function ProfileForm(props) {
               {({ field, form }) => (
                   <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                     <HStack>
-                      <FormLabel width={"100px"}>{t("intersts")}</FormLabel>
+                      <FormLabel width={"100px"}>{t("interests")}</FormLabel>
                       <Interests field={field} setFieldValue={setFieldValue}/>
                     </HStack>
                   </FormControl>

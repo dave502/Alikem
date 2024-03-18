@@ -233,22 +233,22 @@ export default function Chat(props) {
  
   return (
     currentUser&&
-    <Box  style={{ height:'600px' }}> 
+    <Box  style={{ height:'calc(810 - 64px)' }}> 
       {/* //'calc(100vh - 64px)'}}>
       {showCreateChatDialog && 
         <CreateChatDialog opened={setShowCreateChatDialog} user={currentUser} setRefreshChatList={setRefreshChatList}/>
       } */}
 
         <Split 
-          lineBar visible={leftPanelWidth !== 0}
-          renderBar={({ onMouseDown, ...props }) => {
-            return (
-              <div {...props} style={{ maxWidth:'2px', boxShadow: 'none', background: 'transparent', zIndex:'1000'}}>
-                <div onMouseDown={onMouseDown} style={{ backgroundColor: '#2f855a', boxShadow: 'none' }} />
-              </div>
-            );
-          }}
-          style={{ height: "100hv", borderBottom: '3px solid #2F855A', borderRadius: 3 }}
+          // lineBar visible={leftPanelWidth !== 0}
+          // renderBar={({ onMouseDown, ...props }) => {
+          //   return (
+          //     <div {...props} style={{ maxWidth:'2px', boxShadow: 'none', background: 'transparent', zIndex:'1000'}}>
+          //       <div onMouseDown={onMouseDown} style={{ backgroundColor: '#2f855a', boxShadow: 'none' }} />
+          //     </div>
+          //   );
+          // }}
+          // style={{ height: "100hv", borderBottom: '3px solid #2F855A', borderRadius: 3 }}
           
         >
          
@@ -264,7 +264,7 @@ export default function Chat(props) {
 
 
           <Box style={{ flex: 1, minWidth: 900 }}>
-          <Flex
+          {/* <Flex
               as="nav"
               align="center"
               justify="space-between"
@@ -278,15 +278,15 @@ export default function Chat(props) {
               </BarButton>
               <Text alignSelf='center' m='0'>
                 {currentGroupName}
-              </Text>
-              <Menu>
+              </Text> */}
+              {/*<Menu>
                 <MenuButton
                   as={IconButton}
                   aria-label='Options'
                   icon={<HamburgerIcon />}
                   variant='outline'
                 />
-                {/* <MenuList>
+                 <MenuList>
                   <MenuItem icon={<HamburgerIcon />} command='⌘T' onClick={() => {}}>
                     New Chat
                   </MenuItem>
@@ -299,10 +299,10 @@ export default function Chat(props) {
                   <MenuItem  command='⌘O'> 
                     Delete Chat
                   </MenuItem>
-                </MenuList> */}
-              </Menu>
-            </Flex>
-            { (currentChatID !== null) &&
+                </MenuList> 
+              </Menu>*/}
+            {/* </Flex> */}
+            {/* { (currentChatID !== null) &&
               <VStack  style={{ height: 'calc(100vh - 110px)'}}>
                 <ChatMessages 
                   chatHistory={chatHistory} 
@@ -315,16 +315,16 @@ export default function Chat(props) {
                 <Spacer />
                 <ChatInput send={handleSendMessage} chatID={currentChatID}/>
               </VStack>
-            } 
+            }  */}
           </Box>
-          { (currentChatID !== null && !directChat) &&
+          {/* { (currentChatID !== null && !directChat) &&
           <Box style={{ width: leftPanelWidth, minWidth: leftPanelWidth, overflow: 'hidden' }}>
             <ChatMembers chatID={currentChatID} setGlobalMembersList={setCurrentGroupMembers}/>
           </Box>
           } 
           { directChat &&
             <ChatMemberInfo uid ={currentChatID.split(":").filter(uid => uid !== currentUser.uid )[0]} />
-          }
+          } */}
         </Split>
         </Box>
     );

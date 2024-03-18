@@ -20,9 +20,9 @@ export default function Interests(props) {
   
   return (
     <HStack spacing={4}>
-    {['sm', 'md', 'lg'].map((size) => (
-        <Tag size={size} key={size} variant='solid' colorScheme='green' onClick={console.log("Tag click")}>
-        Interest
+    {['Music', 'Sport', 'Painting'].map((interest) => (
+        <Tag size='md' key={interest} variant='solid' colorScheme='green' onClick={console.log("Tag click")}>
+        {interest}
         </Tag>
     ))}
     </HStack>  
