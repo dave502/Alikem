@@ -35,7 +35,7 @@ export default function Interests(props) {
           colorScheme={activeInterests.includes(interest)?'green':'grey'} 
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          class='interestActive'
+          className={activeInterests.includes(interest)?'active':'noactive'}
         >
         {interest}
         </Tag>
