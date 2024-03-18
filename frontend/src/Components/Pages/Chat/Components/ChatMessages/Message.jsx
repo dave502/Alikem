@@ -30,7 +30,7 @@ export default function Message(props) {
       <VStack alignItems='start'>
         <Text as='b' fontSize='md' >{fromUser?.name}</Text>
         <Box maxW={['sm', 'xs']} borderWidth='1px' borderRadius='lg' 
-            bg={bgMessage} alignSelf="start" pl='3' pr='3'>
+            bg={bgMessage} alignSelf="start" pl='3' pr='3' className="qqqqq">
           <Text fontSize='md' textAlign='left' m='0' mb='1'>{Message.text}</Text>
           
           <Text fontSize='2xs' textAlign='left' mb='0' color='darkgrey'>{new Date(Message.updated_at).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}</Text>
