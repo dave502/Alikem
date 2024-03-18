@@ -18,13 +18,11 @@ export default function Interests(props) {
   
   const { send, chatID } = props;
   
-  const [msgText, setMsgText] = useState("")
-  
-  var activeInterests = []
-  
+  const [activeInterests, setActiveInterests] = useState([])
+    
   const toggleInterest = (e) => {
     console.log("Tag click", e.target.textContent)
-    activeInterests.push(e.target.textContent)
+    setActiveInterests((prev)=>[e.target.textContent, ...prev])
   }
   
   return (
