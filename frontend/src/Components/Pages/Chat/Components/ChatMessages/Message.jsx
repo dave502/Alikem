@@ -13,7 +13,7 @@ export default function Message(props) {
     ?
     <Flex direction='row' spacing={4} flex={"end"}  m="3" gap='2'>
       <Spacer/>
-      <Box maxW={['sm', 'xs']} borderWidth='1px' borderRadius='lg' 
+      <Box maxW={['xs', 'sm']} borderWidth='1px' borderRadius='lg' 
           bg={bgMessage} alignSelf="start" pl='3' pr='3'>
         <Text fontSize='md' textAlign='left' m='0' mb='1'>{Message.text}</Text>
         <Text fontSize='2xs' textAlign='right' mb='0' color='darkgrey'>{new Date(Message.updated_at).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}</Text>
@@ -29,8 +29,8 @@ export default function Message(props) {
         </Flex>
       <VStack alignItems='start'>
         <Text as='b' fontSize='md' >{fromUser?.name}</Text>
-        <Box maxW={['sm', 'xs']} borderWidth='1px' borderRadius='lg' 
-            bg={bgMessage} alignSelf="start" pl='3' pr='3' className="qqqqq">
+        <Box maxW={['xs', 'sm']} borderWidth='1px' borderRadius='lg' 
+            bg={bgMessage} alignSelf="start" pl='3' pr='3'>
           <Text fontSize='md' textAlign='left' m='0' mb='1'>{Message.text}</Text>
           
           <Text fontSize='2xs' textAlign='left' mb='0' color='darkgrey'>{new Date(Message.updated_at).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}</Text>
