@@ -7,11 +7,6 @@ import {
     TagRightIcon,
     TagCloseButton,
   } from '@chakra-ui/react'
-  
-import { MdSend } from "react-icons/md";
-import ResizeTextarea from "react-textarea-autosize";
-
-
 
 
 export default function Interests(props) { 
@@ -29,7 +24,6 @@ export default function Interests(props) {
       e.target.classList.add('active')
       setActiveInterests((prev)=>[e.target.textContent, ...prev])
     }
-    
   }
   
   return (
@@ -38,8 +32,8 @@ export default function Interests(props) {
         <Tag 
           size='md' 
           key={interest} 
-          variant='solid' 
-          colorScheme={activeInterests.includes(interest)?'green':'grey'} 
+          variant={activeInterests.includes(interest)?'solid' :'outline'} 
+          colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
           className={activeInterests.includes(interest)?'active':'noactive'}
