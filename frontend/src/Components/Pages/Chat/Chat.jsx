@@ -232,7 +232,7 @@ export default function Chat(props) {
   const bgMsgListBar = useColorModeValue('green.50', 'darkslategrey');
  
   
-  console.log("leftPanelWidth", leftPanelWidth)
+  console.log("leftPanelWidth", leftPanelWidth, (!full && leftPanelWidth === 0) )
   
   return (
     currentUser&&
@@ -266,7 +266,7 @@ export default function Chat(props) {
           </Box>
 
 
-          {(!full && leftPanelWidth === 0) && <Box minWidth={[900, "full"]} style={{ flex: 1}}>
+          {((!full && leftPanelWidth === 0) || full) && <Box minWidth={[900, "full"]} style={{ flex: 1}}>
           {/* <Flex
               as="nav"
               align="center"
