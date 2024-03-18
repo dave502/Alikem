@@ -242,6 +242,7 @@ export default function Chat(props) {
  
   
   console.log("leftPanelWidth", leftPanelWidth, (!full && leftPanelWidth === 0) )
+  console.log("showMembers", showMembers)
   
   return (
     currentUser&&
@@ -291,9 +292,11 @@ export default function Chat(props) {
                 <Text alignSelf='center' m='0'>
                   {currentGroupName}
                 </Text>
+                {currentChatID &&
                 <BarButton type='basic' style={{ color: "green"}} onClick={ToggleMembersPanel}>
                   <MdPeopleOutline size='2em'/>
                 </BarButton>
+                }
                 {/*<Menu>
                   <MenuButton
                     as={IconButton}
