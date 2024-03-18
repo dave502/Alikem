@@ -39,6 +39,7 @@ query Users($uid: String!)
     city
     cityID
     img    
+    interests
   }
 }
 `;
@@ -53,7 +54,6 @@ function ProfileForm(props) {
       variables: { uid: uid }
     });
     
-    console.log("ProfileForm uid", uid)
     useEffect(() => {
       console.log(data, uid)
       // if (data){

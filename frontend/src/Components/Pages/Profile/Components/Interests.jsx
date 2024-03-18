@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { InputGroup, Input, InputRightElement, Button, Textarea, HStack } from '@chakra-ui/react'
 import {
     Tag,
@@ -11,12 +11,15 @@ import {
 
 export default function Interests(props) { 
   
-  const { send, chatID } = props;
+  const { field, setFieldValue } = props;
   
-  const [activeInterests, setActiveInterests] = useState([])
+  const [activeInterests, setActiveInterests] = useState(field.value);
+  
+  useEffect(() => {
+    setActiveInterests(field.value)
+  }, [field.value]);
     
   const toggleInterest = (e) => {
-    console.log("Tag click", e)
     if (e.target.classList.contains("active")){
       e.target.classList.remove("active")
       setActiveInterests(activeInterests.filter(i => i !== e.target.textContent))
@@ -24,6 +27,7 @@ export default function Interests(props) {
       e.target.classList.add('active')
       setActiveInterests((prev)=>[e.target.textContent, ...prev])
     }
+    setFieldValue("interests", activeInterests)
   }
   
   return (
