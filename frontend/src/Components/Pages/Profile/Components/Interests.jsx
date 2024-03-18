@@ -56,14 +56,14 @@ export default function Interests(props) {
     {allInterests.map(({interestName}) => (
         <Tag 
           size='md' 
-          key={interest} 
+          key={interestName} 
           variant={activeInterests?.includes(interestName)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
           className={activeInterests?.includes(interestName)?'active':'noactive'}
         >
-        {interest}
+        {interestName}
         </Tag>
     ))}
     </HStack>  
