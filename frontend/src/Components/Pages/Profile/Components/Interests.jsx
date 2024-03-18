@@ -10,17 +10,11 @@ import {
 import { gql, useQuery } from "@apollo/client";
 
 const GET_ALL_INTERESTS = gql`
-query Interests()
-{
-  interests
-  {
-    groups {
-      groupID
-      groupName
-      creatorUid
-      directChat
+  query Interests {
+    interests {
+      interestID
+      interestName
     }
-  }
 }
 `; 
   
@@ -30,6 +24,15 @@ export default function Interests(props) {
   const { field, setFieldValue } = props;
   const [allInterests, setAllnterests] = useState(['Music', 'Sport', 'Painting']);
   const [activeInterests, setActiveInterests] = useState(field.value);
+  
+  const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
+  
+  useEffect(() => {
+    if (data) { 
+      console.log("data interests", data)
+      setAllnterests(data.interests)
+    }
+  }, [data, loading, error]);
   
   useEffect(() => {
     setActiveInterests(field.value)
