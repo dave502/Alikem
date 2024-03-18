@@ -23,13 +23,22 @@ export default function Interests(props) {
   var activeInterests = []
   
   const toggleInterest = (e) => {
-    console.log("Tag click", e)
+    console.log("Tag click", e.target.textContent)
+    activeInterests.push(e.target.textContent)
   }
   
   return (
     <HStack spacing={4}>
     {['Music', 'Sport', 'Painting'].map((interest) => (
-        <Tag size='md' key={interest} variant='solid' colorScheme='green' style={{ cursor: 'pointer' }} onClick={toggleInterest}>
+        <Tag 
+          size='md' 
+          key={interest} 
+          variant='solid' 
+          colorScheme={activeInterests.includes(interest)?'green':'grey'} 
+          style={{ cursor: 'pointer' }} 
+          onClick={toggleInterest}
+          class='interestActive'
+        >
         {interest}
         </Tag>
     ))}
