@@ -112,7 +112,7 @@ function ProfileForm(props) {
         }}  
       >
         {({ values, isSubmitting, setFieldValue }) => (
-          <Form>
+          <Form style={{'width':'100%', 'maxWidth': '600px'}}>
             <Field name='avatar' validate={validateName}>
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
