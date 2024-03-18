@@ -21,7 +21,7 @@ export default function Interests(props) {
   return (
     <HStack spacing={4}>
     {['Music', 'Sport', 'Painting'].map((interest) => (
-        <Tag as='button' size='md' key={interest} variant='solid' colorScheme='green' onClick={console.log("Tag click")}>
+        <Tag as='checkbox' size='md' key={interest} variant='solid' colorScheme='green' onClick={console.log("Tag click")}>
         {interest}
         </Tag>
     ))}
