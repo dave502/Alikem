@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useAuth } from '../../Auth/AuthContext.jsx'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import { HamburgerIcon, ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
+import { MdPeopleOutline } from "react-icons/md";
 import { Text, Container, Flex, Box, Center, Spacer, VStack, useColorModeValue } from "@chakra-ui/react";
 
 import {
@@ -284,6 +285,9 @@ export default function Chat(props) {
               <Text alignSelf='center' m='0'>
                 {currentGroupName}
               </Text>
+              <BarButton type='basic' style={{ color: "green"}} onClick={ToggleGroupListPanel}>
+                <MdPeopleOutline />
+              </BarButton>
               {/*<Menu>
                 <MenuButton
                   as={IconButton}
