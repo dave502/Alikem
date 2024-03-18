@@ -18,6 +18,8 @@ const GET_ALL_INTERESTS = gql`
 }
 `; 
   
+//
+
 
 export default function Interests(props) { 
   
@@ -51,15 +53,15 @@ export default function Interests(props) {
   
   return (
     <HStack spacing={4}>
-    {allInterests.map((interest) => (
+    {allInterests.map(({interestName}) => (
         <Tag 
           size='md' 
           key={interest} 
-          variant={activeInterests?.includes(interest)?'solid' :'outline'} 
+          variant={activeInterests?.includes(interestName)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          className={activeInterests?.includes(interest)?'active':'noactive'}
+          className={activeInterests?.includes(interestName)?'active':'noactive'}
         >
         {interest}
         </Tag>
