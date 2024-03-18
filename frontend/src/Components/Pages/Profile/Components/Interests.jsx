@@ -21,7 +21,7 @@ export default function Interests(props) {
   const [activeInterests, setActiveInterests] = useState([])
     
   const toggleInterest = (e) => {
-    console.log("Tag click", e.target.textContent)
+    console.log("Tag click", e)
     setActiveInterests((prev)=>[e.target.textContent, ...prev])
   }
   
