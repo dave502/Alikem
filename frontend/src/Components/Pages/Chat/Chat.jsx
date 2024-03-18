@@ -263,7 +263,7 @@ export default function Chat(props) {
           </Box>
 
 
-          <Box style={{ flex: 1, minWidth: 900 }}>
+          {leftPanelWidth && <Box style={{ flex: 1, minWidth: 900 }}>
           {/* <Flex
               as="nav"
               align="center"
@@ -316,7 +316,7 @@ export default function Chat(props) {
                 <ChatInput send={handleSendMessage} chatID={currentChatID}/>
               </VStack>
             }  */}
-          </Box>
+          </Box>}
           {/* { (currentChatID !== null && !directChat) &&
           <Box style={{ width: leftPanelWidth, minWidth: leftPanelWidth, overflow: 'hidden' }}>
             <ChatMembers chatID={currentChatID} setGlobalMembersList={setCurrentGroupMembers}/>
