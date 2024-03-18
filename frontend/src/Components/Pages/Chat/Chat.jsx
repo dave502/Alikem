@@ -294,7 +294,7 @@ export default function Chat(props) {
                 </Text>
                 {currentChatID &&
                 <BarButton type='basic' style={{ color: "green"}} onClick={ToggleMembersPanel}>
-                  <MdPeopleOutline size='2em'/>
+                  <MdPeopleOutline size='2em' fill={showMembers?'grey':'green'}/>
                 </BarButton>
                 }
                 {/*<Menu>
@@ -320,7 +320,7 @@ export default function Chat(props) {
                   </MenuList> 
                 </Menu>*/}
               </Flex>
-            { (currentChatID !== null && (!showMembers && !full)) &&
+            { (currentChatID !== null && ((!showMembers && !full) || full)) &&
               <VStack  style={{ height: 'calc(100vh - 110px)'}}>
                 <ChatMessages 
                   chatHistory={chatHistory} 
