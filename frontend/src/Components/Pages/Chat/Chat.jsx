@@ -62,11 +62,13 @@ const Message = {
 
 export default function Chat(props) {
 
+  const breakpoint = 700;
+  const full = window.innerWidth > breakpoint;
   const [chatHistory, setChatHistory] = useState([]);
   const [jwtToken, setJwtToken] = useState("");
   const [currentChatID, setCurrentChatID] = useState(null);
   const [currentGroupName, setCurrentGroupName] = useState(null);
-  const [leftPanelWidth, setLeftPanelWidth] = useState('15%');
+  const [leftPanelWidth, setLeftPanelWidth] = useState(full?'15%':'100%');
   const [alertText, setAlertText] = useState('');
   const [socket, setSocket] = useState();
   const [newMessageData, setNewMessageData] = useState();
@@ -231,8 +233,9 @@ export default function Chat(props) {
  
   return (
     currentUser&&
-    <Box  style={{ height: 'calc(100vh - 64px)'}}>
-      {/* {showCreateChatDialog && 
+    <Box  style={{ height:'600px' }}> 
+      {/* //'calc(100vh - 64px)'}}>
+      {showCreateChatDialog && 
         <CreateChatDialog opened={setShowCreateChatDialog} user={currentUser} setRefreshChatList={setRefreshChatList}/>
       } */}
 

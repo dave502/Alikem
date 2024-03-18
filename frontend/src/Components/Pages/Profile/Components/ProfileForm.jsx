@@ -17,12 +17,15 @@ import {
   Radio, RadioGroup,
   VStack,
   HStack,
+  Grid, GridItem,
   Image,
 } from '@chakra-ui/react';
 
 import { Field, Form, Formik } from 'formik';
 import SelectCity from '../../../Elements/SelectCity/SelectCity';
 import UploadAvatar from './UploadAvatar';
+import Interests from './Interests';
+
 import { useTranslation } from "react-i18next";
 
 const READ_USER_POFILE = gql`
@@ -89,7 +92,8 @@ function ProfileForm(props) {
     if (error) return `Error! ${error}`;
   
   // const newLocal = <Input {...field} placeholder='Город' bg="white" />;
-    return ( data?.users.length &&
+    return ( //data?.users.length &&
+
       <Formik
         enableReinitialize
         initialValues={{ 
@@ -150,7 +154,7 @@ function ProfileForm(props) {
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <RadioGroup  colorScheme='green' defaultValue='' value={field.value}>  
                   <HStack spacing={5}>
-                    <FormLabel width={"100px"} >Пол</FormLabel>
+                    <FormLabel width={"100px"} >{t("gender")}</FormLabel>
                     <Radio {...field} value="male" checked={field.value === 'male'} size='lg'>
                       {t("male")}
                     </Radio>
@@ -178,6 +182,17 @@ function ProfileForm(props) {
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
                 </FormControl>
               )}
+            </Field>
+            
+            <Field name='interests'>
+              {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
+                    <HStack>
+                      <FormLabel width={"100px"}>{t("intersts")}</FormLabel>
+                      <Interests field={field} setFieldValue={setFieldValue}/>
+                    </HStack>
+                  </FormControl>
+                )}
             </Field>
             
             <Button

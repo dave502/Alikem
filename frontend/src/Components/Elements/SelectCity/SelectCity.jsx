@@ -113,7 +113,7 @@ const SelectCity = (props) => {
   const bgFocusGrey = useColorModeValue('whitesmoke', 'dimgrey')
 
   return (
-    <Box width='100%'>
+    <Box>
     <AutoComplete openOnFocus>
       <AutoCompleteInput 
         id="city" 
@@ -131,6 +131,7 @@ const SelectCity = (props) => {
             onClick={setField}
             _selected={{ bg: `${bgSelectedGrey}` }}
             _focus={{ bg: `${bgFocusGrey}`}}
+            width={600}
             //textTransform="capitalize"
           >
           <LinkBox as='div' width={"100%"}>
