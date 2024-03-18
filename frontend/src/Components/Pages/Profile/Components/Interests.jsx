@@ -22,6 +22,8 @@ export default function Interests(props) {
   
   const [msgText, setMsgText] = useState("")
   
+  var activeInterests = []
+  
   return (
     <HStack spacing={4}>
     {['Music', 'Sport', 'Painting'].map((interest) => (
