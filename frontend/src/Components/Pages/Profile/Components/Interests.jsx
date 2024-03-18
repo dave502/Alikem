@@ -37,7 +37,7 @@ export default function Interests(props) {
   }, [data, loading, error]);
   
   useEffect(() => {
-    setActiveInterests(field.value)
+    if(field.value) {setActiveInterests(field.value)}
   }, [field.value]);
     
   const toggleInterest = (e) => {
@@ -45,6 +45,7 @@ export default function Interests(props) {
       e.target.classList.remove("active")
       setActiveInterests(activeInterests.filter(i => i !== e.target.textContent))
     } else {
+      console.log("activeInterests", activeInterests)
       e.target.classList.add('active')
       setActiveInterests([e.target.textContent, ...activeInterests])
     }
