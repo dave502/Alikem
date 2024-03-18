@@ -25,34 +25,23 @@ export default function Interests(props) {
   
   const { field, setFieldValue } = props;
   const [allInterests, setAllInterests] = useState(['Music', 'Sport', 'Painting']);
-  // const [activeInterests, setActiveInterests] = useState(field.value || []);
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
   
-  console.log("activeInterests field", field.value)
-  
   useEffect(() => {
     if (data) { 
-      console.log("data interests", data)
       setAllInterests(data.interests)
     }
   }, [data, loading, error]);
   
-  // useEffect(() => {
-  //   if(field.value) {setActiveInterests(field.value)}
-  // }, [field.value]);
-    
   const toggleInterest = (e) => {
     if (e.target.classList.contains("active")){
-      console.log("remove activeInterests", e.target.textContent)
       e.target.classList.remove("active")
       setFieldValue('interests', field.value.filter(i => i !== e.target.textContent))
     } else {
-      console.log("activeInterests 2", [e.target.textContent, ...field.value])
       e.target.classList.add('active')
       setFieldValue('interests', [e.target.textContent, ...field.value])
     }
-    // setFieldValue("interests", activeInterests)
   }
   
   return (
