@@ -75,6 +75,7 @@ export default function Chat(props) {
   const [newMessageData, setNewMessageData] = useState();
   const [directChat, setDirectChat] = useState(false);
   const [currentGroupMembers, setCurrentGroupMembers] = useState();
+  const [showMembers, setShowMembers] = useState(full)
   
   const refLastMessage = useRef();
   const navigate = useNavigate();
@@ -233,6 +234,10 @@ export default function Chat(props) {
     setLeftPanelWidth(leftPanelWidth === 0 ? (full?'15%':'100%') : 0)
   }
   
+  const ToggleMembersPanel = () => {
+    setShowMembers(!showMembers)
+  }
+  
   const bgMsgListBar = useColorModeValue('green.50', 'darkslategrey');
  
   
@@ -269,49 +274,50 @@ export default function Chat(props) {
           </Box>
 
 
-          {((!full && leftPanelWidth === 0) || full) && <Box minWidth={["full", "900"]} style={{ flex: 1}}>
-          <Flex
-              as="nav"
-              align="center"
-              justify="space-between"
-              wrap="wrap"
-              w="100%"
-              bg={bgMsgListBar}
-              maxH='40px'
-            >
-              <BarButton type='basic' style={{ color: "green"}} onClick={ToggleGroupListPanel}>
-                {leftPanelWidth ? <ArrowLeftIcon />: <ArrowRightIcon />}
-              </BarButton>
-              <Text alignSelf='center' m='0'>
-                {currentGroupName}
-              </Text>
-              <BarButton type='basic' style={{ color: "green"}} onClick={ToggleGroupListPanel}>
-                <MdPeopleOutline size='2em'/>
-              </BarButton>
-              {/*<Menu>
-                <MenuButton
-                  as={IconButton}
-                  aria-label='Options'
-                  icon={<HamburgerIcon />}
-                  variant='outline'
-                />
-                 <MenuList>
-                  <MenuItem icon={<HamburgerIcon />} command='⌘T' onClick={() => {}}>
-                    New Chat
-                  </MenuItem>
-                  <MenuItem icon={<HamburgerIcon />} command='⌘N'>
-                    Leave chat
-                  </MenuItem>
-                  <MenuItem icon={<HamburgerIcon />} command='⌘⇧N'>
-                    Settings
-                  </MenuItem>
-                  <MenuItem  command='⌘O'> 
-                    Delete Chat
-                  </MenuItem>
-                </MenuList> 
-              </Menu>*/}
-            </Flex>
-            { (currentChatID !== null) &&
+          {((!full && leftPanelWidth === 0) || full) && 
+          <Box minWidth={["full", "900"]} style={{ flex: 1}}>
+            <Flex
+                as="nav"
+                align="center"
+                justify="space-between"
+                wrap="wrap"
+                w="100%"
+                bg={bgMsgListBar}
+                maxH='40px'
+              >
+                <BarButton type='basic' style={{ color: "green"}} onClick={ToggleGroupListPanel}>
+                  {leftPanelWidth ? <ArrowLeftIcon />: <ArrowRightIcon />}
+                </BarButton>
+                <Text alignSelf='center' m='0'>
+                  {currentGroupName}
+                </Text>
+                <BarButton type='basic' style={{ color: "green"}} onClick={ToggleMembersPanel}>
+                  <MdPeopleOutline size='2em'/>
+                </BarButton>
+                {/*<Menu>
+                  <MenuButton
+                    as={IconButton}
+                    aria-label='Options'
+                    icon={<HamburgerIcon />}
+                    variant='outline'
+                  />
+                  <MenuList>
+                    <MenuItem icon={<HamburgerIcon />} command='⌘T' onClick={() => {}}>
+                      New Chat
+                    </MenuItem>
+                    <MenuItem icon={<HamburgerIcon />} command='⌘N'>
+                      Leave chat
+                    </MenuItem>
+                    <MenuItem icon={<HamburgerIcon />} command='⌘⇧N'>
+                      Settings
+                    </MenuItem>
+                    <MenuItem  command='⌘O'> 
+                      Delete Chat
+                    </MenuItem>
+                  </MenuList> 
+                </Menu>*/}
+              </Flex>
+            { (currentChatID !== null && (showMembers && !full)) &&
               <VStack  style={{ height: 'calc(100vh - 110px)'}}>
                 <ChatMessages 
                   chatHistory={chatHistory} 
@@ -326,14 +332,15 @@ export default function Chat(props) {
               </VStack>
             } 
           </Box>}
-          {/* { (currentChatID !== null && !directChat) &&
+          
+          { (showMembers && currentChatID !== null && !directChat) &&
           <Box style={{ width: leftPanelWidth, minWidth: leftPanelWidth, overflow: 'hidden' }}>
             <ChatMembers chatID={currentChatID} setGlobalMembersList={setCurrentGroupMembers}/>
           </Box>
           } 
-          { directChat &&
+          { (showMembers && directChat) &&
             <ChatMemberInfo uid ={currentChatID.split(":").filter(uid => uid !== currentUser.uid )[0]} />
-          } */}
+          }
         </Split>
         </Box>
     );

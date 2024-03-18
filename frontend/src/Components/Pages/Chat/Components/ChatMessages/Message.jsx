@@ -11,7 +11,7 @@ export default function Message(props) {
   return (
     Message.author === currentUserUid 
     ?
-    <Flex direction='row' spacing={4} flex={"end"}  m="3" gap='2'>
+    <Flex direction='row' spacing={4} flex={"end"}  m="3" gap='2' width="full">
       <Spacer/>
       <Box maxW='sm' borderWidth='1px' borderRadius='lg' 
           bg={bgMessage} alignSelf="start" pl='3' pr='3'>
