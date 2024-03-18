@@ -8,11 +8,26 @@ import {
     TagCloseButton,
   } from '@chakra-ui/react'
 
+const GET_ALL_INTERESTS = gql`
+query Interests()
+{
+  interests
+  {
+    groups {
+      groupID
+      groupName
+      creatorUid
+      directChat
+    }
+  }
+}
+`; 
+  
 
 export default function Interests(props) { 
   
   const { field, setFieldValue } = props;
-  
+  const [allInterests, setAllnterests] = useState(['Music', 'Sport', 'Painting']);
   const [activeInterests, setActiveInterests] = useState(field.value);
   
   useEffect(() => {
@@ -32,15 +47,15 @@ export default function Interests(props) {
   
   return (
     <HStack spacing={4}>
-    {['Music', 'Sport', 'Painting'].map((interest) => (
+    {allInterests.map((interest) => (
         <Tag 
           size='md' 
           key={interest} 
-          variant={activeInterests.includes(interest)?'solid' :'outline'} 
+          variant={activeInterests?.includes(interest)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          className={activeInterests.includes(interest)?'active':'noactive'}
+          className={activeInterests?.includes(interest)?'active':'noactive'}
         >
         {interest}
         </Tag>
