@@ -161,6 +161,9 @@ export default function Chat(props) {
     setCurrentChatID(GroupID)
     setCurrentGroupName(GroupName)
     navigate(location.pathname, {}); // to clear Location state with chat ID
+    if (!full){
+      setLeftPanelWidth(0)
+    }
   }
 
   const preloadChatHistory = (chatID) => {
