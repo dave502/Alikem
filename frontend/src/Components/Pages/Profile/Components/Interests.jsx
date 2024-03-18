@@ -11,9 +11,7 @@ import {
 import { MdSend } from "react-icons/md";
 import ResizeTextarea from "react-textarea-autosize";
 
-const toggleInterest = (e) => {
-  console.log("Tag click")
-}
+
 
 
 export default function Interests(props) { 
@@ -23,6 +21,10 @@ export default function Interests(props) {
   const [msgText, setMsgText] = useState("")
   
   var activeInterests = []
+  
+  const toggleInterest = (e) => {
+    console.log("Tag click", e)
+  }
   
   return (
     <HStack spacing={4}>
