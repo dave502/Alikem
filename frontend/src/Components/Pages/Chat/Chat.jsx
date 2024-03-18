@@ -320,7 +320,7 @@ export default function Chat(props) {
                   </MenuList> 
                 </Menu>*/}
               </Flex>
-            { (currentChatID !== null && (showMembers && !full)) &&
+            { (currentChatID !== null && (!showMembers && !full)) &&
               <VStack  style={{ height: 'calc(100vh - 110px)'}}>
                 <ChatMessages 
                   chatHistory={chatHistory} 
