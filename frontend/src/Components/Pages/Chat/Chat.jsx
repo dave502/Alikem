@@ -286,7 +286,7 @@ export default function Chat(props) {
                 {currentGroupName}
               </Text>
               <BarButton type='basic' style={{ color: "green"}} onClick={ToggleGroupListPanel}>
-                <MdPeopleOutline />
+                <MdPeopleOutline size='2em'/>
               </BarButton>
               {/*<Menu>
                 <MenuButton
