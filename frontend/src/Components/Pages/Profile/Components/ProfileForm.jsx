@@ -129,7 +129,7 @@ function ProfileForm(props) {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} isRequired mb={3}>
                   <HStack>
-                    <FormLabel width={"100px"}>{t("name")}</FormLabel>
+                    <FormLabel style={{"width":'100px'}}>{t("name")}</FormLabel>
                     <Input {...field} placeholder={t("name_hint")} maxW={600}/>
                   </HStack>
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
@@ -141,7 +141,7 @@ function ProfileForm(props) {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <HStack>
-                    <FormLabel width={"100px"}>{t("city")}</FormLabel>
+                    <FormLabel style={{"width":'100px'}}>{t("city")}</FormLabel>
                     <SelectCity field={field} setFieldValue={setFieldValue}/>
                   </HStack>
                   <FormErrorMessage>{form.errors.city}</FormErrorMessage>
@@ -154,14 +154,14 @@ function ProfileForm(props) {
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <RadioGroup  colorScheme='green' defaultValue='' value={field.value}>  
                   <Stack spacing={5} direction={['column', 'row']}>
-                    <FormLabel width={"100px"} >{t("gender")}</FormLabel>
+                    <FormLabel style={{"width":'100px'}} >{t("gender")}</FormLabel>
                     <Radio {...field} value="male" checked={field.value === 'male'} size='lg' ml={['100px', '0']}>
                       {t("male")}
                     </Radio>
-                    <Radio {...field} value="female" checked={field.value === 'female'} size='lg'>
+                    <Radio {...field} value="female" checked={field.value === 'female'} size='lg'ml={['100px', '0']}>
                       {t("female")}
                     </Radio>
-                    <Radio {...field} value="" checked={field.value === ''} size='lg'>
+                    <Radio {...field} value="" checked={field.value === ''} size='lg' ml={['100px', '0']}>
                       {t("omit")}
                     </Radio>
                   </Stack>
@@ -176,7 +176,7 @@ function ProfileForm(props) {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <HStack>
-                    <FormLabel width={"100px"}>{t("birthday")}</FormLabel>
+                    <FormLabel style={{"width":'100px'}}>{t("birthday")}</FormLabel>
                     <Input {...field} placeholder='' width={600} type="date"/>
                   </HStack>
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
@@ -188,7 +188,7 @@ function ProfileForm(props) {
               {({ field, form }) => (
                   <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                     <HStack>
-                      <FormLabel width={"100px"}>{t("interests")}</FormLabel>
+                      <FormLabel style={{"width":'100px'}}>{t("interests")}</FormLabel>
                       <Interests field={field} setFieldValue={setFieldValue}/>
                     </HStack>
                   </FormControl>
