@@ -29,10 +29,10 @@ export default function Interests(props) {
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
   
-  console.log("activeInterests", activeInterests)
+  console.log("activeInterests 0", activeInterests)
   
   useEffect(() => {
-    console.log("activeInterests", activeInterests)
+    console.log("activeInterests 1", activeInterests)
     if (data) { 
       console.log("data interests", data)
       setAllInterests(data.interests)
@@ -48,7 +48,7 @@ export default function Interests(props) {
       e.target.classList.remove("active")
       setActiveInterests(activeInterests.filter(i => i !== e.target.textContent))
     } else {
-      console.log("activeInterests", activeInterests)
+      console.log("activeInterests 2", activeInterests)
       e.target.classList.add('active')
       setActiveInterests([e.target.textContent, ...activeInterests])
     }
