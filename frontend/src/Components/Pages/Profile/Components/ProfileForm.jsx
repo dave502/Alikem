@@ -155,7 +155,7 @@ function ProfileForm(props) {
                   <RadioGroup  colorScheme='green' defaultValue='' value={field.value}>  
                   <Stack spacing={5} direction={['column', 'row']}>
                     <FormLabel width={"100px"} >{t("gender")}</FormLabel>
-                    <Radio {...field} value="male" checked={field.value === 'male'} size='lg'>
+                    <Radio {...field} value="male" checked={field.value === 'male'} size='lg' ml={['100px', '0']}>
                       {t("male")}
                     </Radio>
                     <Radio {...field} value="female" checked={field.value === 'female'} size='lg'>

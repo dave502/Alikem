@@ -74,7 +74,7 @@ import {
     
     return (
       <Container centerContent>
-        <AspectRatio width="64" ratio={1} mr={"100"}>
+        <AspectRatio width="64" ratio={1}>
           <Box
             borderColor="lightgray"
             borderStyle="solid"
