@@ -7,6 +7,7 @@ import {
     TagRightIcon,
     TagCloseButton,
   } from '@chakra-ui/react'
+import { gql, useQuery } from "@apollo/client";
 
 const GET_ALL_INTERESTS = gql`
 query Interests()
