@@ -39,7 +39,10 @@ query Users($uid: String!)
     city
     cityID
     img    
-    interests
+    interests {
+      interestID
+      interestName
+    }
   }
 }
 `;
