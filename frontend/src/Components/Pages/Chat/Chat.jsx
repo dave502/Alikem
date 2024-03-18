@@ -311,7 +311,7 @@ export default function Chat(props) {
                 </MenuList> 
               </Menu>*/}
             </Flex>
-            {/* { (currentChatID !== null) &&
+            { (currentChatID !== null) &&
               <VStack  style={{ height: 'calc(100vh - 110px)'}}>
                 <ChatMessages 
                   chatHistory={chatHistory} 
@@ -324,7 +324,7 @@ export default function Chat(props) {
                 <Spacer />
                 <ChatInput send={handleSendMessage} chatID={currentChatID}/>
               </VStack>
-            }  */}
+            } 
           </Box>}
           {/* { (currentChatID !== null && !directChat) &&
           <Box style={{ width: leftPanelWidth, minWidth: leftPanelWidth, overflow: 'hidden' }}>
