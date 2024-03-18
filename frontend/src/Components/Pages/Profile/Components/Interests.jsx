@@ -22,7 +22,14 @@ export default function Interests(props) {
     
   const toggleInterest = (e) => {
     console.log("Tag click", e)
-    setActiveInterests((prev)=>[e.target.textContent, ...prev])
+    if (e.target.classList.contains("active")){
+      e.target.classList.remove("active")
+      setActiveInterests(activeInterests.filter(i => i !== e.target.textContent))
+    } else {
+      e.target.classList.add('active')
+      setActiveInterests((prev)=>[e.target.textContent, ...prev])
+    }
+    
   }
   
   return (
