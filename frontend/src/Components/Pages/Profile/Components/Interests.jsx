@@ -47,7 +47,7 @@ export default function Interests(props) {
       e.target.classList.remove("active")
       setFieldValue(field.value.filter(i => i !== e.target.textContent))
     } else {
-      console.log("activeInterests 2", field.value)
+      console.log("activeInterests 2", [e.target.textContent, ...field.value])
       e.target.classList.add('active')
       setFieldValue([e.target.textContent, ...field.value])
     }
@@ -64,7 +64,7 @@ export default function Interests(props) {
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          className={field.value?.includes(interestName)?'active':'noactive'}
+          className={field.value?.includes(interestName)?'active':''}
         >
         {interestName}
         </Tag>
