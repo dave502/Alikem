@@ -229,7 +229,7 @@ export default function Chat(props) {
   }
   
   const ToggleGroupListPanel = () => {
-    setLeftPanelWidth(leftPanelWidth === 0 ? (full?'100%':'15%') : 0)
+    setLeftPanelWidth(leftPanelWidth === 0 ? (full?'15%':'100%') : 0)
   }
   
   const bgMsgListBar = useColorModeValue('green.50', 'darkslategrey');
