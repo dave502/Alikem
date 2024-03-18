@@ -29,7 +29,7 @@ export default function Message(props) {
         </Flex>
       <VStack alignItems='start'>
         <Text as='b' fontSize='md' >{fromUser?.name}</Text>
-        <Box  borderWidth='1px' borderRadius='lg' 
+        <Box maxW='30%' borderWidth='1px' borderRadius='lg' 
             bg={bgMessage} alignSelf="start" pl='3' pr='3'>
           <Text fontSize='md' textAlign='left' m='0' mb='1'>{Message.text}</Text>
           
