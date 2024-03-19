@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Text, Flex, Stack, HStack, Container } from "@chakra-ui/react"
+import { Box, Text, Button, Flex, Stack, HStack, Container,  
+  Menu, MenuButton, MenuList, MenuItem, MenuDivider, Avatar} from "@chakra-ui/react"
 import { CgMenuGridR as MenuIcon, CgCloseR as CloseIcon, 
   CgProfile as Profile, CgEventbrite as Event } from "react-icons/cg";
 import { RiChatSmile3Line as Chat } from "react-icons/ri";
@@ -7,6 +8,10 @@ import { FaUserFriends as Friends } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { useAuth } from '../../Auth/AuthContext.jsx'
+import { useTranslation } from "react-i18next";
+
+const profileAvatar = ''
 
 const Logo = (props) => {
   return (
@@ -45,6 +50,52 @@ const MainMenuItem = ({ children, isLast, Icon, text, description, to = "/", ...
   )
 }
 
+
+const UserButton = () => {
+  
+  const { currentUser } = useAuth();
+  const { t } = useTranslation();
+  
+  return (
+    <Flex alignItems={'center'}>
+    {currentUser ? 
+    <Menu>
+
+      <MenuButton
+        as={Button}
+        rounded={'full'}
+        variant={'link'}
+        cursor={'pointer'}
+        minW={0}>
+        <Avatar
+          height='40px'
+          width='40px'
+          src={
+            `url(${profileAvatar ? profileAvatar:"/default_avatar.jpeg"})`
+          }
+        />
+      </MenuButton>
+      <MenuList colorScheme='green'>
+        <MenuItem as='a' href='/profile'>{t('profile')}</MenuItem>
+        <MenuItem as='a' href='/profile'>{t('settings')}</MenuItem>
+        <MenuDivider />
+        <MenuItem as='a' href='/profile'>{t('signout')}</MenuItem>
+      </MenuList>
+    </Menu>
+    :
+    <Button 
+      _hover={{ color: 'yellow' }} 
+      colorScheme='white' 
+      variant='outline' 
+      as='a' 
+      href='/login'>
+        {t('signin')}
+    </Button>
+    }
+  </Flex>
+  )
+}
+
 const NavBarContainer = ({ children, ...props }) => {
   return (
     <Flex
@@ -78,7 +129,7 @@ const MenuLinks = ( {isOpen} ) => {
         direction={["row", "row", "row", "row"]}
         pt={[0, 0, 0, 0]}
       >
-        <MainMenuItem to="/profile" Icon={Profile} decription="profile"/>
+        {/* <MainMenuItem to="/profile" Icon={Profile} decription="profile"/> */}
         <MainMenuItem to="/chat" Icon={Chat} decription="chat"/>
         <MainMenuItem to="/friends" Icon={Friends} decription="chat"/>
         <MainMenuItem to="/events" Icon={Event} decription="events"/>
@@ -101,8 +152,11 @@ const NavBar = (props) => {
       <NavBarContainer {...props}>
         <MenuToggle toggle={toggle} isOpen={isOpen} />
         <MenuLinks isOpen={isOpen} />
-        <LanguageSwitcher style={{position:"absolute", right: 50, top: 5}}/>
-        <ColorModeSwitcher style={{position:"absolute", right: 5, top: 5}}/>    
+        <HStack  spacing={3} style={{position:"absolute", right: 10, top: 5}}>
+          <LanguageSwitcher/>
+          <ColorModeSwitcher /> 
+          <UserButton/> 
+        </HStack>  
       </NavBarContainer>
 
       </Box>  

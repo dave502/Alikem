@@ -34,8 +34,8 @@ export const LanguageSwitcher = props => {
           as={IconButton}
           icon={<IconLanguageSwitcher />} 
           variant="ghost" 
-          px='6px' 
           rightIcon={<ChevronDownIcon color="white"/>} 
+          px='2'
           {...props}
         />
         <MenuList minW='32px' p='1' border='0' >
