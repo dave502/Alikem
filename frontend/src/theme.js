@@ -66,9 +66,11 @@ const theme = extendTheme({
            },
            _light: {
             _hover: {
+              color:"colors.green.900",
               bg: "colors.green.500",
             },
             _focus: {
+              color:"colors.green.900",
               bg: "colors.green.500",
             },
           },
