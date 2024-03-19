@@ -74,6 +74,28 @@ const theme = extendTheme({
               bg: "colors.green.500",
             },
           },
+        },
+        a: {
+          _dark: {
+             _hover: {
+              color:"white",
+              bg: "colors.green.100",
+            },
+            _focus: {
+              color:"white",
+              bg: "colors.green.100",
+            },
+           },
+           _light: {
+            _hover: {
+              color:"colors.green.900",
+              bg: "colors.green.500",
+            },
+            _focus: {
+              color:"colors.green.900",
+              bg: "colors.green.500",
+            },
+          },
         }
       },
     },
