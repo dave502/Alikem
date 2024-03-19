@@ -10,6 +10,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useAuth } from '../../Auth/AuthContext.jsx'
 import { useTranslation } from "react-i18next";
+import { varNeoUser } from '../../../variables.js';
 
 const profileAvatar = ''
 
@@ -53,8 +54,15 @@ const MainMenuItem = ({ children, isLast, Icon, text, description, to = "/", ...
 
 const UserButton = () => {
   
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const { t } = useTranslation();
+  
+  const signout = () => {
+    if (currentUser != null){
+        logout();
+        varNeoUser(null)
+    }
+  }
   
   return (
     <Flex alignItems={'center'}>
@@ -79,7 +87,7 @@ const UserButton = () => {
         <MenuItem as='a' href='/profile'>{t('profile')}</MenuItem>
         <MenuItem as='a' href='/profile'>{t('settings')}</MenuItem>
         <MenuDivider />
-        <MenuItem as='a' href='/profile'>{t('signout')}</MenuItem>
+        <MenuItem onClick={signout}>{t('signout')}</MenuItem>
       </MenuList>
     </Menu>
     :

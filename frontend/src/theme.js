@@ -53,7 +53,7 @@ const theme = extendTheme({
           },
           //  bg: "teal.500",
          },
-         item: {
+        item: {
           _dark: {
              _hover: {
               color:"white",
@@ -74,7 +74,7 @@ const theme = extendTheme({
               bg: "colors.green.500",
             },
           },
-         }
+        }
       },
     },
   },
