@@ -138,7 +138,7 @@ import {
                 onDragLeave={stopAnimation}
                 //{...field}
                 onChange={(event) => {
-                  setFieldValue("img", event.target.files[0]);
+                  setFieldValue("img", URL.createObjectURL(event.target.files[0]));
                 }}
               />
             </Box>
