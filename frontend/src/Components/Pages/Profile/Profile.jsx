@@ -114,7 +114,7 @@ function Profile(props) {
             <VStack>
               { currentUser?.uid&&
               <ProfileForm 
-                  uid={currentUser.uid}
+                  user={currentUser}
                   updateUserProfile={updateUserProfile}/>
               }
             </VStack>

@@ -52,17 +52,19 @@ query Users($uid: String!)
 function ProfileForm(props) {
   
   
-    const { uid, updateUserProfile } = props
+    const { user, updateUserProfile } = props
     const { t } = useTranslation();
     const storage = getStorage();
-    const storageRef = ref(storage, 'avatars/' + uid); 
+    const storageRef = ref(storage, 'avatars/' + user.uid); 
     
     const { data, loading, error } = useQuery(READ_USER_POFILE, {
-      variables: { uid: uid }
+      variables: { uid: user.uid }
     });
     
+    console.log("ProfileForm user", user)
+    
     useEffect(() => {
-      console.log(data, uid)
+      console.log("ProfileForm data", data, user.uid)
       // if (data){
       //   const user = new Object();
       //   Object.entries(data.users[0]).forEach(v => user[v[0]] = v[1] || null)
