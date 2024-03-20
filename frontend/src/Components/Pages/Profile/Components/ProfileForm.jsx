@@ -67,24 +67,15 @@ function ProfileForm(props) {
     
     console.log("ProfileForm user", user)
     
-    
-    console.log("getBlob(storageRef)", storageRef);
-    getBlob(storageRef)
-    .then((blob) => { 
-      console.log('blob: ', blob)
-      //seAvatarURL(blob);
-    })
-    .catch((error) => { console.log('error downloading avatar: ', error)})
-    
-    // useEffect(() => {
-    //   console.log("getBlob(storageRef)", storageRef);
-    //   getBlob(storageRef)
-    //   .then((blob) => { 
-    //     console.log('blob: ', blob)
-    //     //seAvatarURL(blob);
-    //   })
-    //   .catch((error) => { console.log('error downloading avatar: ', error)})
-    // }, [storageRef]);
+    useEffect(() => {
+      console.log("getBlob(storageRef)", storageRef);
+      getBlob(storageRef)
+      .then((blob) => { 
+        console.log('blob: ', blob)
+        //seAvatarURL(blob);
+      })
+      .catch((error) => { console.log('error downloading avatar: ', error)})
+    }, [storageRef]);
     
     useEffect(() => {
       console.log("ProfileForm data", data, user.uid)
