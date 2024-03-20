@@ -77,7 +77,7 @@ import {
             animate="rest"
             whileHover="hover"
           >
-              {/* <Box
+              <Box
                 position="absolute"
                 top="5"
                 left="0"
@@ -87,7 +87,7 @@ import {
                 flexDirection="column"
                 alignItems="center"
                 justify="center"
-              > */}
+              >
                 <PreviewImage
                   variants={imgTransition}
                   backgroundImage={`url(${imgURL ? imgURL:"/default_avatar.jpeg"})`}
@@ -115,7 +115,7 @@ import {
                     setFieldValue("img", event.target.files[0]);
                   }}
               />
-              {/* </Box> */}
+              </Box>
  
             {/* </Box> */}
           {/* </Box> */}
