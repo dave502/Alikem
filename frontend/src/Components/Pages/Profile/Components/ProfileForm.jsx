@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from "@apollo/client";
-import { getStorage, getDownloadURL, uploadBytes, ref} from "firebase/storage";
+import { getStorage, getDownloadURL, getBlob, uploadBytes, ref} from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 
 import {
@@ -58,7 +58,8 @@ function ProfileForm(props) {
     const storage = getStorage();
     const storageRef = ref(storage, 'avatars/' + user.uid); 
     
-    getDownloadURL(storageRef)
+    //getDownloadURL(storageRef)
+    getBlob(storageRef)
     .then((url) => { 
       seAvatarURL(url);
     })

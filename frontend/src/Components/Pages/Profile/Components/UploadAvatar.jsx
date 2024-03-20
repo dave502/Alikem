@@ -68,7 +68,7 @@ import {
     const startAnimation = () => controls.start("hover");
     const stopAnimation = () => controls.stop();
     
-    console.log("UploadAvatar img", blobImg)
+    console.log("UploadAvatar img", blobImg, typeof(blobImg))
     const imgURL = blobImg? URL.createObjectURL(blobImg) : undefined
     console.log("UploadAvatar imgURL", imgURL)
     
