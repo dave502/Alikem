@@ -15,15 +15,15 @@ import {
   import { useTranslation } from "react-i18next";
  
   const imgTransition = {
-    rest: {
-      scale: 1.5,
-      // filter: "grayscale(0%)",
-      transition: {
-        duration: 0.5,
-        type: "tween",
-        ease: "easeIn"
-      }
-    },
+    // rest: {
+    //   scale: 1.5,
+    //   // filter: "grayscale(0%)",
+    //   transition: {
+    //     duration: 0.5,
+    //     type: "tween",
+    //     ease: "easeIn"
+    //   }
+    // },
     hover: {
       scale: 1.3,
       // filter: "grayscale(80%)",
