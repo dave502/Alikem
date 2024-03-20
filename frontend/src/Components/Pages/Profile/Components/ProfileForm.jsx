@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from "@apollo/client";
-import { getStorage, getDownloadURL, uploadBytes, getBlob, ref} from "firebase/storage";
+import { getStorage, getDownloadURL, uploadBytes, ref} from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 
 import {
@@ -58,8 +58,8 @@ function ProfileForm(props) {
     const storageRef = ref(storage, 'avatars/' + user.uid); 
     var avatar = null;
     
-    getBlob(storageRef)
-    .then((blob) => { avatar = URL.createObjectURL(blob) })
+    getDownloadURL(storageRef)
+    .then((url) => { avatar = url })
     .catch((error) => { console.log('error downloading avatar: ', error)})
     
     const { data, loading, error } = useQuery(READ_USER_POFILE, {
