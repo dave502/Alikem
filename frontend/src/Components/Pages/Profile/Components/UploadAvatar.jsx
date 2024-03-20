@@ -91,7 +91,7 @@ import {
             animate="rest"
             whileHover="hover"
           >
-            <Box position="relative" height="100%" width="100%">
+            {/* <Box position="relative" height="100%" width="100%"> */}
               <Box
                 position="absolute"
                 top="5"
@@ -142,7 +142,7 @@ import {
                   setFieldValue("img", event.target.files[0]);
                 }}
               />
-            </Box>
+            {/* </Box> */}
           {/* </Box> */}
         </AspectRatio>
         </Container>
