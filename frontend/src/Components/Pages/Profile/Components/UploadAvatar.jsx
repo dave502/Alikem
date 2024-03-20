@@ -110,7 +110,7 @@ import {
 
                   spacing="4"
                 > */}
-                  <Box height="24" width="24" position="relative">
+                  <Box height="64" width="64" position="relative">
                     <PreviewImage
                       variants={imgTransition}
                       backgroundImage={`url(${imgURL ? imgURL:"/default_avatar.jpeg"})`}
