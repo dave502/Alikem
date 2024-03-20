@@ -53,7 +53,7 @@ function ProfileForm(props) {
   
   
     const { user, updateUserProfile } = props;
-    const [avatarBlob, seAvatarBlob] = useState(new Blob());
+    const [avatarBlob, seAvatarBlob] = useState({});
     const { t } = useTranslation();
     const storage = getStorage();
     const storageRef = ref(storage, 'avatars/' + user.uid); 
@@ -68,10 +68,10 @@ function ProfileForm(props) {
     console.log("ProfileForm user", user)
     
     useEffect(() => {
-      console.log("getBlob(storageRef)", storageRef);
       getBlob(storageRef)
       .then((blob) => { 
-        seAvatarBlob(blob);
+        console.log('blob: ', blob);
+        seAvatarBlob({'blob': blob});
       })
       .catch((error) => { console.log('error downloading avatar: ', error)})
     }, []);
@@ -121,7 +121,7 @@ function ProfileForm(props) {
         initialValues={{ 
                         name: data.users[0].name,
                         gender: data.users[0].gender, 
-                        img:  avatarBlob, 
+                        img:  avatarBlob['blob'], 
                         city: data.users[0].city, 
                         birthday: data.users[0].birthday,
                         interests: data.users[0].interests,
