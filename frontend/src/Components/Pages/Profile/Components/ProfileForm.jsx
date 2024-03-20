@@ -67,14 +67,14 @@ function ProfileForm(props) {
     
     console.log("ProfileForm user", user)
     
-    useEffect(() => {
-      console.log("getBlob(storageRef)");
-      getBlob(storageRef)
-      .then((url) => { 
-        seAvatarURL(url);
-      })
-      .catch((error) => { console.log('error downloading avatar: ', error)})
-    }, [storageRef]);
+    // useEffect(() => {
+    //   console.log("getBlob(storageRef)");
+    //   getBlob(storageRef)
+    //   .then((url) => { 
+    //     seAvatarURL(url);
+    //   })
+    //   .catch((error) => { console.log('error downloading avatar: ', error)})
+    // }, [storageRef]);
     
     useEffect(() => {
       console.log("ProfileForm data", data, user.uid)
