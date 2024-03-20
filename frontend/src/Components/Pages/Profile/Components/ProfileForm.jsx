@@ -128,8 +128,10 @@ function ProfileForm(props) {
                       }}
         onSubmit={async (values, { setSubmitting }) => {
           await new Promise((r) => setTimeout(r, 500));
+          
           const result = new Object();
-          console.log("Formik profile values", values)
+          Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
+          
           if (values.img) {
             await uploadBytes(storageRef, values.img);
           }
@@ -138,11 +140,8 @@ function ProfileForm(props) {
           .catch((error) => {
             console.log("Failed to update profile")
           });
-          console.log("Formik profile newAvatarUrl", newAvatarUrl)
-
-          Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
           result['img'] = newAvatarUrl;
-          console.log("Formik profile result", result)
+          
           updateUserProfile(result);
           setSubmitting(false);
         }}  
