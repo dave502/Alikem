@@ -59,17 +59,22 @@ function ProfileForm(props) {
     const storageRef = ref(storage, 'avatars/' + user.uid); 
     
     //getDownloadURL(storageRef)
-    getBlob(storageRef)
-    .then((url) => { 
-      seAvatarURL(url);
-    })
-    .catch((error) => { console.log('error downloading avatar: ', error)})
+
     
     const { data, loading, error } = useQuery(READ_USER_POFILE, {
       variables: { uid: user.uid }
     });
     
     console.log("ProfileForm user", user)
+    
+    useEffect(() => {
+      console.log("getBlob(storageRef)");
+      getBlob(storageRef)
+      .then((url) => { 
+        seAvatarURL(url);
+      })
+      .catch((error) => { console.log('error downloading avatar: ', error)})
+    }, [storageRef]);
     
     useEffect(() => {
       console.log("ProfileForm data", data, user.uid)
