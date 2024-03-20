@@ -17,7 +17,7 @@ import {
   const imgTransition = {
     rest: {
       scale: 1.5,
-      filter: "grayscale(0%)",
+      // filter: "grayscale(0%)",
       transition: {
         duration: 0.5,
         type: "tween",
