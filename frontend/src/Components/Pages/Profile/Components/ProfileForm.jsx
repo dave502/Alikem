@@ -122,7 +122,7 @@ function ProfileForm(props) {
             
           }
           const avatarUrl = await getDownloadURL(storageRef);
-          updateProfile(auth.currentUser, {
+          updateProfile(user, {
             photoURL: avatarUrl
           }).catch((error) => {
             console.log("Failed to update profile")
