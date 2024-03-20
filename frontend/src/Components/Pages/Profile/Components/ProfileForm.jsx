@@ -59,7 +59,10 @@ function ProfileForm(props) {
     var avatar = null;
     
     getDownloadURL(storageRef)
-    .then((url) => { avatar = url })
+    .then((url) => { 
+      console.log('getDownloadURL: ', url)
+      avatar = url 
+    })
     .catch((error) => { console.log('error downloading avatar: ', error)})
     
     const { data, loading, error } = useQuery(READ_USER_POFILE, {
