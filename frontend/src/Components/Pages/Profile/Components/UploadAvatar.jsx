@@ -69,7 +69,7 @@ import {
     const stopAnimation = () => controls.stop();
     
     console.log("UploadAvatar img", blobImg)
-    const imgURL = URL.createObjectURL(blobImg)
+    const imgURL = blobImg? URL.createObjectURL(blobImg) : undefined
     console.log("UploadAvatar imgURL", imgURL)
     
     return (
