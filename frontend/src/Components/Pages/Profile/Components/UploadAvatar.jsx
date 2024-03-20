@@ -60,7 +60,7 @@ import {
   
   export default function UploadAvatar(props) {
     
-    const { setFieldValue, field, blobImg } = props;
+    const { setFieldValue, blobImg } = props;
     
     //const [profileImage, setProfileImage] = useState(null);
     const { t } = useTranslation();
