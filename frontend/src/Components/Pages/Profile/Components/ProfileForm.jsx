@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from "@apollo/client";
 import { getStorage, getDownloadURL, uploadBytes, ref} from "firebase/storage";
+import { updateProfile } from "firebase/auth";
+
 import {
   FormControl,
   FormLabel,
@@ -115,8 +117,14 @@ function ProfileForm(props) {
           console.log("Formik profile values", values)
           if (values.avatar) {
             await uploadBytes(storageRef, values.avatar);
+            
           }
           const avatarUrl = await getDownloadURL(storageRef);
+          updateProfile(auth.currentUser, {
+            photoURL: avatarUrl
+          }).catch((error) => {
+            console.log("Failed to update profile")
+          });
           console.log("Formik profile avatarUrl", avatarUrl)
           result['img'] = avatarUrl;
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
