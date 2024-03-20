@@ -75,7 +75,7 @@ function ProfileForm(props) {
         seAvatarBlob(blob);
       })
       .catch((error) => { console.log('error downloading avatar: ', error)})
-    }, [storageRef]);
+    }, []);
     
     useEffect(() => {
       console.log("ProfileForm data", data, user.uid)
@@ -122,7 +122,7 @@ function ProfileForm(props) {
         initialValues={{ 
                         name: data.users[0].name,
                         gender: data.users[0].gender, 
-                        img:  data.users[0].city, 
+                        img:  avatarBlob, 
                         city: data.users[0].city, 
                         birthday: data.users[0].birthday,
                         interests: data.users[0].interests,
