@@ -139,8 +139,9 @@ function ProfileForm(props) {
             console.log("Failed to update profile")
           });
           console.log("Formik profile newAvatarUrl", newAvatarUrl)
-          result['img'] = newAvatarUrl;
+
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
+          result['img'] = newAvatarUrl;
           console.log("Formik profile result", result)
           updateUserProfile(result);
           setSubmitting(false);
