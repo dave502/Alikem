@@ -126,7 +126,6 @@ function ProfileForm(props) {
           console.log("Formik profile values", values)
           if (values.img) {
             await uploadBytes(storageRef, values.img);
-            
           }
           const newAvatarUrl = await getDownloadURL(storageRef);
           updateProfile(user, {photoURL: newAvatarUrl})
@@ -148,7 +147,7 @@ function ProfileForm(props) {
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <HStack>
                     <FormLabel style={{"width":'100px'}}>{t("photo")}</FormLabel>
-                    <UploadAvatar setFieldValue={setFieldValue} field={field} img={values.img}/>
+                    <UploadAvatar setFieldValue={setFieldValue} field={field} blobImg={values.blobImg}/>
                   </HStack>
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
                 </FormControl>

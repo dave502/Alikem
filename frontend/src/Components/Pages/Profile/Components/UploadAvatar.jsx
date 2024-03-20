@@ -60,7 +60,7 @@ import {
   
   export default function UploadAvatar(props) {
     
-    const { setFieldValue, field, img } = props;
+    const { setFieldValue, field, blobImg } = props;
     
     //const [profileImage, setProfileImage] = useState(null);
     const { t } = useTranslation();
@@ -69,6 +69,7 @@ import {
     const stopAnimation = () => controls.stop();
     
     console.log("UploadAvatar img", img)
+    const imgURL = URL.createObjectURL(blobImg)
 
     
     return (
@@ -111,7 +112,7 @@ import {
                   <Box height="24" width="24" position="relative">
                     <PreviewImage
                       variants={imgTransition}
-                      backgroundImage={`url(${img ? img:"/default_avatar.jpeg"})`}
+                      backgroundImage={`url(${imgURL ? imgURL:"/default_avatar.jpeg"})`}
                     />
                   </Box>
                   <Stack p="2" textAlign="center" spacing="1">
@@ -138,7 +139,7 @@ import {
                 onDragLeave={stopAnimation}
                 //{...field}
                 onChange={(event) => {
-                  setFieldValue("img", URL.createObjectURL(event.target.files[0]));
+                  setFieldValue("img", event.target.files[0]));
                 }}
               />
             </Box>
