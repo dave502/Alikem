@@ -118,7 +118,7 @@ function ProfileForm(props) {
     return ( //data?.users.length &&
 
       <Formik
-        enableReinitialize
+        enableReinitialize={true}
         initialValues={{ 
                         name: data.users[0].name,
                         gender: data.users[0].gender, 
