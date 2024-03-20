@@ -108,7 +108,7 @@ function ProfileForm(props) {
         initialValues={{ 
                         name: data.users[0].name,
                         gender: data.users[0].gender, 
-                        avatar: data.users[0].avatar, 
+                        avatar: data.users[0].img, 
                         city: data.users[0].city, 
                         birthday: data.users[0].birthday,
                         interests: data.users[0].interests,
