@@ -122,8 +122,7 @@ import {
                     <Text fontWeight="light" fontSize="md"> {t("upload_photo_click")}</Text>
                   </Stack>
                 </Stack>
-              </Box>
-              <Input
+                <Input
                 type="file"
                 id="avatar" 
                 name="avatar" 
@@ -142,6 +141,8 @@ import {
                   setFieldValue("img", event.target.files[0]);
                 }}
               />
+              </Box>
+ 
             {/* </Box> */}
           {/* </Box> */}
         </AspectRatio>
