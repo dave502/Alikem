@@ -110,12 +110,12 @@ import {
 
                   spacing="4"
                 > */}
-                  <Box height="64" width="64" position="relative">
+                  {/* <Box height="64" width="64" position="relative"> */}
                     <PreviewImage
                       variants={imgTransition}
                       backgroundImage={`url(${imgURL ? imgURL:"/default_avatar.jpeg"})`}
                     />
-                  </Box>
+                  {/* </Box> */}
                   {/* <Stack p="2" textAlign="center" spacing="1"> */}
                     <Text fontWeight="light" fontSize="md" zIndex="10"> 
                       {t("upload_photo_drag")}<br/>
