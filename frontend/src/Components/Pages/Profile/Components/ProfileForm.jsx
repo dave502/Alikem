@@ -110,6 +110,7 @@ function ProfileForm(props) {
         onSubmit={async (values, { setSubmitting }) => {
           await new Promise((r) => setTimeout(r, 500));
           const result = new Object();
+          console.log("Formik profile values", values)
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
           updateUserProfile(result);
           setSubmitting(false);
