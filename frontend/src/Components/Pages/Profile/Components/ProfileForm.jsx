@@ -53,7 +53,7 @@ function ProfileForm(props) {
     const { uid, updateUserProfile } = props
     const { t } = useTranslation();
     const storage = getStorage();
-    const storageRef = ref(storage, 'avatars/' + uid); 
+    const storageRef = ref(storage, 'avatars/' + uid + '/' + uid); 
     
     const { data, loading, error } = useQuery(READ_USER_POFILE, {
       variables: { uid: uid }
