@@ -68,9 +68,9 @@ import {
     const startAnimation = () => controls.start("hover");
     const stopAnimation = () => controls.stop();
     
-    console.log("UploadAvatar img", img)
+    console.log("UploadAvatar img", blobImg)
     const imgURL = URL.createObjectURL(blobImg)
-
+    console.log("UploadAvatar imgURL", imgURL)
     
     return (
       <Container centerContent>
