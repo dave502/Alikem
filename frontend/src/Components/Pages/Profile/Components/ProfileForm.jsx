@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from "@apollo/client";
-import { getStorage, getDownloadURL, uploadBytes, ref} from "firebase/storage";
+import { getStorage, getDownloadURL, uploadBytes, getBlob, ref} from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 
 import {
@@ -56,6 +56,11 @@ function ProfileForm(props) {
     const { t } = useTranslation();
     const storage = getStorage();
     const storageRef = ref(storage, 'avatars/' + user.uid); 
+    var avatar = null;
+    
+    getBlob(storageRef)
+    .then((blob) => { avatar = URL.createObjectURL(blob) })
+    .catch((error) => { console.log('error downloading avatar: ', error)})
     
     const { data, loading, error } = useQuery(READ_USER_POFILE, {
       variables: { uid: user.uid }
@@ -108,7 +113,7 @@ function ProfileForm(props) {
         initialValues={{ 
                         name: data.users[0].name,
                         gender: data.users[0].gender, 
-                        img: data.users[0].img, 
+                        img: avatar, 
                         city: data.users[0].city, 
                         birthday: data.users[0].birthday,
                         interests: data.users[0].interests,

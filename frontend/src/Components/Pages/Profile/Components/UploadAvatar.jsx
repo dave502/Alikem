@@ -69,7 +69,7 @@ import {
     const stopAnimation = () => controls.stop();
     
     console.log("UploadAvatar img", img)
-    const fileURL = img && URL.createObjectURL(img) 
+
     
     return (
       <Container centerContent>
@@ -111,7 +111,7 @@ import {
                   <Box height="24" width="24" position="relative">
                     <PreviewImage
                       variants={imgTransition}
-                      backgroundImage={`url(${fileURL ? fileURL:"/default_avatar.jpeg"})`}
+                      backgroundImage={`url(${img ? img:"/default_avatar.jpeg"})`}
                     />
                   </Box>
                   <Stack p="2" textAlign="center" spacing="1">
