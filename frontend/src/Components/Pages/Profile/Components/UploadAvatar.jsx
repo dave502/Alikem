@@ -116,12 +116,12 @@ import {
                       backgroundImage={`url(${imgURL ? imgURL:"/default_avatar.jpeg"})`}
                     />
                   </Box>
-                  <Stack p="2" textAlign="center" spacing="1">
-                    <Heading fontSize="md" fontWeight="bold">
-                      {t("upload_photo_drag")}
-                    </Heading>
-                    <Text fontWeight="light" fontSize="md"> {t("upload_photo_click")}</Text>
-                  </Stack>
+                  {/* <Stack p="2" textAlign="center" spacing="1"> */}
+                    <Text fontWeight="light" fontSize="md" zIndex="10"> 
+                      {t("upload_photo_drag")}<br/>
+                      {t("upload_photo_click")}
+                    </Text>
+                  {/* </Stack> */}
                 {/* </Stack> */}
                 <Input
                   type="file"
