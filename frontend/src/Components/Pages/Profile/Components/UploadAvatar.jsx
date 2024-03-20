@@ -15,19 +15,8 @@ import {
   import { useTranslation } from "react-i18next";
  
   const imgTransition = {
-    // rest: {
-    //   scale: 1.5,
-    //   // filter: "grayscale(0%)",
-    //   transition: {
-    //     duration: 0.5,
-    //     type: "tween",
-    //     ease: "easeIn"
-    //   }
-    // },
     hover: {
       scale: 1.3,
-      // filter: "grayscale(80%)",
-
       transition: {
         duration: 0.4,
         type: "tween",
@@ -61,8 +50,6 @@ import {
   export default function UploadAvatar(props) {
     
     const { setFieldValue, blobImg } = props;
-    
-    //const [profileImage, setProfileImage] = useState(null);
     const { t } = useTranslation();
     const controls = useAnimation();
     const startAnimation = () => controls.start("hover");
@@ -74,8 +61,7 @@ import {
     
     return (
       <Container centerContent>
-        <AspectRatio width="64" ratio={1} //>
-          // <Box
+        <AspectRatio width="64" ratio={1} 
             borderColor="lightgray"
             borderStyle="solid"
             borderWidth="2px"
@@ -91,8 +77,7 @@ import {
             animate="rest"
             whileHover="hover"
           >
-            {/* <Box position="relative" height="100%" width="100%"> */}
-              <Box
+              {/* <Box
                 position="absolute"
                 top="5"
                 left="0"
@@ -102,27 +87,15 @@ import {
                 flexDirection="column"
                 alignItems="center"
                 justify="center"
-              >
-                {/* <Stack
-                  height="100%"
-                  width="100%"
-                  display="flex"
-
-                  spacing="4"
-                > */}
-                  {/* <Box height="64" width="64" position="relative"> */}
-                    <PreviewImage
-                      variants={imgTransition}
-                      backgroundImage={`url(${imgURL ? imgURL:"/default_avatar.jpeg"})`}
-                    />
-                  {/* </Box> */}
-                  {/* <Stack p="2" textAlign="center" spacing="1"> */}
-                    <Text fontWeight="light" fontSize="md" zIndex="10"> 
-                      {t("upload_photo_drag")}<br/>
-                      {t("upload_photo_click")}
-                    </Text>
-                  {/* </Stack> */}
-                {/* </Stack> */}
+              > */}
+                <PreviewImage
+                  variants={imgTransition}
+                  backgroundImage={`url(${imgURL ? imgURL:"/default_avatar.jpeg"})`}
+                />
+                <Text fontWeight="light" fontSize="md" zIndex="10"> 
+                  {t("upload_photo_drag")}<br/>
+                  {t("upload_photo_click")}
+                </Text>
                 <Input
                   type="file"
                   id="avatar" 
@@ -142,7 +115,7 @@ import {
                     setFieldValue("img", event.target.files[0]);
                   }}
               />
-              </Box>
+              {/* </Box> */}
  
             {/* </Box> */}
           {/* </Box> */}
