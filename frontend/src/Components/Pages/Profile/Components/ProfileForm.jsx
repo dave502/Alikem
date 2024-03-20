@@ -108,7 +108,7 @@ function ProfileForm(props) {
         initialValues={{ 
                         name: data.users[0].name,
                         gender: data.users[0].gender, 
-                        avatar: data.users[0].img, 
+                        img: data.users[0].img, 
                         city: data.users[0].city, 
                         birthday: data.users[0].birthday,
                         interests: data.users[0].interests,
@@ -117,14 +117,13 @@ function ProfileForm(props) {
           await new Promise((r) => setTimeout(r, 500));
           const result = new Object();
           console.log("Formik profile values", values)
-          if (values.avatar) {
-            await uploadBytes(storageRef, values.avatar);
+          if (values.img) {
+            await uploadBytes(storageRef, values.img);
             
           }
           const avatarUrl = await getDownloadURL(storageRef);
-          updateProfile(user, {
-            photoURL: avatarUrl
-          }).catch((error) => {
+          updateProfile(user, {photoURL: avatarUrl})
+          .catch((error) => {
             console.log("Failed to update profile")
           });
           console.log("Formik profile avatarUrl", avatarUrl)
@@ -137,12 +136,12 @@ function ProfileForm(props) {
       >
         {({ values, isSubmitting, setFieldValue }) => (
           <Form style={{'width':'100%', 'maxWidth': '600px'}}>
-            <Field name='avatar' validate={validateName}>
+            <Field name='img' validate={validateName}>
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
                   <HStack>
                     <FormLabel style={{"width":'100px'}}>{t("photo")}</FormLabel>
-                    <UploadAvatar setFieldValue={setFieldValue} field={field} img={values.avatar}/>
+                    <UploadAvatar setFieldValue={setFieldValue} field={field} img={values.img}/>
                   </HStack>
                   <FormErrorMessage>"{form.errors.name}"</FormErrorMessage>
                 </FormControl>
