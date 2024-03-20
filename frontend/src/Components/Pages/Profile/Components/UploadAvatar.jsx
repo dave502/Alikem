@@ -100,15 +100,16 @@ import {
                 width="100%"
                 display="flex"
                 flexDirection="column"
+                alignItems="center"
+                justify="center"
               >
-                <Stack
+                {/* <Stack
                   height="100%"
                   width="100%"
                   display="flex"
-                  alignItems="center"
-                  justify="center"
+
                   spacing="4"
-                >
+                > */}
                   <Box height="24" width="24" position="relative">
                     <PreviewImage
                       variants={imgTransition}
@@ -121,25 +122,25 @@ import {
                     </Heading>
                     <Text fontWeight="light" fontSize="md"> {t("upload_photo_click")}</Text>
                   </Stack>
-                </Stack>
+                {/* </Stack> */}
                 <Input
-                type="file"
-                id="avatar" 
-                name="avatar" 
-                height="100%"
-                width="100%"
-                position="absolute"
-                top="0"
-                left="0"
-                opacity="0"
-                aria-hidden="true"
-                accept="image/*"
-                onDragEnter={startAnimation}
-                onDragLeave={stopAnimation}
-                //{...field}
-                onChange={(event) => {
-                  setFieldValue("img", event.target.files[0]);
-                }}
+                  type="file"
+                  id="avatar" 
+                  name="avatar" 
+                  height="100%"
+                  width="100%"
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  opacity="0"
+                  aria-hidden="true"
+                  accept="image/*"
+                  onDragEnter={startAnimation}
+                  onDragLeave={stopAnimation}
+                  //{...field}
+                  onChange={(event) => {
+                    setFieldValue("img", event.target.files[0]);
+                  }}
               />
               </Box>
  
