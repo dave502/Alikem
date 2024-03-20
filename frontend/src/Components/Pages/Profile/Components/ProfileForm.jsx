@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from "@apollo/client";
-
+import { getStorage, getDownloadURL, uploadBytes, ref} from "firebase/storage";
 import {
   FormControl,
   FormLabel,
@@ -52,6 +52,8 @@ function ProfileForm(props) {
   
     const { uid, updateUserProfile } = props
     const { t } = useTranslation();
+    const storage = getStorage();
+    const storageRef = ref(storage, 'avatars/' + uid); 
     
     const { data, loading, error } = useQuery(READ_USER_POFILE, {
       variables: { uid: uid }
@@ -111,7 +113,13 @@ function ProfileForm(props) {
           await new Promise((r) => setTimeout(r, 500));
           const result = new Object();
           console.log("Formik profile values", values)
+          if (values.avatar) {
+            await uploadBytes(storageRef, values.avatar);
+          }
+          const avatarUrl = await getDownloadURL(storageRef);
+          console.log("Formik profile avatarUrl", avatarUrl)
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
+          console.log("Formik profile result", result)
           updateUserProfile(result);
           setSubmitting(false);
         }}  
