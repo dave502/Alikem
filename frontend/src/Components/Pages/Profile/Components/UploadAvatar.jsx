@@ -138,7 +138,7 @@ import {
                 onDragLeave={stopAnimation}
                 //{...field}
                 onChange={(event) => {
-                  setFieldValue("avatar", event.target.files[0]);
+                  setFieldValue("img", event.target.files[0]);
                 }}
               />
             </Box>
