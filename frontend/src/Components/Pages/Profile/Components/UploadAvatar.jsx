@@ -92,7 +92,13 @@ import {
                   variants={imgTransition}
                   backgroundImage={`url(${imgURL ? imgURL:"/default_avatar.jpeg"})`}
                 />
-                <Text fontWeight="light" fontSize="md" zIndex="10"> 
+                <Text 
+                  fontWeight="light" 
+                  fontSize="md" 
+                  zIndex="10" 
+                  position="absolute"
+                  bottom="0"
+                > 
                   {t("upload_photo_drag")}<br/>
                   {t("upload_photo_click")}
                 </Text>
