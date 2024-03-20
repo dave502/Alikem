@@ -74,8 +74,8 @@ import {
     
     return (
       <Container centerContent>
-        <AspectRatio width="64" ratio={1}>
-          <Box
+        <AspectRatio width="64" ratio={1} //>
+          // <Box
             borderColor="lightgray"
             borderStyle="solid"
             borderWidth="2px"
@@ -143,7 +143,7 @@ import {
                 }}
               />
             </Box>
-          </Box>
+          {/* </Box> */}
         </AspectRatio>
         </Container>
     );
