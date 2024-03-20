@@ -118,6 +118,7 @@ function ProfileForm(props) {
           }
           const avatarUrl = await getDownloadURL(storageRef);
           console.log("Formik profile avatarUrl", avatarUrl)
+          result['img'] = avatarUrl;
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
           console.log("Formik profile result", result)
           updateUserProfile(result);
