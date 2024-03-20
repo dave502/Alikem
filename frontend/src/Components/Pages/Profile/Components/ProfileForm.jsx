@@ -53,7 +53,7 @@ function ProfileForm(props) {
   
   
     const { user, updateUserProfile } = props;
-    const [avatarURL, seAvatarURL] = useState();
+    const [avatarURL, seAvatarURL] = useState(new Blob());
     const { t } = useTranslation();
     const storage = getStorage();
     const storageRef = ref(storage, 'avatars/' + user.uid); 
@@ -122,7 +122,7 @@ function ProfileForm(props) {
         initialValues={{ 
                         name: data.users[0].name,
                         gender: data.users[0].gender, 
-                        img: avatarURL, 
+                        img:  data.users[0].city, 
                         city: data.users[0].city, 
                         birthday: data.users[0].birthday,
                         interests: data.users[0].interests,
