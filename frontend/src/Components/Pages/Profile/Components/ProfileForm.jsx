@@ -72,7 +72,7 @@ function ProfileForm(props) {
       getBlob(storageRef)
       .then((blob) => { 
         console.log('blob: ', blob)
-        //seAvatarURL(blob);
+        seAvatarURL(blob);
       })
       .catch((error) => { console.log('error downloading avatar: ', error)})
     }, [storageRef]);
