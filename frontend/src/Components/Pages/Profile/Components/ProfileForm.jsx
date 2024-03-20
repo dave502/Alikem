@@ -52,16 +52,15 @@ query Users($uid: String!)
 function ProfileForm(props) {
   
   
-    const { user, updateUserProfile } = props
+    const { user, updateUserProfile } = props;
+    const [avatarURL, seAvatarURL] = useState();
     const { t } = useTranslation();
     const storage = getStorage();
     const storageRef = ref(storage, 'avatars/' + user.uid); 
-    var avatar = null;
     
     getDownloadURL(storageRef)
     .then((url) => { 
-      console.log('getDownloadURL: ', url)
-      avatar = url 
+      seAvatarURL(url);
     })
     .catch((error) => { console.log('error downloading avatar: ', error)})
     
@@ -116,7 +115,7 @@ function ProfileForm(props) {
         initialValues={{ 
                         name: data.users[0].name,
                         gender: data.users[0].gender, 
-                        img: avatar, 
+                        img: avatarURL, 
                         city: data.users[0].city, 
                         birthday: data.users[0].birthday,
                         interests: data.users[0].interests,
@@ -129,13 +128,13 @@ function ProfileForm(props) {
             await uploadBytes(storageRef, values.img);
             
           }
-          const avatarUrl = await getDownloadURL(storageRef);
-          updateProfile(user, {photoURL: avatarUrl})
+          const newAvatarUrl = await getDownloadURL(storageRef);
+          updateProfile(user, {photoURL: newAvatarUrl})
           .catch((error) => {
             console.log("Failed to update profile")
           });
-          console.log("Formik profile avatarUrl", avatarUrl)
-          result['img'] = avatarUrl;
+          console.log("Formik profile newAvatarUrl", newAvatarUrl)
+          result['img'] = newAvatarUrl;
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
           console.log("Formik profile result", result)
           updateUserProfile(result);
