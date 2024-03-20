@@ -26,7 +26,7 @@ import {
     },
     hover: {
       scale: 1.3,
-      filter: "grayscale(80%)",
+      // filter: "grayscale(80%)",
 
       transition: {
         duration: 0.4,
