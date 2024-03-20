@@ -53,7 +53,7 @@ function ProfileForm(props) {
   
   
     const { user, updateUserProfile } = props;
-    const [avatarURL, seAvatarURL] = useState(new Blob());
+    const [avatarBlob, seAvatarBlob] = useState(new Blob());
     const { t } = useTranslation();
     const storage = getStorage();
     const storageRef = ref(storage, 'avatars/' + user.uid); 
@@ -72,7 +72,7 @@ function ProfileForm(props) {
       getBlob(storageRef)
       .then((blob) => { 
         console.log('blob: ', blob)
-        seAvatarURL(blob);
+        seAvatarBlob(blob);
       })
       .catch((error) => { console.log('error downloading avatar: ', error)})
     }, [storageRef]);
