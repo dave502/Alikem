@@ -71,7 +71,6 @@ function ProfileForm(props) {
       console.log("getBlob(storageRef)", storageRef);
       getBlob(storageRef)
       .then((blob) => { 
-        console.log('blob: ', blob)
         seAvatarBlob(blob);
       })
       .catch((error) => { console.log('error downloading avatar: ', error)})
