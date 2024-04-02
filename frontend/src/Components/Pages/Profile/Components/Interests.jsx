@@ -42,6 +42,7 @@ export default function Interests(props) {
       setFieldValue('interests', field.value.filter(i => i !== e.target.textContent))
     } else {
       e.target.classList.add('active')
+      console.log(e.target)
       setFieldValue('interests', [e.target.textContent, ...field.value])
     }
   }
