@@ -39,7 +39,7 @@ export default function Interests(props) {
   const toggleInterest = (e) => {
     console.log("e", e)
     console.log("e.target", e.target)
-    console.log("e.target.attributes['value']", e.target.value)
+    console.log("e.target.attributes['value']", e.target.value.attributes.value)
     if (e.target.classList.contains("active")){
       e.target.classList.remove("active")
       setFieldValue('interests', field.value.filter(i => i !== e.target.value))
