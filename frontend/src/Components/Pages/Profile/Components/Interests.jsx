@@ -56,11 +56,11 @@ export default function Interests(props) {
           size='md' 
           key={interestID} 
           value={interestID} 
-          variant={field.value === interestID?'solid' :'outline'} 
+          variant={field.value?.includes(interestID)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          className={field.value === interestID?'active':''}
+          className={field.value?.includes(interestID)?'active':''}
         >
         {interestName}
         </Tag>
