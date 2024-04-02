@@ -135,6 +135,9 @@ function ProfileForm(props) {
           if (values.img) {
             await uploadBytes(storageRef, values.img);
           }
+          
+          console.log("values.interests", values.interests)
+          
           const newAvatarUrl = await getDownloadURL(storageRef);
           updateProfile(user, {photoURL: newAvatarUrl})
           .catch((error) => {
