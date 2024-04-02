@@ -30,6 +30,7 @@ export default function Interests(props) {
   
   useEffect(() => {
     if (data) { 
+      console.log(data.interests)
       setAllInterests(data.interests)
     }
   }, [data, loading, error]);
