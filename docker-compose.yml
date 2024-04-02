@@ -347,3 +347,7 @@ volumes:
 networks:
   alikem:
       external: true
+      
+      
+# https://neo4j.com/labs/apoc/5/installation/
+# https://github.com/neo4j/graph-data-science/releases

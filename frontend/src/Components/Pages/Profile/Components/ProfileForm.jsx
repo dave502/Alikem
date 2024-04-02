@@ -221,7 +221,7 @@ function ProfileForm(props) {
             
             <Field name='interests'>
               {({ field, form }) => (
-                  <FormControl isInvalid={form.errors.name && form.touched.name} mb={3}>
+                  <FormControl mb={3}>
                     <HStack>
                       <FormLabel style={{"width":'100px'}}>{t("interests")}</FormLabel>
                       <Interests field={field} setFieldValue={setFieldValue}/>
