@@ -37,6 +37,7 @@ export default function Interests(props) {
   }, [data, loading, error]);
   
   const toggleInterest = (e) => {
+    console.log("e", e)
     console.log("e.target", e.target)
     console.log("e.target.attributes.value", e.target.value)
     if (e.target.classList.contains("active")){
