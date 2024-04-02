@@ -53,6 +53,7 @@ export default function Interests(props) {
         <Tag 
           size='md' 
           key={interestID} 
+          value={interestID} 
           variant={field.value?.includes(interestName)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
