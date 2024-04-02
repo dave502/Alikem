@@ -62,7 +62,7 @@ export default function Interests(props) {
         </Tag>
         </WrapItem>
     ))}
-    </HStack>  
+    </Wrap>  
   );
 };
 
