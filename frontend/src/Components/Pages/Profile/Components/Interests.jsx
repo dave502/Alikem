@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { InputGroup, Input, InputRightElement, Button, Textarea, HStack } from '@chakra-ui/react'
+import { Wrap, WrapItem } from "@chakra-ui/react"
 import {
     Tag,
     TagLabel,
