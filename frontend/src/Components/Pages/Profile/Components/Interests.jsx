@@ -46,8 +46,9 @@ export default function Interests(props) {
   }
   
   return (
-    <HStack spacing={4}>
+    <Wrap justify="center">
     {allInterests.map(({interestID, interestName}) => (
+      <WrapItem>
         <Tag 
           size='md' 
           key={interestID} 
@@ -59,6 +60,7 @@ export default function Interests(props) {
         >
         {interestName}
         </Tag>
+        </WrapItem>
     ))}
     </HStack>  
   );
