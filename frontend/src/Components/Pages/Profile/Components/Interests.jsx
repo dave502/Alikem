@@ -19,13 +19,11 @@ const GET_ALL_INTERESTS = gql`
 }
 `; 
   
-//
-
 
 export default function Interests(props) { 
   
   const { field, setFieldValue } = props;
-  const [allInterests, setAllInterests] = useState(['Music', 'Sport', 'Painting']);
+  const [allInterests, setAllInterests] = useState([]);
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
   
@@ -33,7 +31,6 @@ export default function Interests(props) {
   
   useEffect(() => {
     if (data) { 
-      console.log("data", data.interests)
       setAllInterests(data.interests)
     }
   }, [data, loading, error]);
@@ -50,6 +47,8 @@ export default function Interests(props) {
     }
   }
   
+  const userInterestsIds = field.value ? field.value.map(i => i.interestID) : []
+  
   return (
     <Wrap justify="center">
     {allInterests.map(({interestID, interestName}) => (
@@ -58,11 +57,11 @@ export default function Interests(props) {
           size='md' 
           key={interestID} 
           value={interestID} 
-          variant={field.value?.includes(interestID)?'solid' :'outline'} 
+          variant={userInterestsIds.includes(interestID)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          className={field.value?.includes(interestID)?'active':''}
+          className={userInterestsIds.includes(interestID)?'active':''}
         >
         {interestName}
         </Tag>
