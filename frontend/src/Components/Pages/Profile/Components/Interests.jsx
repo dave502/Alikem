@@ -53,10 +53,10 @@ export default function Interests(props) {
     } else {
       e.target.classList.add('active')
       setFieldValue('interests', [
-        allInterests.filter(i => i.interestName === e.target.attributes.value.value), ...field.value
+        ...allInterests.filter(i => i.interestName === e.target.attributes.value.value), ...field.value
       ])
       console.log([
-        allInterests.filter(i => i.interestName === e.target.attributes.value.value), ...field.value
+        ...allInterests.filter(i => i.interestName === e.target.attributes.value.value), ...field.value
       ])
     }
   }
