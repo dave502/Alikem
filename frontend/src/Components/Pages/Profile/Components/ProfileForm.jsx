@@ -131,6 +131,9 @@ function ProfileForm(props) {
           
           const result = new Object();
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
+          result.interests = result.interests.map(i => i.interestID)
+          
+          console.log("New result", result)
           
           if (values.img) {
             await uploadBytes(storageRef, values.img);
