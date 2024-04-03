@@ -38,9 +38,10 @@ export default function Interests(props) {
   
   useEffect(() => {
     if (field.value) { 
-      setUserInterests(field.value)
+      const userInterestsIds = field.value.map(i => i.interestID)
+      setUserInterests(userInterestsIds)
     }
-  }, [field]);
+  }, [field.value]);
   
   
   const toggleInterest = (e) => {
