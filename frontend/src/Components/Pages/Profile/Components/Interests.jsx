@@ -39,6 +39,7 @@ export default function Interests(props) {
   useEffect(() => {
     if (field.value) { 
       const userInterestsIds = field.value.map(i => i.interestName)
+      console.log("field.value", field.value)
       console.log("userInterestsIds", userInterestsIds)
       setUserInterests(userInterestsIds)
     }
