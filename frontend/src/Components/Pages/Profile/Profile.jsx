@@ -39,6 +39,7 @@ function Profile(props) {
                       $cityID: Int,
                       $img: String,
                       $location: PointInput,
+                      $interests: []String,
                       )
   {
     updateUsers(
@@ -51,6 +52,7 @@ function Profile(props) {
         cityID: $cityID,
         img: $img,
         location: $location,
+        interests: [{connect: {where: {node: interestID_IN: $interests}}]
       }
     )
     {
@@ -73,6 +75,8 @@ function Profile(props) {
 
 
   const updateUserProfile = (values) => {
+    
+    console.log("updateUserProfile values", values)
     
     gqlUpdateUserProfile({ variables: { uid: currentUser.uid, ...values}})
     .then((response) => {
