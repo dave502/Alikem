@@ -39,7 +39,7 @@ function Profile(props) {
                       $cityID: Int,
                       $img: String,
                       $location: PointInput,
-                      $interestIDs: [String],
+                      $interestIDs: [ID!],
                       )
   {
     updateUsers(
