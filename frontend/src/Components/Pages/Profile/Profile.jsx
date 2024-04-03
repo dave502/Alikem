@@ -54,6 +54,7 @@ function Profile(props) {
         location: $location,
       }
       connect: { interests : {where: {node : { interestID_IN : $interestIDs}}}}
+      diconnect: { interests : {where: {node: {NOT: {interestID_IN : $interestIDs}}}}}
     )
     {
       users{
