@@ -55,9 +55,6 @@ export default function Interests(props) {
       setFieldValue('interests', [
         ...allInterests.filter(i => i.interestName === e.target.attributes.value.value), ...field.value
       ])
-      console.log([
-        ...allInterests.filter(i => i.interestName === e.target.attributes.value.value), ...field.value
-      ])
     }
   }
   
