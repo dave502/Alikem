@@ -80,8 +80,7 @@ type Group {
 }
 
 type Interest {
-    interestID: ID! @id 
-    interestName: String!
+    interestName: String! @unique
     users(first: Int = 20, offset: Int = 0): [User!]!  
         @relationship(type: "INTERESTED_IN", direction: IN)
 }
