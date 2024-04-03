@@ -13,7 +13,6 @@ import { gql, useQuery } from "@apollo/client";
 const GET_ALL_INTERESTS = gql`
   query Interests {
     interests {
-      interestID
       interestName
     }
 }

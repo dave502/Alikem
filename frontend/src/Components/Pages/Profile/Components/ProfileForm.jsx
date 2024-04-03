@@ -42,7 +42,6 @@ query Users($uid: String!)
     cityID
     img    
     interests {
-      interestID
       interestName
     }
   }
