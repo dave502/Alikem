@@ -24,6 +24,7 @@ export default function Interests(props) {
   
   const { field, setFieldValue } = props;
   const [allInterests, setAllInterests] = useState([]);
+  const [userInterests, setUserInterests] = useState([]);
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
   
@@ -35,19 +36,22 @@ export default function Interests(props) {
     }
   }, [data, loading, error]);
   
+  useEffect(() => {
+    if (field.value) { 
+      setUserInterests(field.value)
+    }
+  }, [field]);
+  
+  
   const toggleInterest = (e) => {
     if (e.target.classList.contains("active")){
       e.target.classList.remove("active")
-      console.log("emove active", field)
       setFieldValue('interests', field.value.filter(i => i !== e.target.attributes.value.value))
     } else {
       e.target.classList.add('active')
-      console.log("add active", field)
       setFieldValue('interests', [e.target.attributes.value.value, ...field.value])
     }
   }
-  
-  const userInterestsIds = field.value ? field.value.map(i => i.interestID) : []
   
   return (
     <Wrap justify="center">
@@ -57,11 +61,11 @@ export default function Interests(props) {
           size='md' 
           key={interestID} 
           value={interestID} 
-          variant={userInterestsIds.includes(interestID)?'solid' :'outline'} 
+          variant={userInterests.includes(interestID)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          className={userInterestsIds.includes(interestID)?'active':''}
+          className={userInterests.includes(interestID)?'active':''}
         >
         {interestName}
         </Tag>
