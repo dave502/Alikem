@@ -29,6 +29,8 @@ export default function Interests(props) {
   
   const { data, loading, error } = useQuery(GET_ALL_INTERESTS);
   
+  console.log("Interests prop field", field)
+  
   useEffect(() => {
     if (data) { 
       console.log("data", data.interests)
