@@ -39,7 +39,7 @@ function Profile(props) {
                       $cityID: Int,
                       $img: String,
                       $location: PointInput,
-                      $interestIDs: [ID!],
+                      $interests: [String!],
                       )
   {
     updateUsers(
@@ -53,8 +53,8 @@ function Profile(props) {
         img: $img,
         location: $location,
       }
-      connect: { interests : {where: {node : { interestID_IN : $interestIDs}}}}
-      diconnect: { interests : {where: {node: {NOT: {interestID_IN : $interestIDs}}}}}
+      connect: { interests : {where: {node : { interestName_IN : $interests}}}}
+      diconnect: { interests : {where: {node: {NOT: {interestName_IN : $interests}}}}}
     )
     {
       users{

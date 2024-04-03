@@ -130,7 +130,7 @@ function ProfileForm(props) {
           
           const result = new Object();
           Object.entries(values).forEach(v => result[v[0]] = v[1] || undefined)
-          result.interests = result.interests.map(i => i.interestID)
+          result.interests = result.interests.map(i => i.interestName)
           
           console.log("New result", result)
           

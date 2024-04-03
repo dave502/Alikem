@@ -38,7 +38,7 @@ export default function Interests(props) {
   
   useEffect(() => {
     if (field.value) { 
-      const userInterestsIds = field.value.map(i => i.interestID)
+      const userInterestsIds = field.value.map(i => i.interestName)
       setUserInterests(userInterestsIds)
     }
   }, [field.value]);
@@ -47,28 +47,28 @@ export default function Interests(props) {
   const toggleInterest = (e) => {
     if (e.target.classList.contains("active")){
       e.target.classList.remove("active")
-      setFieldValue('interests', field.value.filter(i => i.interestID !== e.target.attributes.value.value))
+      setFieldValue('interests', field.value.filter(i => i.interestName !== e.target.attributes.value.value))
     } else {
       e.target.classList.add('active')
       setFieldValue('interests', [
-        allInterests.filter(i => i.interestID === e.target.attributes.value.value), ...field.value
+        allInterests.filter(i => i.interestName === e.target.attributes.value.value), ...field.value
       ])
     }
   }
   
   return (
     <Wrap justify="center">
-    {allInterests.map(({interestID, interestName}) => (
+    {allInterests.map(({interestName}) => (
       <WrapItem>
         <Tag 
           size='md' 
-          key={interestID} 
-          value={interestID} 
-          variant={userInterests.includes(interestID)?'solid' :'outline'} 
+          key={interestName} 
+          value={interestName} 
+          variant={userInterests.includes(interestName)?'solid' :'outline'} 
           colorScheme='green'
           style={{ cursor: 'pointer' }} 
           onClick={toggleInterest}
-          className={userInterests.includes(interestID)?'active':''}
+          className={userInterests.includes(interestName)?'active':''}
         >
         {interestName}
         </Tag>
