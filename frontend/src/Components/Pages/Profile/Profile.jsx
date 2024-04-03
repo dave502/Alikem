@@ -52,8 +52,8 @@ function Profile(props) {
         cityID: $cityID,
         img: $img,
         location: $location,
-        interests: [{connect: {where: {node: {interestID_IN: $interestIDs}}}}],
       }
+      connect: { interests : {where: {node : { interestID_IN : $interestIDs}}}}
     )
     {
       users{
