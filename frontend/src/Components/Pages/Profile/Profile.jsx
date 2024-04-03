@@ -52,7 +52,7 @@ function Profile(props) {
         cityID: $cityID,
         img: $img,
         location: $location,
-        interests: [{connect: {where: {node: interestID_IN: $interests}}]
+        interests: [{connect: {where: {node: interestID_IN: $interests}}}],
       }
     )
     {
