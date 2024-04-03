@@ -33,7 +33,7 @@ type Good {
 }
 
 type User {
-    uid: String! @unique
+    uid: String!
     name: String
     name_id: String @unique
     img: String
@@ -69,7 +69,7 @@ type User {
 
 
 type Group {
-    groupID: ID! @id @unique
+    groupID: ID! @id
     groupName: String!
     date: DateTime! @timestamp(operations: [CREATE])
     creatorUid: String
@@ -80,14 +80,14 @@ type Group {
 }
 
 type Interest {
-    interestID: ID! @id @unique
+    interestID: ID! @id 
     interestName: String!
     users(first: Int = 20, offset: Int = 0): [User!]!  
         @relationship(type: "INTERESTED_IN", direction: IN)
 }
 
 type Event {
-    eventID: ID! @id @unique
+    eventID: ID! @id
     eventName: String!
     eventDate: DateTime!
     eventDescription: String
@@ -96,7 +96,7 @@ type Event {
 }
 
 type Fund {
-    fundID: ID! @id @unique
+    fundID: ID! @id 
     name: String!
     description: String!
     site: String
