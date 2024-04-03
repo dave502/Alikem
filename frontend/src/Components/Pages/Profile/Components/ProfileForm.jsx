@@ -136,14 +136,14 @@ function ProfileForm(props) {
             await uploadBytes(storageRef, values.img);
           }
           
-          console.log("values.result", result)
-          
           const newAvatarUrl = await getDownloadURL(storageRef);
           updateProfile(user, {photoURL: newAvatarUrl})
           .catch((error) => {
             console.log("Failed to update profile")
           });
           result['img'] = newAvatarUrl;
+          
+          console.log("values.result", result)
           
           updateUserProfile(result);
           setSubmitting(false);

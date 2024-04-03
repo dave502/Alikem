@@ -76,6 +76,8 @@ function Profile(props) {
 
   const updateUserProfile = (values) => {
     
+    console.log("updateUserProfile starts")
+    
     console.log("updateUserProfile values", values)
     
     gqlUpdateUserProfile({ variables: { uid: currentUser.uid, ...values}})
