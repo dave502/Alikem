@@ -1,13 +1,1 @@
-{
-  "type": "service_account",
-  "project_id": "friends-a2c14",
-  "private_key_id": "68e5c4062246e30c8fd6c396511105a2b54de257",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDbQqw9fXxjHh4Y\nB8YN9WuBtIzsSvUBUrgRfUu3MlgdYmRpLQAqJkKr+x+1aT3zrX84XmhuFptyLuWx\n6I95n4F3T0ODItX/ORDUtdIVXwVTR1ANtgEdgkWbAeG54R3koaqBIny4LqNySJzU\nPLLGtsck9DDZ/vcbdpvLi/hGLgD0XSbl7GH+q0f/9/+QtMLQ5UeU5ZH34P1l1SoH\nAd8GVYziWr0xXL/N4A9Gx3luOTcr8nnTpBYi0Lw/QrRJvcqW5yKk0y5a7ceCsW6n\nROHqKhIjBkaaU6LxI9A9pUCjtkBc9kI2yMvKIGsjx1rPDsaxd4aDTaK4RcrwBN4h\nmXybAcuhAgMBAAECggEAM5OaMSe60hUEVrpDZkawGJV4XeAfBIXpCyIqZKhozla2\nEICXrJKN9ecvdQzR2CeciM26aoUSYVhzSzeNwnoZKg/g7XDNHomVsjen+MN+nPGm\nPOdumTqq9XTKnJ8+GSlHUrOiW3ALHifDDnDNzA00SLbRZAJELfdnXAjrqNSLAHAW\nrQsWVIvyk4uUmUS19t9Bd2SZP/z+1R7+Yg4NQ+9THpHmTWOY15rnmt9RW5L+Qs90\nDxPpVmSp9T9FyF19JOA0UknziSzNFA30tl3IA+oJRO1NssAZEGNVzbtzXOBpTUWi\nYaRk5QAgMOv6t9h4Jm3f57RQzxxa+zJai8k200i7TQKBgQDv1z0wZOzQrXScbXC8\nMFFY06yjq+qezCGyW3TIsBR1shc3fFAoq/+msqmrSQfTqTwdP0/DCO9Zk6CJof2W\npjGayj3kAuWFHLS2UCOPc3EhzEOZ9AqwXU5lFSV0y3hPQduyaXNvNydhLpo5Cdpo\nVagL6aqm/tyvObnMO5U6AVQ83QKBgQDqCHcZ7TvPJ6ri06sxtsOHFxtWOzg4CAdx\ndW8InMcfs2ZeHkP6wGvJSEZNmNWcY49zv4rfQfvIbJ5kd114/mpk61ztzB9SGPO6\nTHPkfg2UeMa9ou4Hide/n20Vg+myhg8Y1Dl1gnIL9ktbPOAtTn8OK8CGXzWBCCZ/\n8oQ7OBJrlQKBgQCFeysI1gKemQq/TIFjmxiK8TOx26o2OrG+S/wQ/T5Fypn1PXB3\nUlJz+hdHxtteR1+3f1bq2vwqxGiicM9rmo8c8NXFIn+Ot80zciJ4Ye1ivAYblqCk\nSymoRD6WY+9PXP3iq6GdEfsOsRsQB5XQX2upRaC+VDWKJ/xp1/dTUw4I2QKBgAYY\ngFmphzRHGTldQAlEdGVRYcHmOvmio+b9ow27X6hguNrcuPKQDn6opkQhJfcz1Km0\nJH7aLh+zTJDbVxDut4C3bK048tvlkHuawC4EZoAmgS6xTrfdjEQOd/3meLDQsxX3\neSOpaSUMnjvbIw+rCr4ov5QAaNlah/4vJ+iO9lPdAoGAEtarZQ90kjpawF/cvOdf\nWjWzeO4r7+6/aVVyRzBJVqqt21AJoidC9bpRA0R7ttt/lryyl1AmWLM/bFvmAcdZ\ngyxKTpPJRzTj5lKLgJikGjaTND/dOY1D1tc2V4iAzf0D3VM8pe52NlKzk83YVsRt\no1yPC1Y6otm89e0TzhTPSyU=\n-----END PRIVATE KEY-----\n",
-  "client_email": "friends-service-account@friends-a2c14.iam.gserviceaccount.com",
-  "client_id": "112818712482618385032",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/friends-service-account%40friends-a2c14.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
+
