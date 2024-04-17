@@ -8,7 +8,7 @@ import {
   } from '@chakra-ui/react'
 import { useTranslation } from "react-i18next";
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import IconLanguageSwitcher from "./IconLanguageSwitcher"
+import IconLanguageSwitcher from "./icons/IconLanguageSwitcher"
 import IconRu from "./icons/IconRu"
 import IconEn from "./icons/IconEn"
 

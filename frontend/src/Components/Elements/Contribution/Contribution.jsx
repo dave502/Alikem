@@ -34,7 +34,7 @@ function Contribution(props) {
         onClick={Contrubute}
         isDisabled
     >   
-        t("contrubute") 
+        {t("contrubute")}
     </Button>
   );
 }
