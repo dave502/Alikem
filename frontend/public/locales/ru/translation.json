@@ -48,5 +48,6 @@
     "wait_confirmation": "Ожидание подтверждения email",
     "got_confirmation": "Подтверждение получено",
     "next": "Дальше",
-    "no_recommendations": "Рекомендации не найдены"
+    "no_recommendations": "Рекомендации не найдены",
+    "contrubute": "Помочь"
 }
