@@ -97,7 +97,7 @@ const { data, loading, error } = useQuery(GET_FOUNDATIONS_QUERY, { variables: { 
                   <Spacer />
                 </Flex>
               </CardBody>
-              <CardFooter>
+              <CardFooter justifyContent="center">
                   <Contribution fundID={org.fundID}/>
               </CardFooter>
             </Card>)
