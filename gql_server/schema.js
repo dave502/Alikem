@@ -90,6 +90,8 @@ type Event {
     eventName: String!
     eventDate: DateTime!
     eventDescription: String
+    location: Point
+    img: String
     users(first: Int = 20, offset: Int = 0): [User!]!  
         @relationship(type: "TAKESPART_IN", direction: IN)
 }
@@ -99,9 +101,10 @@ type Fund {
     name: String!
     description: String!
     site: String
-    picture: String
+    img: String
     goods: [Good!]! @relationship(type: "TO", direction: IN)
     country: String!
+    location: Point
 }
 
 type SimilarUser {

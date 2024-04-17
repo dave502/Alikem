@@ -9,8 +9,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import IconLanguageSwitcher from "./IconLanguageSwitcher"
-import IconRu from "./IconRu"
-import IconEn from "./IconEn"
+import IconRu from "./icons/IconRu"
+import IconEn from "./icons/IconEn"
 
 export const LanguageSwitcher = props => {
     let lng = [
