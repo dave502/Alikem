@@ -61,6 +61,7 @@ const { data, loading, error } = useQuery(GET_FOUNDATIONS_QUERY, { variables: { 
   return (
     
     <Container maxW="2xl" marginTop="0rem" centerContent>
+      <Text>{t("foundations_title")}</Text>
       <Container marginBlockStart={10} textAlign={'left'} maxW="2xl">
         {/* Search Field */}
         <Input
