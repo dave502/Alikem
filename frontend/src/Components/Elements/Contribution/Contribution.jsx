@@ -26,13 +26,12 @@ function Contribution(props) {
   return (
     <Button
         size="lg"
-        minW='280px'   
+        minW='140px'   
         leftIcon={<IconHandHeart/>}
         colorScheme="green"  
         variant="outline"
         type="button"      
         onClick={Contrubute}
-        isDisabled
     >   
         {t("contribute")}
     </Button>
