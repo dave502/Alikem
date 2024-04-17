@@ -60,7 +60,7 @@ const { data, loading, error } = useQuery(GET_FOUNDATIONS_QUERY, { variables: { 
 
   return (
     
-    <Container maxW="2xl" marginTop="3rem" centerContent>
+    <Container maxW="2xl" marginTop="0rem" centerContent>
       <Container marginBlockStart={10} textAlign={'left'} maxW="2xl">
         {/* Search Field */}
         <Input
@@ -72,7 +72,7 @@ const { data, loading, error } = useQuery(GET_FOUNDATIONS_QUERY, { variables: { 
         />
         {/* Cards of Funds */}
         {data &&
-          <SimpleGrid spacing={0} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+          <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
           {
             data.funds
           //   .filter(({country}) => {
