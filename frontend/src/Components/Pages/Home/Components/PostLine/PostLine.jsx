@@ -73,7 +73,7 @@ export default function (props){
             console.log("useEffect newPost Info", newPost.data)
             console.log("useEffect newPost Info", newPost.data.Info)
             console.log("useEffect newPost Info", newPost.data["Info"])
-            addNewPost(newPost)
+            addNewPost(newPost.data)
             setNewPost(null)
         }
     }, [newPost])
