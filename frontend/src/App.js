@@ -18,6 +18,7 @@ import ViewProfile from './Components/Pages/Friends/Components/ViewProfile';
 import CookieConsentBottom from "./Tools/cookie_consent"
 import Events from './Components/Pages/Events/Events';
 import Foundations from './Components/Pages/Foundations/Foundations';
+import Home from './Components/Pages/Home/Home';
 
 
 // import auth from './Configs/firebase';
@@ -75,6 +76,7 @@ function App() {
             <Route path="/words" element={<Words user={user}/>} />
             <Route path="/dogood" element={<DoGood user={user}/>} />
             <Route path="/profile" element={<Profile auth={firebaseAuth} user={user}/>} />
+            <Route path="/home" element={<Home/>} />
             <Route path="/friends" element={<Friends auth={firebaseAuth} user={user}/>} />
             <Route path="/viewprofile" element={<ViewProfile/>} />
             <Route path="/events" element={<Events/>} />

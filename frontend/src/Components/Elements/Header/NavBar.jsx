@@ -3,7 +3,7 @@ import { Box, Text, Button, Flex, Stack, HStack, Container,
   Menu, MenuButton, MenuList, MenuItem, MenuDivider, Avatar} from "@chakra-ui/react"
 import { CgMenuGridR as MenuIcon, CgCloseR as CloseIcon, 
   CgProfile as Profile, CgEventbrite as Event } from "react-icons/cg";
-import { RiChatSmile3Line as Chat } from "react-icons/ri";
+import { RiChatSmile3Line as Chat, RiHomeHeartLine as Home } from "react-icons/ri";
 import { FaUserFriends as Friends } from "react-icons/fa";
 import IconWorldHeart from "./icons/IconWorldHeart"
 import { NavLink } from 'react-router-dom';
@@ -139,10 +139,11 @@ const MenuLinks = ( {isOpen} ) => {
         pt={[0, 0, 0, 0]}
       >
         {/* <MainMenuItem to="/profile" Icon={Profile} decription="profile"/> */}
-        <MainMenuItem to="/foundations" Icon={IconWorldHeart} decription="foundations"/>
+        <MainMenuItem to="/home" Icon={Home} decription="main"/>
         <MainMenuItem to="/chat" Icon={Chat} decription="chat"/>
         <MainMenuItem to="/friends" Icon={Friends} decription="chat"/>
         <MainMenuItem to="/events" Icon={Event} decription="events"/>
+        <MainMenuItem to="/foundations" Icon={IconWorldHeart} decription="foundations"/>
       </Stack>
 
     </Box>
