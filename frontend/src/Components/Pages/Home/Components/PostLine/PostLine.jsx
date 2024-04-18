@@ -78,11 +78,11 @@ export default function (props){
         }
     }, [newPost])
     
-    const addNewPost = ({post}) => {
-        console.log("Post from socket", post)
+    const addNewPost = ({data}) => {
+        console.log("Post from socket", data)
         try {
           
-          const objData = JSON.parse(post);
+          const objData = JSON.parse(data);
           
           if (objData.Info === undefined || objData?.Info !== "new post" ) return; 
             
