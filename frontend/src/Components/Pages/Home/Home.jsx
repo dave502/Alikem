@@ -41,21 +41,15 @@ function Home(props) {
     //   // de-register the socket event
     // }
   }, [])
-  
-    
-  // if (!currentUser) {
-  //   navigate("/login");
-  //   return;
-  // }
-  
 
   return (
     currentUser &&
     <Container maxW="2xl" marginTop="0rem" centerContent>
       <Container marginBlockStart={5} textAlign={'left'} maxW="2xl">
-        {/* Post Field */}
+        {/* New Post Input Field */}
         <PostInput uid={currentUser.uid} socket={socket}/>
-        <PostLine uid={currentUser.uid} socket={socket} newPost={newPost} setNewPost={setNewPost}/>
+        {/* Friends' Posts */}
+        <PostLine uid={currentUser.uid} newPost={newPost} setNewPost={setNewPost}/>
 
       </Container>
     </Container>

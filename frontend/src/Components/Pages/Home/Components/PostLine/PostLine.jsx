@@ -69,10 +69,11 @@ export default function (props){
     
     
     useEffect(() => {
-    if(newPost){
-        addNewPost(newPost)
-        setNewPost(null)
-    }
+        if(newPost){
+            console.log("useEffect newPost", newPost)
+            addNewPost(newPost)
+            setNewPost(null)
+        }
     }, [newPost])
     
     const addNewPost = ({post}) => {
