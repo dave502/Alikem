@@ -69,8 +69,8 @@ export default function (props){
     
     
     useEffect(() => {
-        if(newPost){
-            console.log("useEffect newPost", newPost)
+        if(newPost?.data["Info"]){
+            console.log("useEffect newPost Info", newPost.data["Info"])
             addNewPost(newPost)
             setNewPost(null)
         }
