@@ -76,6 +76,7 @@ export default function (props){
     }, [newPost])
     
     const addNewPost = ({post}) => {
+        console.log("Post from socket", post)
         try {
           
           const objData = JSON.parse(post);
@@ -101,7 +102,7 @@ export default function (props){
           <VStack spacing={4} align='stretch' >
           {
             lastPosts.map(post=>
-                <VStack key="post" alignItems="start">
+                <VStack key={post} alignItems="start">
                     <HStack>
                         <Avatar size='md' name='User`s name' src=''></Avatar>
                         <WrapItem><Text fontSize='md' mb='0' ml='1rem'>User's name</Text></WrapItem>
